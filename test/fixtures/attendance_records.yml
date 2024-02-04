@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  user_id: 1
+  schedule_id: 1
+  checkin: 2024-02-04 17:24:29
+  approval_status: false
+
+two:
+  id: 1
+  user_id: 1
+  schedule_id: 1
+  checkin: 2024-02-04 17:24:29
+  approval_status: false
