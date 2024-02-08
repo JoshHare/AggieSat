@@ -1,0 +1,14 @@
+{
+  "name": "AggieSatLaboratory",
+  "description": "AggieSatLaboratory is a website that provides help to the program manager and project managers to efficiently track member attendance and training verification",
+  "environments": {
+    "test": {
+      "addons": ["heroku-postgresql"],
+      "scripts": {
+        "test-setup": "bundle exec rake db:create db:migrate",
+        "test": "bundle exec rspec",
+        "post-test": "bundle exec rubocop"
+      }
+    }
+  }
+}
