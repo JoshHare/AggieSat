@@ -5,19 +5,25 @@ class PdfProcessorController < ApplicationController
   end
 
   def process_pdf
-    if params[:pdf].present? && params[:pdf].respond_to?(:read)
-      pdf_text = extract_text_from_pdf(params[:pdf].tempfile.path)
-      parsed = parse(pdf_text)
-      # Display a success flash notice
-      flash[:success] = 'PDF successfully uploaded and processed!'
-      # Output the extracted text to the terminal for testing
-      puts "Extracted Text from PDF:\n\n#{parsed}"
-      render plain: pdf_text
-    else
-      flash[:error] = 'Please select a valid PDF file.'
+    begin
+      if params[:pdf].present? && params[:pdf].respond_to?(:read)
+        pdf_text = extract_text_from_pdf(params[:pdf].tempfile.path)
+        @parsed = parse(pdf_text)
+        # Display a success flash notice
+        flash[:success] = 'PDF successfully uploaded and processed!'
+        # Output the extracted text to the terminal for testing
+        puts "Extracted Text from PDF:\n\n#{@parsed}"
+        render 'processed'
+      else
+        flash[:error] = 'Please select a valid PDF file.'
+        redirect_to upload_path
+      end
+    rescue StandardError => e
+      flash[:error] = "An error occurred: #{e.message}"
       redirect_to upload_path
     end
   end
+
 
   private
 
@@ -49,13 +55,11 @@ class PdfProcessorController < ApplicationController
         results << { student_name: student_name, course_id: course_id, completion_date: completion_date }
       end
     elsif format == "Student"
-      # Use a regular expression to find the Name pattern
       name_match = text.match(/Name:\s+(.*?)\s+UIN:/)
       name = name_match ? name_match[1] : "None"
 
       pattern = /(\d{7}) (\d{1,2}\/\d{1,2}\/\d{4})/m
 
-      # Iterate over matches and extract the required information
       matches = text.scan(pattern)
       matches.each do |match|
         course_id = match[0]
