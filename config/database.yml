@@ -85,3 +85,4 @@ production:
   database: aggiesat_production
   username: aggiesat
   password: <%= ENV["AGGIESAT_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
