@@ -1,0 +1,46 @@
+<!-- app/views/pdf_processor/processed_data.html.erb -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Processed Data</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Include your custom styles -->
+  <link rel="stylesheet" href="/assets/pdfstyles.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Courses Completed</h1>
+
+    <% if @parsed.present? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Course ID</th>
+            <th>Completion Date</th>
+          </tr>
+        </thead>
+        <tbody>
+            <!-- Eventually replace this with database info of all courses completed by that student -->
+          <% @parsed.each do |data| %>
+            <tr>
+              <td><%= data[:student_name] %></td>
+              <td><%= data[:course_id] %></td>
+              <td><%= data[:completion_date] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>No data to display.</p>
+    <% end %>
+    <%= link_to 'Back to Upload', upload_path, class: 'btn btn-custom' %>
+  </div>
+
+</body>
+</html>
