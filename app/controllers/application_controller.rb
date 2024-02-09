@@ -8,8 +8,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActionController::InvalidAuthenticityToken do |exception|
     #if they try to log in while logged i think
-    #redirect_to(test_path)
-    flash[:success] = "Error. Already logged in. Please logout first."
+    redirect_to(new_user_session_path)
     #fix this later idk
   end
 end
