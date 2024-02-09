@@ -7,3 +7,17 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# Clear existing data
+puts 'Clearing existing data...'
+User.destroy_all
+TrainingCourse.destroy_all
+TrainingEnrollment.destroy_all
+Team.destroy_all
+ScheduledWorkday.destroy_all
+AttendanceRecord.destroy_all
+ProjectMember.destroy_all
+
+User.create!([{
+
+}])
