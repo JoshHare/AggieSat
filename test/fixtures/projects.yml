@@ -1,3 +1,4 @@
+<<<<<<< HEAD:test/fixtures/projects.yml
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
@@ -7,3 +8,16 @@ one:
 two:
   leader_id: 1
   project_name: MyString
+=======
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  leader_id: 1
+  team_name: MyString
+
+two:
+  id: 1
+  leader_id: 1
+  team_name: MyString
+>>>>>>> 8e0e8eea8ebd3e835bbefa858b0b9e1412cdd750:test/fixtures/teams.yml

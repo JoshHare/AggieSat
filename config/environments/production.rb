@@ -74,6 +74,8 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  #config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
@@ -95,4 +97,6 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  ENV['GOOGLE_OAUTH_CLIENT_ID'] = '751341065999-mkqjafmub4mc0pm0n5o5l7dlaqd45r7q.apps.googleusercontent.com'
+  ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
 end
