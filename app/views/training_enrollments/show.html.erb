@@ -1,0 +1,34 @@
+<%= link_to("Back to List", training_enrollments_path, class: 'back-link') %>
+
+<div class="training_enrollments show">
+  <h2>Show Enrollment</h2>
+
+  <div class="actions">
+    <%= link_to('Edit', edit_training_enrollment_path(@enrollment)) %>
+    <%= link_to('Delete', delete_training_enrollment_path(@enrollment)) %>
+  </div>
+
+  <table summary="Task detail view">
+    <tr>
+      <th>Course ID</th>
+      <td><%= @enrollment.course_id %></td>
+    </tr>
+    <tr>
+      <th>User ID</th>
+      <td><%= @enrollment.user_id %></td>
+    </tr>
+    <tr>
+      <th>Completion Status</th>
+      <td><%= @enrollment.completion_status %></td>
+    </tr>
+
+      <th>Created</th>
+      <td><%= @enrollment.created_at %></td>
+    </tr>
+    <tr>
+      <th>Updated</th>
+      <td><%= @enrollment.updated_at %></td>
+    </tr>
+  </table>
+
+</div>

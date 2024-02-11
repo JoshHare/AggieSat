@@ -1,0 +1,16 @@
+<%= link_to("Back to List", training_enrollment_path, :class => 'back-link') %>
+
+<div class="tasks new">
+  <h2>Create Enrollment</h2>
+
+  <%= form_for(@enrollment) do |f| %>
+    <% # url: tasks_path, method: 'post' %>
+
+    <%= render(partial:'form', locals:{f:f}) %>
+
+    <div class="form-buttons">
+      <%= f.submit("Create Enrollment") %>
+    </div>
+
+  <% end %>
+</div>
