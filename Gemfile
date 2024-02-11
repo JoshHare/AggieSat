@@ -66,3 +66,10 @@ group :test do
   gem "selenium-webdriver"
   gem "rspec-rails"
 end
+
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+
+# gem "devise", github: "heartcombo/devise", branch: "master"
+gem 'omniauth-rails_csrf_protection'

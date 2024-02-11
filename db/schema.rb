@@ -53,6 +53,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_172536) do
 
   create_table "users", force: :cascade do |t|
     t.integer "team_id"
+    t.string "uid"
+    t.string "avatar_url"
+    t.string "full_name"
     t.string "first_name"
     t.string "last_name"
     t.string "role"
