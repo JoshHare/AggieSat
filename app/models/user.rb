@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # belongs_to :scheduled_workday
   # belongs_to :attendance_record
