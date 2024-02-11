@@ -9,6 +9,10 @@ class PdfProcessorController < ApplicationController
       if params[:pdf].present? && params[:pdf].respond_to?(:read)
         pdf_text = extract_text_from_pdf(params[:pdf].tempfile.path)
         @parsed = parse(pdf_text)
+        @parsed.each do |course|
+          @training_enrollment = TrainingEnrollment.new(user_id: current_user.id, course_id: course[:course_id].to_i, completion_status: Date.strptime(course[:completion_date], "%m/%d/%Y"))
+          @training_enrollment.save
+        end
         # Display a success flash notice
         flash[:success] = 'PDF successfully uploaded and processed!'
         # Output the extracted text to the terminal for testing
