@@ -1,3 +1,5 @@
-<h1>AggieSat Laboratory Portal</h1>
-<img src="some.jpg" alt="AggieSat Laboratory Icon">
-<%= button_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, method: :post %>
+<div  class="container-fluid h-100 text-center">
+    <h1 class="display-1">AggieSat Laboratory Portal</h1>
+    <%= image_tag("AGSL.webp", :alt => "AggieSat Icon", :class => "img-fluid") %>
+    <%= button_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, method: :post, form_class: "fixed-bottom pb-5", class: "btn btn-custom btn-lg" %>
+</div>

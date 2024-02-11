@@ -4,7 +4,7 @@ class User < ApplicationRecord
   #belongs_to :training_enrollment
   #has_many :teams
 
-  devise :omniauthable, omniauth_providers: [:google_oauth2]
+  devise :omniauthable, :timeoutable, omniauth_providers: [:google_oauth2]
 
   def self.from_google(email:, full_name:, uid:, avatar_url:)
     # return nil unless email =~ /@mybusiness.com\z/
