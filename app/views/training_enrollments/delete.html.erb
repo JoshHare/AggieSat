@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>Delete Training Enrollment</h2>
+
+  <%= link_to("Back to all Enrollments", training_enrollments_path, class: 'btn btn-secondary back-link') %>
+
+  <%= form_for(@enrollment, method: 'delete') do |f| %>
+    <% # url: task_path(@task), method: 'delete' %>
+
+    <p>Are you sure you want to permanently delete this enrollment?</p>
+    <p><%= @enrollment.course_id %></p>
+
+    <div class="form-buttons">
+      <%= f.submit("Delete Enrollment", class: 'btn btn-danger') %>
+    </div>
+  <% end %>
+</div>

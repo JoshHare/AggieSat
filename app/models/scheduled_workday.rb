@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ScheduledWorkday < ApplicationRecord
   # this is the program manager
   # has_one :user
