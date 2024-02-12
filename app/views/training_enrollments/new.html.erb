@@ -1,15 +1,11 @@
-
-<div class="tasks new">
+<div class="container">
   <h2>Create Enrollment</h2>
 
   <%= form_for(@enrollment) do |f| %>
-    <% # url: tasks_path, method: 'post' %>
-
-    <%= render(partial:'form', locals:{f:f}) %>
+    <%= render(partial: 'form', locals: { f: f }) %>
 
     <div class="form-buttons">
-      <%= f.submit("Create Enrollment") %>
+      <%= f.submit("Create Enrollment", class: 'btn btn-primary') %>
     </div>
-
   <% end %>
 </div>

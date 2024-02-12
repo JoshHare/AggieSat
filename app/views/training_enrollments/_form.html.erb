@@ -1,15 +1,14 @@
- <table summary="Training Enrollment form fields">
-      <tr>
-        <th>Course ID</th>
-        <td><%= f.text_field(:course_id) %></td>
-      </tr>
-      <tr>
-        <th>User ID</th>
-        <td><%= f.text_field(:user_id) %></td>
-      </tr>
-      <tr>
-        <th>Completion Date</th>
-        <td><%= f.date_field(:completion_status) %></td>
-      </tr>
-     
-    </table>
+<table class="table table-bordered" summary="Training Enrollment form fields">
+  <tr>
+    <th>Course ID</th>
+    <td><%= f.text_field(:course_id, class: 'form-control') %></td>
+  </tr>
+  <tr>
+    <th>User ID</th>
+    <td><%= f.text_field(:user_id, class: 'form-control') %></td>
+  </tr>
+  <tr>
+    <th>Completion Date</th>
+    <td><%= f.date_field(:completion_status, class: 'form-control') %></td>
+  </tr>
+</table>

@@ -1,35 +1,30 @@
+<div class="container">
+  <h2>Training Enrollments</h2>
 
-<div class = "training_enrollment index">
-    <h2>Tasks</h2>
+  <%= link_to("Add New Enrollment", new_training_enrollment_path, class: 'btn btn-custom') %>
 
-    <%= link_to("Add New Enrollment",new_training_enrollment_path,class: 'action new') %>
-
-    <table class ="listing" summary = "Enrollment list" style = "width: 100%;">
-        <tr class = "header"> 
-            <th>Course ID</th>
-            <th>User ID</th>
-            <th>Completion Status</th>
-            <th>Actions</th>
-        </tr>
-        <% @enrollments.each do |enrollment| %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Course ID</th>
+        <th>User ID</th>
+        <th>Completion Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @enrollments.each do |enrollment| %>
         <tr>
-            <td><%= enrollment.course_id%></td>
-            <td><%= enrollment.user_id %></td>
-            <td><%= enrollment.completion_status %></td>
-            <td class="actions">
-                <%= link_to("Show",training_enrollment_path(enrollment),class:'action show')%>
-                <%= link_to("Edit",edit_training_enrollment_path(enrollment),class:'action edit')%>
-                <%= link_to("Delete",delete_training_enrollment_path(enrollment),class:'action delete')%>
-            </td>
+          <td><%= enrollment.course_id %></td>
+          <td><%= enrollment.user_id %></td>
+          <td><%= enrollment.completion_status %></td>
+          <td class="actions">
+            <%= link_to("Show", training_enrollment_path(enrollment), class: 'btn btn-secondary') %>
+            <%= link_to("Edit", edit_training_enrollment_path(enrollment), class: 'btn btn-primary') %>
+            <%= link_to("Delete", delete_training_enrollment_path(enrollment), class: 'btn btn-danger') %>
+          </td>
         </tr>
-    <% end %>
-    </table>
+      <% end %>
+    </tbody>
+  </table>
 </div>
-
-
-
-
-
-
-
-

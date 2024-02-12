@@ -10,8 +10,21 @@ class PdfProcessorController < ApplicationController
         pdf_text = extract_text_from_pdf(params[:pdf].tempfile.path)
         @parsed = parse(pdf_text)
         @parsed.each do |course|
-          @training_enrollment = TrainingEnrollment.new(user_id: current_user.id, course_id: course[:course_id].to_i, completion_status: Date.strptime(course[:completion_date], "%m/%d/%Y"))
-          @training_enrollment.save
+          user_id = current_user.id
+          course_id = course[:course_id].to_i
+          completion_date = Date.strptime(course[:completion_date], "%m/%d/%Y")
+
+          if TrainingCourse.exists?(id: course_id)
+            puts course_id
+            # Try to find a record with the specified user_id and course_id
+            @training_enrollment = TrainingEnrollment.find_or_initialize_by(user_id: user_id, course_id: course_id)
+
+            # Update the completion_status attribute
+            @training_enrollment.completion_status = completion_date
+
+            # Save the record to the database
+            @training_enrollment.save
+          end
         end
         # Display a success flash notice
         flash[:success] = 'PDF successfully uploaded and processed!'

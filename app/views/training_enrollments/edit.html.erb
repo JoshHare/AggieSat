@@ -1,17 +1,13 @@
-<%= link_to("Back to List", training_enrollment_path, :class => 'back-link') %>
-
-<div class="enrollment edit">
+<div class="container">
   <h2>Edit Enrollment</h2>
 
+  <%= link_to("Back to List", training_enrollments_path, class: 'btn btn-secondary back-link') %>
+
   <%= form_for(@enrollment) do |f| %>
-    <% # url: task_path(@task), method: 'patch' %>
-
-     <%= render(partial:'form', locals:{f:f}) %>
-
+    <%= render(partial: 'form', locals: { f: f }) %>
 
     <div class="form-buttons">
-      <%= f.submit("Edit Enrollment") %>
+      <%= f.submit("Edit Enrollment", class: 'btn btn-primary') %>
     </div>
-
   <% end %>
 </div>
