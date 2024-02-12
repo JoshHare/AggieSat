@@ -1,16 +1,7 @@
-<%= link_to("Back to List", '#', :class => 'back-link') %>
+# frozen_string_literal: true
 
-<div class="tasks new">
-  <h2>Create Task</h2>
+require 'rails_helper'
 
-  <%= form_for(@enrollment) do |f| %>
-    <% # url: tasks_path, method: 'post' %>
-
-    <%= render(partial:'form', locals:{f:f}) %>
-
-    <div class="form-buttons">
-      <%= f.submit("Create Task") %>
-    </div>
-
-  <% end %>
-</div>
+RSpec.describe('training_enrollments/edit.html.erb', type: :view) do
+  pending "add some examples to (or delete) #{__FILE__}"
+end

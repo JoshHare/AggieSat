@@ -1,56 +1,54 @@
+# frozen_string_literal: true
+
 # app/controllers/pdf_processor_controller.rb
 
 class PdfProcessorController < ApplicationController
-  def upload
-  end
+  def upload; end
 
   def process_pdf
-    begin
-      if params[:pdf].present? && params[:pdf].respond_to?(:read)
-        pdf_text = extract_text_from_pdf(params[:pdf].tempfile.path)
-        @parsed = parse(pdf_text)
-        @parsed.each do |course|
-          user_id = current_user.id
-          course_id = course[:course_id].to_i
-          completion_date = Date.strptime(course[:completion_date], "%m/%d/%Y")
+    if params[:pdf].present? && params[:pdf].respond_to?(:read)
+      pdf_text = extract_text_from_pdf(params[:pdf].tempfile.path)
+      @parsed = parse(pdf_text)
+      @parsed.each do |course|
+        user_id = current_user.id
+        course_id = Integer(course[:course_id], 10)
+        completion_date = Date.strptime(course[:completion_date], '%m/%d/%Y')
 
-          if TrainingCourse.exists?(id: course_id)
-            puts course_id
-            # Try to find a record with the specified user_id and course_id
-            @training_enrollment = TrainingEnrollment.find_or_initialize_by(user_id: user_id, course_id: course_id)
+        next unless TrainingCourse.exists?(id: course_id)
 
-            # Update the completion_status attribute
-            @training_enrollment.completion_status = completion_date
+        Rails.logger.debug(course_id)
+        # Try to find a record with the specified user_id and course_id
+        @training_enrollment = TrainingEnrollment.find_or_initialize_by(user_id: user_id, course_id: course_id)
 
-            # Save the record to the database
-            @training_enrollment.save
-          end
-        end
-        # Display a success flash notice
-        flash[:success] = 'PDF successfully uploaded and processed!'
-        # Output the extracted text to the terminal for testing
-        puts "Extracted Text from PDF:\n\n#{@parsed}"
-        render 'processed'
-      else
-        flash[:error] = 'Please select a valid PDF file.'
-        redirect_to upload_path
+        # Update the completion_status attribute
+        @training_enrollment.completion_status = completion_date
+
+        # Save the record to the database
+        @training_enrollment.save!
       end
-    rescue StandardError => e
-      flash[:error] = "An error occurred: #{e.message}"
-      redirect_to upload_path
+      # Display a success flash notice
+      flash[:success] = 'PDF successfully uploaded and processed!'
+      # Output the extracted text to the terminal for testing
+      Rails.logger.debug { "Extracted Text from PDF:\n\n#{@parsed}" }
+      render('processed')
+    else
+      flash[:error] = 'Please select a valid PDF file.'
+      redirect_to(upload_path)
     end
+  rescue StandardError => e
+    flash[:error] = "An error occurred: #{e.message}"
+    redirect_to(upload_path)
   end
-
 
   private
 
   def extract_text_from_pdf(pdf_path)
-    require 'pdf/reader'
+    require('pdf/reader')
 
     text = ''
     PDF::Reader.open(pdf_path) do |reader|
       reader.pages.each do |page|
-        text << page.text.gsub(/\s+/, ' ').strip + "\n"
+        text << "#{page.text.gsub(/\s+/, ' ').strip}\n"
       end
     end
 
@@ -61,8 +59,8 @@ class PdfProcessorController < ApplicationController
     format = identify_format(text)
     results = []
 
-    if format == "Employee"
-      pattern = /TrainTraq Transcript Name: (\w+\s\w+) .*? (\d+) : .*? Was successfully completed on (\d{1,2}\/\d{1,2}\/\d{4})/
+    if format == 'Employee'
+      pattern = %r{TrainTraq Transcript Name: (\w+\s\w+) .*? (\d+) : .*? Was successfully completed on (\d{1,2}/\d{1,2}/\d{4})}
 
       matches = text.scan(pattern)
       matches.each do |match|
@@ -71,11 +69,11 @@ class PdfProcessorController < ApplicationController
         completion_date = match[2]
         results << { student_name: student_name, course_id: course_id, completion_date: completion_date }
       end
-    elsif format == "Student"
+    elsif format == 'Student'
       name_match = text.match(/Name:\s+(.*?)\s+UIN:/)
-      name = name_match ? name_match[1] : "None"
+      name = name_match ? name_match[1] : 'None'
 
-      pattern = /(\d{7}) (\d{1,2}\/\d{1,2}\/\d{4})/m
+      pattern = %r{(\d{7}) (\d{1,2}/\d{1,2}/\d{4})}m
 
       matches = text.scan(pattern)
       matches.each do |match|
@@ -84,21 +82,20 @@ class PdfProcessorController < ApplicationController
         results << { student_name: name, course_id: course_id, completion_date: completion_date }
       end
     else
-      puts "ERROR: COULD NOT IDENTIFY FORMAT"
+      Rails.logger.debug('ERROR: COULD NOT IDENTIFY FORMAT')
     end
 
     results
   end
 
-
   def identify_format(text)
-    if text =~ /TrainTraq Transcript Name:.*Email:.*Work Address:.*Employer:.*/
-      return "Employee"
-    elsif text =~ /TrainTraq Transcript Name:.*UIN:.*Date:.*/
-      puts "Student"
-      return "Student"
+    if /TrainTraq Transcript Name:.*Email:.*Work Address:.*Employer:.*/.match?(text)
+      'Employee'
+    elsif /TrainTraq Transcript Name:.*UIN:.*Date:.*/.match?(text)
+      Rails.logger.debug('Student')
+      'Student'
     else
-      return "ERROR: COULD NOT IDENTIFY FORMAT"
+      'ERROR: COULD NOT IDENTIFY FORMAT'
     end
   end
 end
