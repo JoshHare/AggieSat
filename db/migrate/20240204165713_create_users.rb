@@ -1,7 +1,6 @@
 class CreateUsers < ActiveRecord::Migration[7.1]
   def change
     create_table :users do |t|
-      t.integer :team_id
       t.string :uid
       t.string :avatar_url
       t.string :full_name
