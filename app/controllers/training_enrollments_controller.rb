@@ -15,22 +15,23 @@ class TrainingEnrollmentsController < ApplicationController
   def create
     @enrollment = TrainingEnrollment.new(enrollment_params)
     if @enrollment.save
-      redirect_to training_enrollment_path
+      redirect_to training_enrollment_path(@enrollment)
     else
       #assign instance variables needed
+      puts @enrollment.errors.full_messages
       render('new') #new action not being called, just renders new template in view
     end
   end
 
   def edit
-    @enrollment = TrainingEnrollment.find(params[:id])
+    @enrollment = TrainingEnrollment.find_by(id: params[:id])
 
   end
 
   def update
-    @enrollment = TrainingEnrollment.find(params[:id])
-    if @enrollment.update(training_enrollment_params)
-      redirect_to task_path(@enrollment)
+    @enrollment =TrainingEnrollment.find_by(id: params[:id])
+    if @enrollment.update(enrollment_params)
+      redirect_to training_enrollment_path
     else
       render('edit')
     end
@@ -43,13 +44,14 @@ class TrainingEnrollmentsController < ApplicationController
   def destroy
     @enrollment = TrainingEnrollment.find(params[:id])
     @enrollment.destroy
-    redirect_to training_enrollment_path
+    #render('index')
+    redirect_to training_enrollments_path
   end
 
   private
 
   def enrollment_params
-    params.require(:TrainingEnrollment).permit(:course_id, :user_id, :completion_status)
+    params.require(:training_enrollment).permit(:course_id, :user_id, :completion_status)
   end
 
 end
