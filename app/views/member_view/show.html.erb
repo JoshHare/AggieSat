@@ -1,3 +1,5 @@
+<!-- app/views/members/show.html.erb -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +12,8 @@
 <body>
 
 <div class="container">
-  <h1>Member View</h1>
-  <div>
+   <h1>Member View</h1>
+    <div>
     <h2>Projects</h2>
     <ul>
       <% @projects.each do |project| %>
@@ -21,17 +23,13 @@
 
     <h2>Scheduled Workday</h2>
     <ul>
-      <% @scheduled_workdays.each do |scheduled_workday| %>
-        <li><%= scheduled_workday.day %></li>
+      <% @scheduled_workdays.each do |scheduled_workdays| %>
+        <li><%= scheduled_workdays.day %></li>
       <% end %>
     </ul>
-  </div>
-
-  <!-- Check In Button Container -->
-  <div class="check-in-container">
-    <%= button_to 'Check In', '#', method: :get, class: "btn btn-check-in" %>
-  </div>
-
+    </div>
+    
+   
 </div>
 
 </body>

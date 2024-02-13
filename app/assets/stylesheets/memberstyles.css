@@ -30,30 +30,3 @@ li {
     padding: 10px;
     border-radius: 5px;
 }
-
-/* Styling for the Check In Button */
-.btn-check-in {
-    background-color: #4CAF50; /* Green */
-    color: white;
-    padding: 10px 24px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-}
-
-.btn-check-in:hover {
-    background-color: #45a049;
-}
-
-/* Additional styles for centering the Check In Button */
-.check-in-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px; /* Adjust as needed for spacing */
-}
