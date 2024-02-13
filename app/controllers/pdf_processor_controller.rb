@@ -48,7 +48,7 @@ class PdfProcessorController < ApplicationController
     text = ''
     PDF::Reader.open(pdf_path) do |reader|
       reader.pages.each do |page|
-        text << "#{page.text.gsub(/\s+/, ' ').strip}\n"
+        text += "#{page.text.gsub(/\s+/, ' ').strip}\n"
       end
     end
 
