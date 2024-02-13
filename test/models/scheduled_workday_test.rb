@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class ScheduledWorkdayTest < ActiveSupport::TestCase
   # test "the truth" do

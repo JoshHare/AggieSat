@@ -39,6 +39,8 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  #config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
@@ -61,4 +63,7 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  ENV['GOOGLE_OAUTH_CLIENT_ID'] = '751341065999-mkqjafmub4mc0pm0n5o5l7dlaqd45r7q.apps.googleusercontent.com'
+  ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
 end

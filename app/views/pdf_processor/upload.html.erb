@@ -1,0 +1,26 @@
+<!-- app/views/pdf_processor/upload.html.erb -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload PDF</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Include your custom styles -->
+  <link rel="stylesheet" href="/assets/pdfstyles.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Upload PDF</h1>
+
+    <%= form_tag({ action: :process_pdf }, multipart: true) do %>
+      <%= file_field_tag :pdf, class: 'form-control-file' %>
+      <%= submit_tag 'Process PDF', class: 'btn btn-custom' %>
+    <% end %>
+  </div>
+
+</body>
+</html>
