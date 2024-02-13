@@ -81,3 +81,9 @@ gem 'omniauth-google-oauth2'
 
 # gem "devise", github: "heartcombo/devise", branch: "master"
 gem 'omniauth-rails_csrf_protection'
+
+
+
+
+gem 'brakeman'
+gem 'rubocop'
