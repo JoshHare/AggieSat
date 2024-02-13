@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Details</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/memberstyles.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>Member View</h1>
+  <div>
+    <h2>Projects</h2>
+    <ul>
+      <% @projects.each do |project| %>
+        <li><%= project.project_name %></li>
+      <% end %>
+    </ul>
+
+    <h2>Scheduled Workday</h2>
+    <ul>
+      <% @scheduled_workdays.each do |scheduled_workday| %>
+        <li><%= scheduled_workday.day %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <!-- Check In Button Container -->
+  <div class="check-in-container">
+    <%= button_to 'Check In', '#', method: :get, class: "btn btn-check-in" %>
+  </div>
+
+</div>
+
+</body>
+</html>

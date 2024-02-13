@@ -17,17 +17,23 @@ require 'rails_helper'
    # expect(page).to have_content('harry potter')
   #end
 #end
-
 RSpec.describe 'Navigating through the default member view like a user: ', type: :feature do
-  scenario 'valid inputs' do
+
+  before do 
+    Rails.application.env_config["devise.mapping"] = Devise.mappings[:user]
+    Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+  end
+
+  scenario 'authentication success' do
     visit new_user_session_path
     #visit show_path
     click_on 'Sign in with Google'
-    visit show_path
-    expect(page).to have_content('workdays')
+    visit test_path
+    expect(page).to have_content('Welcome')
     visit upload_path
     expect(page).to have_content('Upload PDF')
-    visit workdays_path
-    expect(page).to have_content('workdays')
+    visit show_path
+    expect(page).to have_content('Workday')
   end
 end
+

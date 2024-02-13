@@ -17,6 +17,30 @@
     </style>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand">
+          <img src="<%= asset_path('AGSL.webp') %>" alt="AggieSat Laboratory Logo" width="30" height="30" class="d-inline-block align-top" />
+          AggieSat Laboratory
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item bg-light">
+              <%= link_to "Home", root_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item bg-light">
+              <%= link_to "Check-in", show_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item bg-light">
+              <%= link_to "Submit Training", upload_path, class: "nav-link" %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <% if flash.any? %>
       <% flash.each do |key, value| -%>
         <section class="flash flash__<%= key %>"><%= value.html_safe %></section>

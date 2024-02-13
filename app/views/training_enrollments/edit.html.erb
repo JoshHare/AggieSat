@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>Edit Enrollment</h2>
+
+  <%= link_to("Back to List", training_enrollments_path, class: 'btn btn-secondary back-link') %>
+
+  <%= form_for(@enrollment) do |f| %>
+    <%= render(partial: 'form', locals: { f: f }) %>
+
+    <div class="form-buttons">
+      <%= f.submit("Edit Enrollment", class: 'btn btn-primary') %>
+    </div>
+  <% end %>
+</div>

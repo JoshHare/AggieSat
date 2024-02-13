@@ -4,6 +4,16 @@ require "active_support/core_ext/integer/time"
 # test suite. You never need to work with it otherwise. Remember that
 # your test database is "scratch space" for the test suite and is wiped
 # and recreated between test runs. Don't rely on the data there!
+OmniAuth.config.test_mode = true
+
+OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+  :provider => 'google_oauth2',
+  :uid => '123545',
+  :info => {:email => 'amybob@tamu.edu',
+  :full_name => 'amy bob',
+  :avatar_url => 'wew'},
+  # etc.
+})
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
