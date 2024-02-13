@@ -1,4 +1,7 @@
-class Users::SessionsController < Devise::SessionsController #not used rn
+# frozen_string_literal: true
+
+# not used rn
+class Users::SessionsController < Devise::SessionsController
   def after_sign_out_path_for(_resource_or_scope)
     new_admin_session_path
   end
