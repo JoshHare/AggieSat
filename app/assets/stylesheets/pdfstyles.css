@@ -31,5 +31,6 @@ body {
   
   .btn-custom:hover {
     background-color: #5a0000;
+    color: #fff;
   }
   

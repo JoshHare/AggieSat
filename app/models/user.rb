@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 class User < ApplicationRecord
-  # belongs_to :scheduled_workday
-  # belongs_to :attendance_record
-  # belongs_to :training_enrollment
-  # has_many :teams
+  #belongs_to :scheduled_workday
+  #belongs_to :attendance_record
+  #belongs_to :training_enrollment
+  #has_many :teams
 
-  devise :omniauthable, omniauth_providers: [:google_oauth2]
+  devise :omniauthable, :timeoutable, omniauth_providers: [:google_oauth2]
 
   attr_accessor :uid, :full_name, :avatar_url
 
