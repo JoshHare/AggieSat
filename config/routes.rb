@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/upload', to: 'pdf_processor#upload', as: 'upload'
   post 'pdf_processor/process_pdf'
 
+  get '/show' , to: 'member_view#show' , as: 'show'
 
   resources :training_enrollments do
     member do

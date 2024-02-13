@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_195321) do
   end
 
   create_table "projects", force: :cascade do |t|
+    t.integer "project_id"
     t.integer "leader_id"
     t.string "project_name"
     t.datetime "created_at", null: false
