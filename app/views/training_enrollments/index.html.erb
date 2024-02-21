@@ -9,22 +9,33 @@
         <th>Course ID</th>
         <th>User ID</th>
         <th>Completion Date</th>
+        <th>Validation</th>
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
-      <% @enrollments.each do |enrollment| %>
-        <tr>
-          <td><%= enrollment.course_id %></td>
-          <td><%= enrollment.user_id %></td>
-          <td><%= enrollment.completion_status %></td>
-          <td class="actions">
-            <%= link_to("Show", training_enrollment_path(enrollment), class: 'btn btn-secondary') %>
-            <%= link_to("Edit", edit_training_enrollment_path(enrollment), class: 'btn btn-primary') %>
-            <%= link_to("Delete", delete_training_enrollment_path(enrollment), class: 'btn btn-danger') %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
+ <tbody>
+  <% @enrollments.each_with_index do |enrollment, index| %>
+    <tr>
+      <td><%= enrollment.course_id %></td>
+      <td><%= enrollment.user_id %></td>
+      <td><%= enrollment.completion_status %></td>
+      <td>
+        <% valid_result = @valid_results[index] %>
+        <% if valid_result == "BAD" %>
+          <span class="text-danger"><%= valid_result %></span>
+        <% elsif valid_result == "WARNING" %>
+          <span class="text-warning"><%= valid_result %></span>
+        <% else %>
+          <span class="text-success"><%= valid_result %></span>
+        <% end %>
+      </td>
+      <td class="actions">
+        <%= link_to("Show", training_enrollment_path(enrollment), class: 'btn btn-secondary') %>
+        <%= link_to("Edit", edit_training_enrollment_path(enrollment), class: 'btn btn-primary') %>
+        <%= link_to("Delete", delete_training_enrollment_path(enrollment), class: 'btn btn-danger') %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
   </table>
 </div>
