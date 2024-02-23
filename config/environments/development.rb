@@ -1,5 +1,16 @@
 require "active_support/core_ext/integer/time"
 
+OmniAuth.config.test_mode = true
+
+OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+  :provider => 'google_oauth2',
+  :uid => '123545',
+  :info => {:email => 'amybob@tamu.edu',
+  :full_name => 'amy bob',
+  :avatar_url => 'wew'},
+  # etc.
+})
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
