@@ -3,6 +3,10 @@
 
   <%= link_to("Add New Enrollment", new_training_enrollment_path, class: 'btn btn-custom') %>
 
+   <%= form_tag({ controller: 'training_enrollments', action: 'email_all' }, method: 'post') do %>
+    <%= button_tag('Email all', class: 'btn btn-custom', type: 'submit') %>
+  <% end %>
+
   <table class="table">
     <thead>
       <tr>

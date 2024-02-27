@@ -99,6 +99,9 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     chronic (0.10.2)
+    clockwork (3.0.2)
+      activesupport
+      tzinfo
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -121,6 +124,7 @@ GEM
       faraday-net_http (>= 2.0, < 3.2)
     faraday-net_http (3.1.0)
       net-http
+    foreman (0.87.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashery (2.1.2)
@@ -254,8 +258,6 @@ GEM
     rake (13.1.0)
     rdoc (6.6.2)
       psych (>= 4.0.0)
-    redis-client (0.20.0)
-      connection_pool
     regexp_parser (2.9.0)
     reline (0.4.2)
       io-console (~> 0.5)
@@ -318,11 +320,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sidekiq (7.2.2)
-      concurrent-ruby (< 2)
-      connection_pool (>= 2.3.0)
-      rack (>= 2.2.4)
-      redis-client (>= 0.19.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -383,8 +380,10 @@ DEPENDENCIES
   bootsnap
   brakeman
   capybara
+  clockwork
   debug
   devise
+  foreman
   importmap-rails
   jbuilder
   omniauth
@@ -401,7 +400,6 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   selenium-webdriver
-  sidekiq
   simplecov
   sprockets-rails
   stimulus-rails

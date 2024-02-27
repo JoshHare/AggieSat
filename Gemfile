@@ -87,4 +87,5 @@ gem 'omniauth-rails_csrf_protection'
 
 gem 'brakeman'
 gem 'whenever', require: false
-gem 'sidekiq'
+gem 'clockwork'
+gem 'foreman'
