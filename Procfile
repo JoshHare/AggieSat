@@ -1,1 +1,1 @@
-heroku proc file web: bundle exec rails server -p $PORT -d
+heroku proc file web: bundle exec rails server -p $PORT d

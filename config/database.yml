@@ -21,6 +21,7 @@ default: &default
   host: localhost
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
 
 development:
   <<: *default
@@ -85,4 +86,3 @@ production:
   database: aggiesat_production
   username: aggiesat
   password: <%= ENV["AGGIESAT_DATABASE_PASSWORD"] %>
-  url: <%= ENV['DATABASE_URL'] %>
