@@ -23,20 +23,20 @@ class TrainingService
       if result == "No enrollment"
         null_content << "Course #{course.id}: #{course.name}\n"
       end
-      if result == "Expiring Soon"
-        warning_content << "Course #{course.id}: #{course.name} expiring on #{course.completion_status}\n"
+      if result == "Expiring Soon!"
+        warning_content << "Course #{course.id}: #{course.name} expiring soon\n"
       end
     end
     puts "ENDING"
 
     if email_content.present?
-      TrainingNotificationMailer.overdue_notification(user_email, content).deliver_now
+      TrainingNotificationMailer.overdue_notification(user, email_content).deliver_now
     end
     if null_content.present?
-      TrainingNotificationMailer.null_notification(user_email, content).deliver_now
+      TrainingNotificationMailer.null_notification(user, null_content).deliver_now
     end
     if warning_content.present?
-      TrainingNotificationMailer.warning_notification(user_email, content).deliver_now
+      TrainingNotificationMailer.warning_notification(user, warning_content).deliver_now
     end
   end
 

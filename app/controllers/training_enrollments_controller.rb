@@ -50,6 +50,14 @@ class TrainingEnrollmentsController < ApplicationController
     redirect_to(training_enrollments_path)
   end
 
+  def email_all
+    # Call the function from TrainingService
+    TrainingService.send_emails_for_overdue_trainings
+
+    # Redirect or render as needed
+    redirect_to training_enrollments_path, notice: 'Custom action performed successfully.'
+  end
+
   private
 
   def check_validity(enrollment)
@@ -78,6 +86,6 @@ class TrainingEnrollmentsController < ApplicationController
 
     false
   end
-  
+
 
 end
