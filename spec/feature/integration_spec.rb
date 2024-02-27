@@ -19,15 +19,15 @@ require 'rails_helper'
 #end
 RSpec.describe 'Navigating through the default member view like a user: ', type: :feature do
 
-  before do 
+  before do
     Rails.application.env_config["devise.mapping"] = Devise.mappings[:user]
     Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
   end
 
-  scenario 'authentication success' do
+  scenario 'authentication success' do #, :js => true, :driver => :rack_test do
     visit new_user_session_path
-    #visit show_path
     click_on 'Sign in with Google'
+
     visit test_path
     expect(page).to have_content('Welcome')
     visit upload_path
@@ -35,5 +35,6 @@ RSpec.describe 'Navigating through the default member view like a user: ', type:
     visit show_path
     expect(page).to have_content('Workday')
   end
+
 end
 

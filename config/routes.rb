@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   end
 
   get 'test', to: 'test#index'
-  get 'test2', to: 'test2#index'
 
   get '/upload', to: 'pdf_processor#upload', as: 'upload'
   post 'pdf_processor/process_pdf'
