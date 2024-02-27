@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project View</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Projects</h1>
+
+    <% @projects.each do |project| %>
+    <div class="card bg-light mb-3">
+      <div class="card-body">
+        <h2 class="card-title"><%= project.project_name %></h2>
+        <p class="card-text">Project Leader: <%= project.leader_id %></p>
+        <p class="card-text">Project Members:</p>
+        <ul class="list-unstyled">
+          <% project.members.each do |member| %>
+            <li><%= member.id %></li>
+          <% end %>
+        </ul>
+        <%= link_to "Edit Project", edit_project_path(project), class: "btn btn-dark" %>
+        <%= link_to "Delete Project", "#", class: "btn btn-danger", disabled: true %>
+      </div>
+    </div>
+    <% end %>
+</div>
+
+</body>
+</html>

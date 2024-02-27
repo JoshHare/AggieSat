@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Project</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Edit Project</h1>
+    <%= form_with(model: @project, url: project_path(@project), method: :patch, local: true) do |form| %>
+      <div class="form-group">
+        <h3><%= form.label :project_name %></h3>
+        <%= form.text_field :project_name, class: 'form-control' %>
+      </div>
+      
+      <h3>Project Members</h3>
+      <ul>
+        <% @project.members.each do |member| %>
+          <li>
+            <%= member.id %>
+            <%= link_to "Remove", "#", class: "btn btn-danger btn-sm", disabled: true %>
+          </li>
+        <% end %>
+      </ul>
+
+      <%= form.submit "Update Project", class: 'btn btn-dark' %>
+      <%= link_to "Cancel", projects_path, class: 'btn btn-secondary' %>
+    <% end %>
+  </div>
+</body>
+</html>
