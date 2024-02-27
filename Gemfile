@@ -86,4 +86,5 @@ gem 'omniauth-rails_csrf_protection'
 
 
 gem 'brakeman'
-gem 'rubocop'
+gem 'whenever', require: false
+gem 'sidekiq'

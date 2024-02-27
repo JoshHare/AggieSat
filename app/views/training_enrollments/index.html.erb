@@ -9,7 +9,7 @@
         <th>Course ID</th>
         <th>User ID</th>
         <th>Completion Date</th>
-        <th>Validation</th>
+        <th>Status</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -21,9 +21,9 @@
       <td><%= enrollment.completion_status %></td>
       <td>
         <% valid_result = @valid_results[index] %>
-        <% if valid_result == "BAD" %>
+        <% if valid_result == "Expired!" %>
           <span class="text-danger"><%= valid_result %></span>
-        <% elsif valid_result == "WARNING" %>
+        <% elsif valid_result == "Expiring Soon!" %>
           <span class="text-warning"><%= valid_result %></span>
         <% else %>
           <span class="text-success"><%= valid_result %></span>

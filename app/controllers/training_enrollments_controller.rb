@@ -53,13 +53,7 @@ class TrainingEnrollmentsController < ApplicationController
   private
 
   def check_validity(enrollment)
-    if out_of_date?(enrollment)
-      "BAD"
-    elsif almost_out_of_date?(enrollment)
-      "WARNING"
-    else
-      "GOOD"
-    end
+    TrainingService.check_validity(enrollment)
   end
 
 
@@ -84,5 +78,6 @@ class TrainingEnrollmentsController < ApplicationController
 
     false
   end
+  
 
 end
