@@ -55,6 +55,18 @@ User.create!([
     full_name: 'Daniela Martinis',
     role: 'Member',
     email: 'daniela.martinis@tamu.edu'
+  },
+  {
+    uid: '1',
+    avatar_url: 'testing',
+    full_name: 'Project Member 1',
+    role: 'Member'
+  },
+  {
+    uid: '2',
+    avatar_url: 'testing',
+    full_name: 'Project Member 2',
+    role: 'Member'
   }
 ]
             )
@@ -140,5 +152,22 @@ TrainingEnrollment.create!([
   }
 ]
                           )
+
+                          # Create projects
+projects_data = [
+  { id: 1, project_id: 1, leader_id: '1', project_name: 'Test Project' }
+]
+
+Project.create!(projects_data)
+
+Rails.logger.debug { "Created #{Project.count} Projects" }
+
+project_member_data = [
+  { user_id: '1', project_id: 1 },
+  { user_id: '2', project_id: 1 }
+]
+
+ProjectMember.create!(project_member_data)
+
 
 Rails.logger.debug { "Created #{TrainingEnrollment.count} Training Enrollments" }

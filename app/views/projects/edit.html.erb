@@ -19,7 +19,7 @@
       <ul>
         <% @project.members.each do |member| %>
           <li>
-            <%= member.id %>
+            <%= User.find_by(uid: member.uid).full_name %>
             <%= link_to "Remove", "#", class: "btn btn-danger btn-sm", disabled: true %>
           </li>
         <% end %>

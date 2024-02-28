@@ -15,11 +15,11 @@
     <div class="card bg-light mb-3">
       <div class="card-body">
         <h2 class="card-title"><%= project.project_name %></h2>
-        <p class="card-text">Project Leader: <%= project.leader_id %></p>
+        <p class="card-text">Project Leader: <%= User.find_by(uid: project.leader_id).full_name %></p>
         <p class="card-text">Project Members:</p>
         <ul class="list-unstyled">
           <% project.members.each do |member| %>
-            <li><%= member.id %></li>
+            <li><%= User.find_by(uid: member.uid).full_name %></li>
           <% end %>
         </ul>
         <%= link_to "Edit Project", edit_project_path(project), class: "btn btn-dark" %>
