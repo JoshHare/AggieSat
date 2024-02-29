@@ -66,6 +66,8 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
+# config/environments/production.rb
+config.log_level = :debug  # or :info, :warn, :error, :fatal
 
   #mailer
   config.action_mailer.delivery_method = :smtp

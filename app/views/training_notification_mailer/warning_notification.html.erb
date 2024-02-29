@@ -1,12 +1,51 @@
 <!-- app/views/training_notification_mailer/warningnotification.html.erb -->
-<h1>Aggie Satellite Laboratory</h1>
-<h2>Your training is expiring soon!</h2>
-<p>Howdy <%= @user.first_name %>,</p>
-<p>The following training courses will be expiring soon.</p>
-<p><%= @content %> </p>
-<p>Please redo them in order to be able to participate in the organization.</p>
-<p>You may submit verification of your training here.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff; /* White background */
+    }
 
+    h2 {
+      color: #800000; /* Maroon text color */
+      margin-bottom: 20px;
+    }
 
-<p>[This is an automated email, do not reply].</p>
-<!-- Include any other email content -->
+    p {
+      color: #333; /* Dark gray text color */
+      margin-bottom: 10px;
+    }
+
+    .content {
+      background-color: #ffffff; /* White background for content */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer {
+      color: #888; /* Light gray text color for footer */
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h2>Aggie Satellite Laboratory: Your Training is Expiring Soon!</h2>
+    <p>Howdy <%= @user.first_name %>,</p>
+    <p>The following training courses will be expiring soon.</p>
+    <ul>
+      <%= raw @content %>
+    </ul>
+    <p>Please renew them in order to be able to participate in the organization.<br>You may submit verification of your training here.</p>
+  </div>
+  <p class="footer">[This is an automated email, do not reply.]</p>
+</body>
+</html>
+
