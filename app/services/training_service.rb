@@ -30,6 +30,7 @@ class TrainingService
 
 
   #itereate through each user and check if an email needs to be sent
+
   def self.send_emails_for_overdue_trainings
     User.all.each do |user|
       send_email_if_overdue(user)
@@ -37,6 +38,7 @@ class TrainingService
   end
 
   #for a user, iterate through each training course and evaluate the type of email that needs to be sent.
+
   def self.send_email_if_overdue(user)
     email_content = ""
     null_content = ""
@@ -55,7 +57,7 @@ class TrainingService
         null_content << "Course #{course.id}: #{course.name}<br>"
       end
       if result == "Expiring Soon!" #enrollment expiring soon
-        warning_content << "Course #{course.id}: #{course.name} expiring soon<br>"
+
       end
     end
     puts "ENDING"
@@ -79,6 +81,7 @@ class TrainingService
       result = check_validity(enrollment)
       result
     else #if no enrollment found
+
       "No enrollment"
     end
   end
@@ -102,5 +105,6 @@ class TrainingService
   #almost out of date = expires in 1 month
   def self.almost_out_of_date?(enrollment)
     enrollment.completion_status.present? && enrollment.completion_status < 51.weeks.ago
+
   end
 end
