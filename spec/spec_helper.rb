@@ -98,7 +98,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
   
 =end
-ENV["RAILS_ENV"] ||= 'development'
+ENV["RAILS_ENV"] ||= 'test'
 end
 
 #Capybara.default_host = 'http://localhost:3000'
