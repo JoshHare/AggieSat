@@ -14,6 +14,7 @@ class TrainingNotificationMailer < ApplicationMailer
       )
   end
 
+
   def overdue_notification(user, content)
     @user = user
     @content = content
@@ -27,7 +28,7 @@ class TrainingNotificationMailer < ApplicationMailer
   def null_notification(user, content)
     @user = user
     @content = content
-    puts "NULL"
+
     mail(
       to: user.email,
       subject: 'AggieSat: No Training Notification',

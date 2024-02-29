@@ -12,5 +12,6 @@ module Clockwork
   every(1.week, 'email') do
     TrainingService.send_emails_for_overdue_trainings
     TrainingService.send_training_report
+
   end
 end

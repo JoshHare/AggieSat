@@ -86,5 +86,6 @@ gem 'omniauth-rails_csrf_protection'
 
 
 gem 'brakeman'
+
 gem 'clockwork'
 gem 'foreman'
