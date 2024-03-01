@@ -3,6 +3,10 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
     user = User.from_google(**from_google_params)
+    Rails.logger.debug(user.uid)
+    Rails.logger.debug(user.email)
+    Rails.logger.debug(user.full_name)
+    user.save!
 
     if user.present?
       sign_out_all_scopes
@@ -33,6 +37,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       full_name: auth.info.name,
       avatar_url: auth.info.image
     }
+
   end
 
   def auth
