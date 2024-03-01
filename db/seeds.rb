@@ -55,6 +55,13 @@ User.create!([
     full_name: 'Daniela Martinis',
     role: 'Member',
     email: 'daniela.martinis@tamu.edu'
+  },
+  {
+    uid: '28',
+    avatar_url: 'testing',
+    full_name: 'amy bob',
+    role: 'Member',
+    email: 'amybob@tamu.edu'
   }
 ]
             )
