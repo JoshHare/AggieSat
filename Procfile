@@ -1,1 +1,3 @@
-heroku proc file web: bundle exec rails server -p $PORT d
+web: bundle exec rails server -p $PORT
+# scheduler
+clock: bundle exec clockwork clock.rb

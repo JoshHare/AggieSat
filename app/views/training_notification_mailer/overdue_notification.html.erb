@@ -1,0 +1,51 @@
+<!-- app/views/training_notification_mailer/overdue_notification.html.erb -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff; /* White background */
+    }
+
+    h2 {
+      color: #800000; /* Maroon text color */
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #333; /* Dark gray text color */
+      margin-bottom: 10px;
+    }
+
+    .content {
+      background-color: #ffffff; /* White background for content */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer {
+      color: #888; /* Light gray text color for footer */
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h2>Aggie Satellite Laboratory: Your training is expired!</h2>
+    <p>Howdy <%= @user.first_name %>,</p>
+    <p>The following training courses are expired.</p>
+    <ul>
+      <%= raw @content %>
+    </ul>
+    <p>Please renew them in order to be able to participate in the organization.<br>
+    You may submit verification of your training <a href="https://aggiesat-eb6c44025ad5.herokuapp.com/users/sign_in" target="_blank">here</a>.</p>
+  </div>
+  <p class="footer">[This is an automated email, do not reply.]</p>
+</body>
+</html>
