@@ -9,7 +9,9 @@ module Clockwork
     puts "Running #{job}"
   end
 
-  every(1.day, 'member_email') do
+  every(1.week, 'email') do
     TrainingService.send_emails_for_overdue_trainings
+    TrainingService.send_training_report
+
   end
 end

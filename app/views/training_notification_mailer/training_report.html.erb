@@ -1,4 +1,3 @@
-<!-- app/views/training_notification_mailer/null_notification.html.erb -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,16 +36,14 @@
 </head>
 <body>
   <div class="content">
-    <h2>Aggie Satellite Laboratory: You have not completed your training.</h2>
-    <p>Howdy <%= @user.first_name %>,</p>
-    <p>The following training courses have not been completed.</p>
+    <h2>Aggie Satellite Laboratory Training Report</h2>
+    <p>Howdy Chief Student Leader,</p>
+    <p>The following lists the students who have incomplete or expired training:</p>
     <ul>
       <%= raw @content %>
     </ul>
-    <p>Please renew them in order to be able to participate in the organization.<br>You may submit verification of your training here.</p>
+    <p>For more information, see the application for a spreadsheet.</p>
   </div>
   <p class="footer">[This is an automated email, do not reply.]</p>
 </body>
 </html>
-
-
