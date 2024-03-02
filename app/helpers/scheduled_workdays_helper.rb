@@ -1,0 +1,2 @@
+module ScheduledWorkdaysHelper
+end

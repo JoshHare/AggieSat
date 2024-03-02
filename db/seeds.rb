@@ -22,43 +22,104 @@ ProjectMember.destroy_all
 
 User.create!([
   {
-    uid: '24',
+    uid: '25',
     avatar_url: 'testing',
-    full_name: 'Christian Mosquera',
-    role: 'Admin',
-    email: 'cwbo.1701@tamu.edu'
+    full_name: 'Skye Slaughter',
+    first_name: 'Skye',
+    last_name: 'Slaughter',
+    role: 'Member',
+    email: 'email',
   },
   {
-    uid: '25',
+    uid: '26',
+    avatar_url: 'testing',
+    full_name: 'Daniel Newsom',
+    first_name: 'Daniel',
+    last_name: 'Newsom',
+    role: 'Member',
+    email: 'email',
+  },
+  {
+    uid: '27',
+    avatar_url: 'testing',
+    full_name: 'Shirish Pandam',
+    first_name: 'Shirish',
+    last_name: 'Pandam',
+    role: 'Member',
+    email: 'email',
+  },
+  {
+    uid: '28',
+    avatar_url: 'testing',
+    full_name: 'Azalea Andrews',
+    first_name: 'Shirish',
+    last_name: 'Pandam',
+    role: 'Member',
+    email: 'email',
+  },
+  {
+    uid: '29',
+    avatar_url: 'testing',
+    full_name: 'Lexi Urquhart',
+    first_name: 'Shirish',
+    last_name: 'Pandam',
+    role: 'Member',
+    email: 'email',
+  },
+  {
+    uid: '30',
+    avatar_url: 'testing',
+    full_name: 'Kamalika Bose',
+    first_name: 'Shirish',
+    last_name: 'Pandam',
+    role: 'Member',
+    email: 'email',
+  },
+  {
+    uid: '31',
+    avatar_url: 'testing',
+    full_name: 'Tate Crawford',
+    first_name: 'Shirish',
+    last_name: 'Pandam',
+    role: 'Member',
+    email: 'email',
+  },
+  {
+    uid: '32',
     avatar_url: 'testing',
     full_name: 'Joshua Hare',
     role: 'Admin',
     email: 'jmhhare@tamu.edu'
   },
   {
-    uid: '26',
+    uid: '33',
     avatar_url: 'testing',
     full_name: 'Lucy Zhang',
     role: 'Admin',
     email: 'lululilly1212@tamu.edu'
   },
   {
-    uid: '27',
+    uid: '34',
     avatar_url: 'testing',
     full_name: 'Adidev Mohapatra',
     role: 'Member',
     email: 'adidev@tamu.edu'
   },
   {
-    uid: '28',
+    uid: '35',
     avatar_url: 'testing',
     full_name: 'Daniela Martinis',
     role: 'Member',
     email: 'daniela.martinis@tamu.edu'
+  },
+  {
+    uid: '36',
+    avatar_url: 'testing',
+    full_name: 'amy bob',
+    role: 'Member',
+    email: 'amybob@tamu.edu'
   }
-]
-            )
-
+])
 Rails.logger.debug { "Created #{User.count} Users" }
 
 TrainingCourse.create!([
@@ -142,3 +203,152 @@ TrainingEnrollment.create!([
                           )
 
 Rails.logger.debug { "Created #{TrainingEnrollment.count} Training Enrollments" }
+
+
+ProjectMember.create!([
+  {
+    user_id: '111619080521840803157',
+    project_id: 3
+  },
+  {
+    user_id: '111619080521840803157',
+    project_id: 4
+  },
+  {
+    user_id: '111619080521840803157',
+    project_id: 5
+  },
+  {
+    user_id: '111619080521840803157',
+    project_id: 6
+  },
+  {
+    user_id: '111619080521840803157',
+    project_id: 7
+  },
+  {
+    user_id: '111619080521840803157',
+    project_id: 8
+  },
+  {
+    user_id: '111619080521840803157',
+    project_id: 9
+  },
+  {
+    user_id: '111619080521840803157',
+    project_id: 10
+  },
+  {
+    user_id: '25',
+    project_id: 3
+  },
+  {
+    user_id: '26',
+    project_id: 4
+  },
+  {
+    user_id: '27',
+    project_id: 5
+  },
+  {
+    user_id: '28',
+    project_id: 6
+  },
+  {
+    user_id: '29',
+    project_id: 7
+  },
+  {
+    user_id: '30',
+    project_id: 8
+  },
+  {
+    user_id: '31',
+    project_id: 9
+  }
+])
+
+Rails.logger.debug { "Created #{ProjectMember.count} Project Members" }
+
+Project.create!([
+  {
+    project_id: 3,
+    leader_id: '25',
+    project_name: 'AGS6'
+  },
+  {
+    project_id: 4,
+    leader_id: '26',
+    project_name: 'CCT'
+  },
+  {
+    project_id: 5,
+    leader_id: '27',
+    project_name: 'REGS'
+  },
+  {
+    project_id: 6,
+    leader_id: '28',
+    project_name: 'AR1'
+  },
+  {
+    project_id: 7,
+    leader_id: '29',
+    project_name: 'GeoRGE'
+  },
+  {
+    project_id: 8,
+    leader_id: '30',
+    project_name: 'SOLACE'
+  },
+  {
+    project_id: 9,
+    leader_id: '31',
+    project_name: 'REV-2'
+  },
+  {
+    project_id: 10,
+    leader_id: '111619080521840803157',
+    project_name: 'Juniper'
+  },
+])
+
+Rails.logger.debug { "Created #{Project.count} Projects" }
+
+ScheduledWorkday.create!([
+  {
+    program_manager_id: '25',
+    project_id: 3,
+    day: Date.today
+  },
+  {
+    program_manager_id: '25',
+    project_id: 3,
+    day: Date.today + 1
+  },
+  {
+    program_manager_id: '25',
+    project_id: 3,
+    day: Date.today + 2
+  },
+  {
+    program_manager_id: '111619080521840803157',
+    project_id: 10,
+    day: Date.today
+  },
+  {
+    program_manager_id: '111619080521840803157',
+    project_id: 10,
+    day: Date.today + 1
+  },
+  {
+    program_manager_id: '111619080521840803157',
+    project_id: 10,
+    day: Date.today + 4
+  },
+  {
+    program_manager_id: '111619080521840803157',
+    project_id: 10,
+    day: Date.today - 5
+  },
+])
