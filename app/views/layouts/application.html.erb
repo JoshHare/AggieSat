@@ -46,7 +46,7 @@
     </nav>
     <% if flash.any? %>
       <% flash.each do |key, value| -%>
-        <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
+        <section class="flash flash__<%= key %>"><%= value %></section>
       <% end -%>
     <% end %> 
     <%= yield %>

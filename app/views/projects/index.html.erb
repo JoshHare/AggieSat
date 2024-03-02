@@ -9,9 +9,9 @@
 <body>
 
 <div class="container">
-    <h1>Projects</h1>
+  <h1 class="text-center">Projects</h1>
 
-    <% @projects.each do |project| %>
+  <% @projects.each do |project| %>
     <div class="card bg-light mb-3">
       <div class="card-body">
         <h2 class="card-title"><%= project.project_name %></h2>
@@ -23,10 +23,10 @@
           <% end %>
         </ul>
         <%= link_to "Edit Project", edit_project_path(project), class: "btn btn-dark" %>
-        <%= link_to "Delete Project", "#", class: "btn btn-danger", disabled: true %>
+        <%= link_to "Delete Project", delete_project_path(project), method: :delete, data: { confirm: "Are you sure you want to delete this project?" }, class: "btn btn-danger" %>
       </div>
     </div>
-    <% end %>
+  <% end %>
 </div>
 
 </body>

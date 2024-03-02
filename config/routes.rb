@@ -30,6 +30,8 @@ Rails.application.routes.draw do
       get :delete
       delete :remove_member
       get :remove_member_confirmation, to: 'projects#remove_member'
+      get :add_member, to: 'projects#add_member'
+      post :create_member
     end
   end
 

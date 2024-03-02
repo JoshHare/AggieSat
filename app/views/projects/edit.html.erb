@@ -16,11 +16,12 @@
       </div>
       
       <h3>Project Members</h3>
+      <%= link_to "Add Members", add_member_project_path(@project), class: 'btn btn-dark' %>
       <ul>
         <% @project.members.each do |member| %>
           <li>
             <%= User.find_by(uid: member.uid).full_name %>
-            <%= link_to "Remove", "#", class: "btn btn-danger btn-sm", disabled: true %>
+            <%= link_to "Remove", remove_member_confirmation_project_path(@project, member_id: member.id), class: "btn btn-danger btn-sm", data: { confirm: "Are you sure you want to remove this member from the project?" } %>
           </li>
         <% end %>
       </ul>
