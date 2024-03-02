@@ -84,6 +84,41 @@ User.create!([
     role: 'Member',
     email: 'email',
   },
+  {
+    uid: '32',
+    avatar_url: 'testing',
+    full_name: 'Joshua Hare',
+    role: 'Admin',
+    email: 'jmhhare@tamu.edu'
+  },
+  {
+    uid: '33',
+    avatar_url: 'testing',
+    full_name: 'Lucy Zhang',
+    role: 'Admin',
+    email: 'lululilly1212@tamu.edu'
+  },
+  {
+    uid: '34',
+    avatar_url: 'testing',
+    full_name: 'Adidev Mohapatra',
+    role: 'Member',
+    email: 'adidev@tamu.edu'
+  },
+  {
+    uid: '35',
+    avatar_url: 'testing',
+    full_name: 'Daniela Martinis',
+    role: 'Member',
+    email: 'daniela.martinis@tamu.edu'
+  },
+  {
+    uid: '36',
+    avatar_url: 'testing',
+    full_name: 'amy bob',
+    role: 'Member',
+    email: 'amybob@tamu.edu'
+  }
 ])
 Rails.logger.debug { "Created #{User.count} Users" }
 
