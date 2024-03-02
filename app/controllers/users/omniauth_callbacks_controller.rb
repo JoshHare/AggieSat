@@ -43,6 +43,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       full_name: auth.info.name,
       avatar_url: auth.info.image
     }
+
   end
 
   def auth
