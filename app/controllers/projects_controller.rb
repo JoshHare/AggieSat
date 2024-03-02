@@ -4,15 +4,40 @@ class ProjectsController < ApplicationController
     def index
       @projects = Project.all
     end
+
+    def new
+        @project = Project.new
+    end
+    
+    def create
+        @project = Project.new(project_params)
+        if @project.save
+            @project.update(project_id: @project.id)
+            redirect_to projects_path, notice: 'Project was successfully created.'
+        else
+            render :new
+        end
+    end
   
     def edit
     end
-  
-    def destroy
-      render :delete
+
+    def show
+        @project = Project.find(params[:id])
     end
   
+    def destroy
+        @project = Project.find(params[:id])
+        if @project.destroy
+          flash[:notice] = "Project successfully deleted."
+        else
+          flash[:error] = "Failed to delete the project."
+        end
+        redirect_to projects_path
+    end
+
     def delete
+        @project = Project.find(params[:id])
     end
   
     def update
@@ -58,7 +83,7 @@ class ProjectsController < ApplicationController
     end
   
     def project_params
-      params.require(:project).permit(:project_name, :other_attributes)
+      params.require(:project).permit(:project_name, :leader_id, :other_attributes)
     end
   
     def project_member_params

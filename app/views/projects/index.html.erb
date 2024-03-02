@@ -11,6 +11,12 @@
 <div class="container">
   <h1 class="text-center">Projects</h1>
 
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-6">
+      <%= link_to "Create a New Project", new_project_path, class: "btn btn-primary btn-block" %>
+    </div>
+  </div>
+
   <% @projects.each do |project| %>
     <div class="card bg-light mb-3">
       <div class="card-body">
@@ -22,8 +28,9 @@
             <li><%= User.find_by(uid: member.uid).full_name %></li>
           <% end %>
         </ul>
-        <%= link_to "Edit Project", edit_project_path(project), class: "btn btn-dark" %>
-        <%= link_to "Delete Project", delete_project_path(project), method: :delete, data: { confirm: "Are you sure you want to delete this project?" }, class: "btn btn-danger" %>
+        <%= link_to "Edit Project", edit_project_path(project), class: "btn btn-primary" %>
+        <%= link_to "Delete", destroy_project_path(project), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", title: "Delete Project" %>
+
       </div>
     </div>
   <% end %>

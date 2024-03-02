@@ -14,9 +14,14 @@
         <h3><%= form.label :project_name %></h3>
         <%= form.text_field :project_name, class: 'form-control' %>
       </div>
+
+      <div class="form-group">
+        <h3><%= form.label :leader_id %></h3>
+        <%= form.select :leader_id, User.all.map { |user| [user.full_name, user.uid] }, {}, { class: 'form-control' } %>
+      </div>
       
       <h3>Project Members</h3>
-      <%= link_to "Add Members", add_member_project_path(@project), class: 'btn btn-dark' %>
+      <%= link_to "Add Members", add_member_project_path(@project), class: 'btn btn-primary' %>
       <ul>
         <% @project.members.each do |member| %>
           <li>
@@ -26,7 +31,7 @@
         <% end %>
       </ul>
 
-      <%= form.submit "Update Project", class: 'btn btn-dark' %>
+      <%= form.submit "Update Project", class: 'btn btn-primary' %>
       <%= link_to "Cancel", projects_path, class: 'btn btn-secondary' %>
     <% end %>
   </div>
