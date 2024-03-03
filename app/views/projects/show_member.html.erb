@@ -1,4 +1,5 @@
 <h1><%= @project.project_name %></h1>
+<%= button_to "Delete", project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", title: "Delete Project" %>
 <div class="container mt-4">
   <ul class="nav nav-tabs" id="workdaysTabs" role="tablist">
     <li class="nav-item">
@@ -18,9 +19,9 @@
                 <h5 class="card-title">Upcoming Workday</h5>
                 <p class="card-text">Date: <%= workday.day %></p>
                 <% if @status %>
-                  <p class="card-text">Staus: Approved</p>
+                  <p class="card-text">Status: Approved</p>
                 <% else %>
-                  <p class="card-text">Staus: Null</p>
+                  <p class="card-text">Status: Null</p>
                 <%end%>
                 <button type="button" class="btn btn-primary" onclick="AttendanceRecord.create_record">Check In</button>
               </div>
@@ -38,9 +39,9 @@
                 <h5 class="card-title">Previous Workday</h5>
                 <p class="card-text">Date: <%= workday.day %></p>
                 <% if @status %>
-                  <p class="card-text">Staus: Approved</p>
+                  <p class="card-text">Status: Approved</p>
                 <% else %>
-                  <p class="card-text">Staus: Null</p>
+                  <p class="card-text">Status: Null</p>
                 <%end%>
                 <button type="button" class="btn btn-primary" onclick="AttendanceRecord.create_record">Check In</button>
               </div>

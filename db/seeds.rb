@@ -204,6 +204,58 @@ TrainingEnrollment.create!([
 
 Rails.logger.debug { "Created #{TrainingEnrollment.count} Training Enrollments" }
 
+Project.create!([
+  {
+    id: 3,
+    project_id: 3,
+    leader_id: '25',
+    project_name: 'AGS6'
+  },
+  {
+    id: 4,
+    project_id: 4,
+    leader_id: '26',
+    project_name: 'CCT'
+  },
+  {
+    id: 5,
+    project_id: 5,
+    leader_id: '27',
+    project_name: 'REGS'
+  },
+  {
+    id: 6,
+    project_id: 6,
+    leader_id: '28',
+    project_name: 'AR1'
+  },
+  {
+    id: 7,
+    project_id: 7,
+    leader_id: '29',
+    project_name: 'GeoRGE'
+  },
+  {
+    id: 8,
+    project_id: 8,
+    leader_id: '30',
+    project_name: 'SOLACE'
+  },
+  {
+    id: 9,
+    project_id: 9,
+    leader_id: '104940125384065754825',
+    project_name: 'REV-2'
+  },
+  {
+    id: 10,
+    project_id: 10,
+    leader_id: '111619080521840803157',
+    project_name: 'Juniper'
+  },
+])
+
+Rails.logger.debug { "Created #{Project.count} Projects" }
 
 ProjectMember.create!([
   {
@@ -265,55 +317,14 @@ ProjectMember.create!([
   {
     user_id: '31',
     project_id: 9
+  },
+  {
+    user_id: '104940125384065754825',
+    project_id: 9
   }
 ])
 
 Rails.logger.debug { "Created #{ProjectMember.count} Project Members" }
-
-Project.create!([
-  {
-    project_id: 3,
-    leader_id: '25',
-    project_name: 'AGS6'
-  },
-  {
-    project_id: 4,
-    leader_id: '26',
-    project_name: 'CCT'
-  },
-  {
-    project_id: 5,
-    leader_id: '27',
-    project_name: 'REGS'
-  },
-  {
-    project_id: 6,
-    leader_id: '28',
-    project_name: 'AR1'
-  },
-  {
-    project_id: 7,
-    leader_id: '29',
-    project_name: 'GeoRGE'
-  },
-  {
-    project_id: 8,
-    leader_id: '30',
-    project_name: 'SOLACE'
-  },
-  {
-    project_id: 9,
-    leader_id: '31',
-    project_name: 'REV-2'
-  },
-  {
-    project_id: 10,
-    leader_id: '111619080521840803157',
-    project_name: 'Juniper'
-  },
-])
-
-Rails.logger.debug { "Created #{Project.count} Projects" }
 
 ScheduledWorkday.create!([
   {
