@@ -3,6 +3,7 @@ class User < ApplicationRecord
   #belongs_to :attendance_record
   #belongs_to :training_enrollment
   #has_many :teams
+  has_many :project_members
 
   devise :omniauthable, :timeoutable, omniauth_providers: [:google_oauth2]
 

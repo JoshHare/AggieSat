@@ -27,7 +27,19 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :projects, only: [:show], param: :project_id
+  # Route for projects index page
+  get '/projects', to: 'projects#index', as: 'projects_index'
+  resources :projects, only: [:show, :new, :create], param: :project_id do
+    member do
+      get :delete
+      get :add_member, to: 'projects#_add_member_form'
+      post :create_member
+      delete :remove_member
+      get :remove_member_confirmation, to: 'projects#remove_member'
+    end
+  end
+  delete 'projects/:project_id', to: 'projects#destroy', as: 'destroy_project'
+
   resources :scheduled_workdays, only: [:create]
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
