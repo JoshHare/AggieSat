@@ -9,7 +9,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         sign_out_all_scopes
         flash[:success] = t('devise.omniauth_callbacks.success', kind: 'Google')
         sign_in_and_redirect(user, event: :authentication)
-      else
+      else 
         flash[:alert] = t('devise.omniauth_callbacks.failure', kind: 'Google', reason: "#{auth.info.email} had issues saving.")
         redirect_to(new_user_session_path)
       end
@@ -23,7 +23,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   protected
 
   def after_omniauth_failure_path_for(_scope)
-    new_user_session_path
+    new_user_session_path(_scope)
   end
 
   def after_sign_in_path_for(resource_or_scope)
