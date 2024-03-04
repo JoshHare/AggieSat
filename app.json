@@ -8,7 +8,7 @@
     "test": {
       "addons": ["heroku-postgresql"],
       "scripts": {
-        "test-setup": "bundle exec rake db:create VERSION=0 db:migrate db:migrate db:seed",
+        "test-setup": "bundle exec rake db:create db:migrate db:seed",
         "test": "bundle exec rspec",
         "post-test": "bundle exec rubocop"
       }
