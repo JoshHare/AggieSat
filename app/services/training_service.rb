@@ -7,7 +7,7 @@ class TrainingService
     expired = ""
     User.all.each do |user|
       if generate_training_report(user)
-        expired << "#{user.email}<br>"
+        expired << "#{user.full_name}<br>"
       end
     end
 
