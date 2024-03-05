@@ -144,6 +144,22 @@ User.create!([
     full_name: 'amy bob 2',
     role: 'Admin',
     email: 'amybob2@tamu.edu'
+  },
+  {
+    id: '39',
+    uid: '39',
+    avatar_url: 'testing',
+    full_name: 'vishal',
+    role: 'Admin',
+    email: 'vva2@tamu.edu'
+  },
+  {
+    id: '40',
+    uid: '40',
+    avatar_url: 'testing',
+    full_name: 'dr wade',
+    role: 'Admin',
+    email: 'paulinewade@tamu.edu'
   }
 ])
 Rails.logger.debug { "Created #{User.count} Users" }
