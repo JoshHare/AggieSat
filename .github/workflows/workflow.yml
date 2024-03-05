@@ -33,7 +33,9 @@ jobs:
       - name: Create database
         run: |
           bundler exec rails db:create RAILS_ENV=test
+          bundler exec rails db:migrate VERSION=0 RAILS_ENV=test 
           bundler exec rails db:migrate RAILS_ENV=test
+          bundler exec rails db:seed RAILS_ENV=test
       - uses: borales/actions-yarn@v3.0.0
         with:
           cmd: install
