@@ -24,7 +24,10 @@
             <%= image_tag("#{project.project_name}.png", :alt => "AggieSat Icon", :class => "card-img-top") %>
             <div class="card-body">
                 <h5 class="card-title"><%= project.project_name %></h5>
-                <p class="card-text">Project Leader: <%= User.find_by(uid: project.leader_id).full_name %></p>
+                <p class="card-text">Project Leader: <% user = User.find_by(uid: project.leader_id) %>
+                <% if user %>
+                <li><%= user.full_name %></li>
+                <% end %></p>
                 <p class="card-text">Total Members: <%= ProjectMember.count_for_project(project.project_id) %></p>
                 <%= link_to "", project_path(project.project_id), class: "stretched-link" %>
             </div>
