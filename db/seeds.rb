@@ -29,6 +29,7 @@ User.create!([
     last_name: 'Slaughter',
     role: 'Member',
     email: 'jmhhare@tamu.edu',
+
   },
   {
     uid: '26',
@@ -38,6 +39,7 @@ User.create!([
     last_name: 'Newsom',
     role: 'Member',
     email: 'jmhhare@tamu.edu',
+
   },
   {
     uid: '27',
@@ -74,6 +76,7 @@ User.create!([
     last_name: 'Pandam',
     role: 'Member',
     email: 'jmhhare@tamu.edu',
+
   },
   {
     uid: '31',
