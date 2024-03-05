@@ -7,7 +7,7 @@ class TrainingService
     expired = ""
     User.all.each do |user|
       if generate_training_report(user)
-        expired << "#{user.email}<br>"
+        expired << "#{user.full_name}<br>"
       end
     end
 
@@ -51,13 +51,14 @@ class TrainingService
       result = check_enrollment_and_validity(course, user) #returns status of training for a specific course
       puts result
       if result == "Expired!" #expired training
-        email_content << "Course #{course.id}: #{course.name}<br>"
+        email_content << "Course #{course.course_id}: #{course.name}<br>"
       end
       if result == "No enrollment" #enrollment not found
-        null_content << "Course #{course.id}: #{course.name}<br>"
+        null_content << "Course #{course.course_id}: #{course.name}<br>"
       end
       if result == "Expiring Soon!" #enrollment expiring soon
-
+        date = TrainingEnrollment.find_by(course_id: course.course_id, user_id: user.uid.to_i).completion_status
+        warning_content << "Course #{course.course_id}: #{course.name} - #{date.to_date}<br>"
       end
     end
     puts "ENDING"
@@ -69,13 +70,14 @@ class TrainingService
       TrainingNotificationMailer.null_notification(user, null_content).deliver_now
     end
     if warning_content.present?
+      puts "ALPHA"
       TrainingNotificationMailer.warning_notification(user, warning_content).deliver_now
     end
   end
 
   #check TrainingEnrollment db for enrollment for a specific course and user
   def self.check_enrollment_and_validity(training_course, user)
-    enrollment = TrainingEnrollment.find_by(course_id: training_course.id, user_id: user.id)
+    enrollment = TrainingEnrollment.find_by(course_id: training_course.course_id, user_id: user.uid.to_i)
 
     if enrollment #if it exists
       result = check_validity(enrollment)

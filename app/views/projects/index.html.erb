@@ -1,0 +1,46 @@
+<head>
+  <style>
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+    .card {
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    /* Additional styles for buttons */
+    .project-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Current Projects</h1>
+    <%= link_to 'Create Project', new_project_path, class: "btn btn-primary btn-block" %>
+
+    <div class="row">
+        <% @projects.each do |project| %>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><%= project.project_name %></h5>
+                <p class="card-text">Project Leader: <% user = User.find_by(uid: project.leader_id) %>
+                <% if user %>
+                <li><%= user.full_name %></li>
+                <% end %></p>
+                <p class="card-text">Total Members: <%= ProjectMember.count_for_project(project.project_id) %></p>
+                <%= link_to "", project_path(project.project_id), id: project.project_id, class: "stretched-link" %>
+            </div>
+            
+            </div>
+        </div>
+        <% end %>
+    </div>
+    </div>
+</body>

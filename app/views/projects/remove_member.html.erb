@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Confirmation</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Are you sure you want to remove this member from the project?</h2>
+        <h3>Member: <%= @member.id %></h3>
+        <%= link_to "Remove Member", remove_member_project_path(@project, member_id: @member.id), method: :delete, class: "btn btn-danger" %>
+        <%= link_to "Cancel", edit_project_path(@project), class: "btn btn-secondary" %>
+    </div>
+</body>
+</html>
