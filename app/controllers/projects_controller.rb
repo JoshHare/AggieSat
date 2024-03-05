@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
         render :new
     end
   end
-  
+
   def destroy
     @project = Project.find_by(project_id: params[:project_id])
     if @project.destroy
@@ -63,11 +63,11 @@ class ProjectsController < ApplicationController
     @project = Project.find_by(project_id: params[:project_id])
     @project_member = @project.project_members.build
   end
-  
+
   def create_member
     @project = Project.find_by(project_id: params[:project_id])
     @project_member = @project.project_members.build(user_id: params[:user_id])
-  
+
     if @project_member.save
       redirect_to project_path(@project), notice: 'Member was successfully added to the project.'
     else
@@ -79,12 +79,12 @@ class ProjectsController < ApplicationController
     @member = User.find(params[:member_id])
     render :remove_member
   end
-  
+
   def remove_member
     @project = Project.find_by(project_id: params[:project_id])
     @member = User.find(params[:member_id])
     @project_member = @project.project_members.find_by(user_id: @member.uid)
-  
+
     if @project_member.destroy
       flash[:notice] = "Member removed from the project successfully."
     else

@@ -22,6 +22,7 @@ ProjectMember.destroy_all
 
 User.create!([
   {
+    id: '25',
     uid: '25',
     avatar_url: 'testing',
     full_name: 'Skye Slaughter',
@@ -31,6 +32,7 @@ User.create!([
     email: 'email@',
   },
   {
+    id: '26',
     uid: '26',
     avatar_url: 'testing',
     full_name: 'Daniel Newsom',
@@ -40,6 +42,7 @@ User.create!([
     email: 'email@',
   },
   {
+    id: '27',
     uid: '27',
     avatar_url: 'testing',
     full_name: 'Shirish Pandam',
@@ -49,6 +52,7 @@ User.create!([
     email: 'email@',
   },
   {
+    id: '28',
     uid: '28',
     avatar_url: 'testing',
     full_name: 'Azalea Andrews',
@@ -58,6 +62,7 @@ User.create!([
     email: 'email@',
   },
   {
+    id: '29',
     uid: '29',
     avatar_url: 'testing',
     full_name: 'Lexi Urquhart',
@@ -67,6 +72,7 @@ User.create!([
     email: 'email@',
   },
   {
+    id: '30',
     uid: '30',
     avatar_url: 'testing',
     full_name: 'Kamalika Bose',
@@ -76,6 +82,7 @@ User.create!([
     email: 'email@',
   },
   {
+    id: '31',
     uid: '31',
     avatar_url: 'testing',
     full_name: 'Tate Crawford',
@@ -102,22 +109,30 @@ User.create!([
     uid: '34',
     avatar_url: 'testing',
     full_name: 'Adidev Mohapatra',
-    role: 'Member',
+    role: 'Admin',
     email: 'adidev@tamu.edu'
   },
   {
     uid: '35',
     avatar_url: 'testing',
     full_name: 'Daniela Martinis',
-    role: 'Member',
+    role: 'Admin',
     email: 'daniela.martinis@tamu.edu'
   },
   {
+    id: '36',
     uid: '36',
     avatar_url: 'testing',
     full_name: 'amy bob',
     role: 'Member',
     email: 'amybob@tamu.edu'
+  },
+  {
+    uid: '37',
+    avatar_url: 'testing',
+    full_name: 'Christian Mosquera',
+    role: 'Admin',
+    email: 'cwbo.1701@tamu.edu'
   }
 ])
 Rails.logger.debug { "Created #{User.count} Users" }
