@@ -17,6 +17,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_195321) do
   create_table "attendance_records", force: :cascade do |t|
     t.integer "user_id"
     t.integer "schedule_id"
+    t.integer "project_id"
     t.datetime "checkin"
     t.boolean "approval_status"
     t.datetime "created_at", null: false
@@ -24,21 +25,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_195321) do
   end
 
   create_table "project_members", force: :cascade do |t|
-    t.integer "user_id"
+    t.string "user_id"
     t.integer "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|
-    t.integer "leader_id"
+    t.integer "project_id"
+    t.string "leader_id"
     t.string "project_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "scheduled_workdays", force: :cascade do |t|
-    t.integer "program_manager_id"
+    t.string "program_manager_id"
+    t.integer "project_id"
     t.date "day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -53,6 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_195321) do
 
   create_table "training_courses", force: :cascade do |t|
     t.string "name"
+    t.integer "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -66,7 +70,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_195321) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.integer "team_id"
+    t.string "uid"
+    t.string "avatar_url"
+    t.string "full_name"
     t.string "first_name"
     t.string "last_name"
     t.string "role"

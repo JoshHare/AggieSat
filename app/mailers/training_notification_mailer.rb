@@ -8,7 +8,7 @@ class TrainingNotificationMailer < ApplicationMailer
     puts admin_emails
     puts content
     mail(
-      to: "jmhhare@gmail.com",
+      to: admin_emails,
       subject: 'AggieSat: Training Report',
       from: "aggiesat.notifs@gmail.com"
       )

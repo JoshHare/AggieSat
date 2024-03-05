@@ -28,7 +28,7 @@ User.create!([
     first_name: 'Skye',
     last_name: 'Slaughter',
     role: 'Member',
-    email: 'email',
+    email: 'jmhhare@tamu.edu',
   },
   {
     uid: '26',
@@ -37,7 +37,7 @@ User.create!([
     first_name: 'Daniel',
     last_name: 'Newsom',
     role: 'Member',
-    email: 'email',
+    email: 'jmhhare@tamu.edu',
   },
   {
     uid: '27',
@@ -46,7 +46,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'email',
+    email: 'jmhhare@tamu.edu',
   },
   {
     uid: '28',
@@ -55,7 +55,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'email',
+    email: 'jmhhare@tamu.edu',
   },
   {
     uid: '29',
@@ -64,7 +64,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'email',
+    email: 'jmhhare@tamu.edu',
   },
   {
     uid: '30',
@@ -73,7 +73,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'email',
+    email: 'jmhhare@tamu.edu',
   },
   {
     uid: '31',
@@ -82,7 +82,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'email',
+    email: 'jmhhare@tamu.edu',
   },
   {
     uid: '32',
