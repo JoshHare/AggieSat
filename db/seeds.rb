@@ -28,7 +28,8 @@ User.create!([
     first_name: 'Skye',
     last_name: 'Slaughter',
     role: 'Member',
-    email: 'email@',
+    email: 'jmhhare@tamu.edu',
+
   },
   {
     uid: '26',
@@ -37,7 +38,8 @@ User.create!([
     first_name: 'Daniel',
     last_name: 'Newsom',
     role: 'Member',
-    email: 'email@',
+    email: 'jmhhare@tamu.edu',
+
   },
   {
     uid: '27',
@@ -46,7 +48,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'email@',
+    email: 'jmhhare@tamu.edu',
   },
   {
     uid: '28',
@@ -55,7 +57,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'email@',
+    email: 'jmhhare@tamu.edu',
   },
   {
     uid: '29',
@@ -64,7 +66,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'email@',
+    email: 'jmhhare@tamu.edu',
   },
   {
     uid: '30',
@@ -73,7 +75,8 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'email@',
+    email: 'jmhhare@tamu.edu',
+
   },
   {
     uid: '31',
@@ -82,7 +85,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'email@',
+    email: 'jmhhare@tamu.edu',
   },
   {
     uid: '32',
@@ -132,23 +135,23 @@ Rails.logger.debug { "Created #{User.count} Users" }
 TrainingCourse.create!([
   {
     name: 'Export Controls & Embargo Training - Basic Course',
-    course_id: 2_111_212
+    course_id: 2111212
   },
   {
     name: 'Export Controls - Technology Control Plans',
-    course_id: 2_111_873
+    course_id: 2111873
   },
   {
     name: 'Laboratory Safety Training (Online) - EHS',
-    course_id: 2_114_106
+    course_id: 2114106
   },
   {
     name: 'Fire Safety for the Laboratory - EHS',
-    course_id: 2_112_861
+    course_id: 2112861
   },
   {
     name: 'Hazard Communication',
-    course_id: 11_020
+    course_id: 11020
   }
 ]
                       )
@@ -157,52 +160,52 @@ Rails.logger.debug { "Created #{TrainingCourse.count} Training Coureses" }
 
 TrainingEnrollment.create!([
   {
-    course_id: 2_112_861,
+    course_id: 2112861,
     user_id: 1,
     completion_status: '2023-09-03 00:00:00'
   },
   {
-    course_id: 11_020,
+    course_id: 11020,
     user_id: 1,
     completion_status: '2023-10-03 00:00:00'
   },
   {
-    course_id: 2_111_873,
+    course_id: 2111873,
     user_id: 1,
     completion_status: '2023-09-03 00:00:00'
   },
   {
-    course_id: 2_112_861,
+    course_id: 2112861,
     user_id: 2,
     completion_status: '2023-09-06 00:00:00'
   },
   {
-    course_id: 11_020,
+    course_id: 11020,
     user_id: 2,
     completion_status: '2023-08-21 00:00:00'
   },
   {
-    course_id: 2_112_861,
+    course_id: 2112861,
     user_id: 2,
     completion_status: '2023-11-14 00:00:00'
   },
   {
-    course_id: 2_112_861,
+    course_id: 2112861,
     user_id: 3,
     completion_status: '2023-08-14 00:00:00'
   },
   {
-    course_id: 2_111_212,
+    course_id: 2111212,
     user_id: 3,
     completion_status: '2023-11-15 00:00:00'
   },
   {
-    course_id: 2_111_212,
+    course_id: 2111212,
     user_id: 4,
     completion_status: '2023-10-17 00:00:00'
   },
   {
-    course_id: 2_111_212,
+    course_id: 2111212,
     user_id: 5,
     completion_status: '2023-11-12 00:00:00'
   }
