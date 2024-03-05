@@ -93,12 +93,25 @@ RSpec.describe 'Checking usability of website: ', type: :feature do
     expect(page).to have_content('Upload PDF')
     visit show_path
     expect(page).to have_content('Workday')
+    #visit project_path  rn since its scoped to all we can skip
+    #expect(page).to have_content('Create Project')
 
     click_on 'Logout?'
     expect(page).to have_content('out successfully')
   end
 
-  scenario 'all paths accessible after log in as member' do #check usability as project lead
+  scenario 'all paths accessible after log in as member' do #check usability as admin
+    OmniAuth.config.before_callback_phase do |env|
+      OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+        :provider => 'google_oauth2',
+        :uid => '28',
+        :info => {:email => 'amybob2@tamu.edu',
+        :name => 'amy bob 2',
+        :image => 'testing'},
+      #etc.
+      })
+      env["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+    end
     visit new_user_session_path
     click_on 'Sign in with Google'
 
@@ -108,6 +121,13 @@ RSpec.describe 'Checking usability of website: ', type: :feature do
     expect(page).to have_content('Upload PDF')
     visit show_path
     expect(page).to have_content('Workday')
+    visit projects_path
+    expect(page).to have_content('Create Project')
+    click_on '3'
+    expect(page).to have_content('AGS6')
+
+    click_on 'Logout?'
+    expect(page).to have_content('out successfully')
   end
 
 end
