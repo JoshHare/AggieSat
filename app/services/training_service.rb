@@ -77,10 +77,11 @@ class TrainingService
 
   #check TrainingEnrollment db for enrollment for a specific course and user
   def self.check_enrollment_and_validity(training_course, user)
-    enrollment = TrainingEnrollment.find_by(course_id: training_course.course_id, user_id: user.uid.to_i)
+    enrollment = TrainingEnrollment.find_by(course_id: training_course.course_id, user_id: user.id.to_i)
 
     if enrollment #if it exists
       result = check_validity(enrollment)
+      puts "FOUND"
       result
     else #if no enrollment found
 

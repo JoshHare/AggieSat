@@ -1,0 +1,27 @@
+<!-- app/views/training_enrollments/user_enrollments.html.erb -->
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">Training Status for <%= @user.full_name %></h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Course</th>
+            <th>Completion Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @enrollments.each do |enrollment| %>
+            <tr>
+              <td><%= enrollment[:course_title] %> - <%= enrollment[:course_id] %></td>
+              <td><%= enrollment[:result] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      <%= link_to "Back to All Students", training_enrollments_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>
