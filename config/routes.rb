@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     collection do
       post :email_all
     end
+    collection do
+      get :user_enrollments
+    end
   end
 
   # Route for projects index page

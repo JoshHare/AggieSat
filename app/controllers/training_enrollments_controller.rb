@@ -4,6 +4,7 @@ class TrainingEnrollmentsController < ApplicationController
   def index
     @enrollments = TrainingEnrollment.all
     @valid_results = @enrollments.map { |enrollment| check_validity(enrollment) }
+
   end
 
   def show
@@ -48,6 +49,31 @@ class TrainingEnrollmentsController < ApplicationController
     @enrollment.destroy!
     # render('index')
     redirect_to(training_enrollments_path)
+  end
+
+  def user_enrollments
+    @user = User.find_by(uid: params[:user_id].to_s)
+  @enrollments = []
+
+  TrainingCourse.all.each do |course|
+    result = TrainingService.check_enrollment_and_validity(course, @user) # Assuming check_enrollment_and_validity is defined elsewhere
+    enrollment = {}
+    enrollment[:course_title] = course.name
+    enrollment[:course_id] = course.course_id
+    enrollment[:result] = result
+    @enrollments << enrollment
+
+
+  end
+
+  # Additionally, you may want to retrieve the actual TrainingEnrollments for display purposes
+  # Uncomment the following line if you need TrainingEnrollments records for the user
+  # @training_enrollments = TrainingEnrollment.where(user_id: @user)
+
+  # Respond to HTML format request
+  respond_to do |format|
+    format.html # Render the view
+  end
   end
 
   def email_all
