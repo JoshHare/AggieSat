@@ -146,7 +146,7 @@ RSpec.describe 'PDF proccessor integration test: ', type: :feature do
     attach_file "pdf", "spec/test_files/validTrainingTT.pdf"
     click_button "Upload PDF"
     expect(page).to have_content('successfully uploaded')
-    expect(page).to have_content('Kate E Woodard 2112861 8/29/2023')
+    expect(page).to have_content('2112861 amy bob 2 2023-08-29')
 
   end
 
@@ -158,7 +158,7 @@ RSpec.describe 'PDF proccessor integration test: ', type: :feature do
     attach_file "pdf", "spec/test_files/validTrainingC.pdf"
     click_button "Upload PDF"
     expect(page).to have_content('successfully uploaded')
-    expect(page).to have_content('Pan Zhou 2112861 9/1/2023')
+    expect(page).to have_content('2112861 amy bob 2 2023-09-01')
 
   end
 
