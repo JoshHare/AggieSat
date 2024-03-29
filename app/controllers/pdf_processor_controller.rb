@@ -65,9 +65,9 @@ class PdfProcessorController < ApplicationController
       flash[:error] = 'Please select a valid PDF file.'
       redirect_to(upload_path)
     end
-  # rescue StandardError => e
-  #   flash[:error] = "An error occurred: #{e.message}"
-  #  redirect_to(upload_path)
+  rescue StandardError => e
+    flash[:error] = "An error occurred: #{e.message}"
+   redirect_to(upload_path)
    end
 
   private
