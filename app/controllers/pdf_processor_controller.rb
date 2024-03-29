@@ -15,7 +15,7 @@ class PdfProcessorController < ApplicationController
       training_enrollment = TrainingEnrollment.find_by(user_id: @user.id, course_id: course.course_id)
       if training_enrollment
         Rails.logger.debug('DDDDD')
-        enrollment[:date] = training_enrollment.completion_status.strftime('%d/%m/%Y')
+        enrollment[:date] = training_enrollment.completion_status.strftime('%m/%d/%Y')
       else
         enrollment[:date] = 'N/A'
       end
@@ -83,10 +83,17 @@ class PdfProcessorController < ApplicationController
 
   def update_training_enrollment(user_id, course_id, completion_date)
     training_enrollment = TrainingEnrollment.find_or_initialize_by(user_id: user_id, course_id: course_id)
-
-    if training_enrollment.new_record? || completion_date > training_enrollment.completion_status
+    puts "JERE"
+  puts @processed_data
+  puts "New Record: #{training_enrollment.new_record?}"
+  puts "Completion Date: #{completion_date}"
+  puts "Completion Status: #{training_enrollment.completion_status}"
+  puts "comp: #{completion_date.to_date > training_enrollment.completion_status.to_date}"
+    puts @processed_data
+    if training_enrollment.new_record? || completion_date.to_date < training_enrollment.completion_status.to_date
       training_enrollment.completion_status = completion_date
       training_enrollment.save!
+      puts "SAVED"
     end
   end
 
