@@ -29,7 +29,7 @@
     <% @processed_data.each do |enrollment| %>
       <tr>
         <td><%= enrollment[:course_id] %></td>
-        <td><%= User.find_by(id: enrollment[:user_id]).full_name %></td>
+        <td><%= User.find(current_user.id).full_name %></td>
         <td><%= enrollment[:completion_date] %></td>
         <td>
           <% valid_result = enrollment[:status] %>
