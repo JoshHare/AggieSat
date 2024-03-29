@@ -32,14 +32,14 @@ RSpec.describe 'Checking security/integrity of application with google oauth: ',
       })
       env["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
     end
-    
+
     #puts Rails.application.env_config["omniauth.auth"]
-    
+
     visit new_user_session_path
     click_on 'Sign in with Google'
 
     expect(page).to have_content('email')
-  end 
+  end
 
   #not a tamu email login does not work because mockauth does not hit google's endpoint
 
@@ -61,8 +61,8 @@ RSpec.describe 'Checking security/integrity of application with google oauth: ',
     click_on 'Sign in with Google'
 
     expect(page).to have_content('issues saving')
-  end 
-  
+  end
+
 end
 
 RSpec.describe 'Checking usability of website: ', type: :feature do
@@ -144,7 +144,7 @@ RSpec.describe 'PDF proccessor integration test: ', type: :feature do
 
     visit upload_path
     attach_file "pdf", "spec/test_files/validTrainingTT.pdf"
-    click_button "Process PDF"
+    click_button "Upload PDF"
     expect(page).to have_content('successfully uploaded')
     expect(page).to have_content('Kate E Woodard 2112861 8/29/2023')
 
@@ -156,7 +156,7 @@ RSpec.describe 'PDF proccessor integration test: ', type: :feature do
 
     visit upload_path
     attach_file "pdf", "spec/test_files/validTrainingC.pdf"
-    click_button "Process PDF"
+    click_button "Upload PDF"
     expect(page).to have_content('successfully uploaded')
     expect(page).to have_content('Pan Zhou 2112861 9/1/2023')
 
@@ -168,7 +168,7 @@ RSpec.describe 'PDF proccessor integration test: ', type: :feature do
 
     visit upload_path
     attach_file "pdf", "spec/test_files/AGSL.webp" #change this later
-    click_button "Process PDF"
+    click_button "Upload PDF"
     expect(page).to have_content('error')
   end
 
@@ -178,18 +178,18 @@ RSpec.describe 'PDF proccessor integration test: ', type: :feature do
 
     visit upload_path
     attach_file "pdf", "spec/test_files/AGSL.webp"
-    click_button "Process PDF"
+    click_button "Upload PDF"
     expect(page).to have_content('error')
-  end 
+  end
 
  #scenario 'upload invalid pdf (unexpected format)' do #invalid pdf
  #   visit new_user_session_path
  #   click_on 'Sign in with Google'
 
  #   visit upload_path
- #   attach_file "pdf", "spec/test_files/invalidTraining.pdf" 
+ #   attach_file "pdf", "spec/test_files/invalidTraining.pdf"
  #   click_button "Process PDF"
  #   expect(page).to have_content('bob')
- # end 
-  
+ # end
+
 end
