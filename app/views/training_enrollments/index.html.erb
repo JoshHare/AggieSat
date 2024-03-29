@@ -1,7 +1,8 @@
 <div class="container">
   <h2 class="mb-4">Training Enrollments </h2>
 
-  <%= link_to("Add New Enrollment", new_training_enrollment_path, class: 'btn btn-primary mb-3') %>
+  <%= link_to("Add New Enrollment", new_training_enrollment_path, class: 'btn btn-custom ') %>
+  <%= link_to "Course Manager", training_courses_path, class: "btn btn-custom" %>
 
   <%= form_tag({ controller: 'training_enrollments', action: 'email_all' }, method: 'post') do %>
     <%= button_tag('Email all', class: 'btn btn-info mb-3', type: 'submit') %>

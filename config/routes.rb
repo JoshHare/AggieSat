@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :training_courses
+
   # Route for projects index page
   get '/projects', to: 'projects#index', as: 'projects_index'
   resources :projects, only: [:show, :new, :create], param: :project_id do
