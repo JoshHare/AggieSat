@@ -7,76 +7,88 @@ class PdfProcessorController < ApplicationController
     @user = User.find(current_user.id)
     @enrollments = []
 
-    TrainingCourse.all.each do |course|
-      result = TrainingService.check_enrollment_and_validity(course, @user) # Assuming check_enrollment_and_validity is defined elsewhere
+    TrainingCourse.all.find_each do |course|
+      result = TrainingService.check_enrollment_and_validity(course, @user)
       enrollment = {}
       enrollment[:course_title] = course.name
       enrollment[:course_id] = course.course_id
-      training_enrollment = TrainingEnrollment.find_by(user_id: @user.id.to_i, course_id: course.course_id)
+      training_enrollment = TrainingEnrollment.find_by(user_id: @user.id, course_id: course.course_id)
       if training_enrollment
-        puts "DDDDD"
+        Rails.logger.debug('DDDDD')
         enrollment[:date] = training_enrollment.completion_status.strftime('%d/%m/%Y')
       else
-        enrollment[:date] = "N/A"
+        enrollment[:date] = 'N/A'
       end
-      puts "#{course.course_id} #{enrollment[:date]}"
+      Rails.logger.debug { "#{course.course_id} #{enrollment[:date]}" }
       enrollment[:result] = result
       @enrollments << enrollment
-
-
     end
-
-    # Additionally, you may want to retrieve the actual TrainingEnrollments for display purposes
-    # Uncomment the following line if you need TrainingEnrollments records for the user
-    # @training_enrollments = TrainingEnrollment.where(user_id: @user)
 
     # Respond to HTML format request
     respond_to do |format|
-      format.html # Render the view
+      format.html
     end
   end
 
   def process_pdf
-    @processed_data = []
-    if params[:pdf].present? && params[:pdf].respond_to?(:read)
-      pdf_text = extract_text_from_pdf(params[:pdf].tempfile.path)
-      @parsed = parse(pdf_text)
-      @parsed.each do |course|
-        user_id = current_user.id.to_i
-        course_id = course[:course_id].to_i
-
-        completion_date = Date.strptime(course[:completion_date], '%m/%d/%Y')
-        d = TrainingCourse.exists?(course_id: course_id)
-        puts d
-        next unless TrainingCourse.exists?(course_id: course_id)
-
-        # Try to find a record with the specified user_id and course_id
-        puts "#{user_id} #{course_id}"
-        @training_enrollment = TrainingEnrollment.find_or_initialize_by(user_id: user_id, course_id: course_id)
-        # Update the completion_status attribute
-        puts "#{@training_enrollment.new_record?}???"
-        if @training_enrollment.new_record? || completion_date > @training_enrollment.completion_status
-          # Update the completion_status attribute
-          @training_enrollment.completion_status = completion_date
-          @training_enrollment.save!
-          @processed_data << { course_id: course_id, user_id: user_id, completion_date: completion_date }
-
-        end
-      end
-      # Display a success flash notice
-      flash[:success] = 'PDF successfully uploaded and processed!'
-      # Output the extracted text to the terminal for testing
-      render('processed')
+    if pdf_params_valid?
+      process_valid_pdf
     else
-      flash[:error] = 'Please select a valid PDF file.'
-      redirect_to(upload_path)
+      handle_invalid_pdf
     end
   rescue StandardError => e
     flash[:error] = "An error occurred: #{e.message}"
-    redirect_to(upload_path)
+    Rails.logger.error("An error occurred: #{e.message}")
+    #   redirect_to(upload_path)
   end
 
   private
+
+  def pdf_params_valid?
+    params[:pdf].present? && params[:pdf].respond_to?(:read)
+  end
+
+  def process_valid_pdf
+    @processed_data = []
+    pdf_text = extract_text_from_pdf(params[:pdf].tempfile.path)
+    parsed_courses = parse(pdf_text)
+
+    parsed_courses.each do |course|
+      process_course(course)
+    end
+
+    flash[:success] = 'PDF successfully uploaded and processed!'
+    render('processed')
+  end
+
+  def handle_invalid_pdf
+    flash[:error] = 'Please select a valid PDF file.'
+    redirect_to(upload_path)
+  end
+
+  def process_course(course)
+    user_id = Integer(current_user.id)
+    course_id = Integer(course[:course_id])
+    completion_date = Date.strptime(course[:completion_date], '%m/%d/%Y')
+
+    if training_course_exists?(course_id)
+      update_training_enrollment(user_id, course_id, completion_date)
+      @processed_data << { course_id: course_id, user_id: user_id, completion_date: completion_date }
+    end
+  end
+
+  def training_course_exists?(course_id)
+    TrainingCourse.exists?(course_id: course_id)
+  end
+
+  def update_training_enrollment(user_id, course_id, completion_date)
+    training_enrollment = TrainingEnrollment.find_or_initialize_by(user_id: user_id, course_id: course_id)
+
+    if training_enrollment.new_record? || completion_date > training_enrollment.completion_status
+      training_enrollment.completion_status = completion_date
+      training_enrollment.save!
+    end
+  end
 
   def extract_text_from_pdf(pdf_path)
     require('pdf/reader')
