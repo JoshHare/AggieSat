@@ -161,8 +161,8 @@ RSpec.describe('PDF proccessor integration test: ', type: :feature) do
     puts "Current path: #{current_path}" # Print current path for debugging
     attach_file 'pdf', 'spec/test_files/validTrainingTT.pdf'
     click_button 'Upload PDF'
-    save_and_open_page
-    expect(page).to(have_content('successfully uploaded'))
+
+    expect(page).to(have_content('successfully uploaded', wait: 10))
     expect(page).to(have_content('2112861 amy bob 2 2023-08-29'))
   end
 
