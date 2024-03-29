@@ -3,6 +3,9 @@ class ProjectsController < ApplicationController
     @project = Project.find_by(project_id: params[:project_id])
     @upcoming_workdays = ScheduledWorkday.where('day >= ? AND project_id = ?', Date.today, @project.project_id)
     @previous_workdays = ScheduledWorkday.where('day < ? AND project_id = ?', Date.today, @project.project_id)
+    @pending_members = AttendanceRecord.where('checkin >= ? AND project_id = ?', Date.today, @project.project_id)
+    @approval_status = (AttendanceRecord.where('user_id = ? AND checkin >= ? AND project_id = ?', current_user.uid, Date.today, @project.project_id)).first
+
 
     if AttendanceRecord.where('project_id = ? AND user_id = ?', @project.project_id, current_user.uid)
       @status = AttendanceRecord.find_by(user_id: current_user.uid, project_id: @project.project_id)
@@ -93,9 +96,31 @@ class ProjectsController < ApplicationController
     redirect_to project_path(@project)
   end
 
+  def create_record
+    workday = ScheduledWorkday.find(params[:workday_id])
+    if AttendanceRecord.create!(user_id: current_user.uid, schedule_id: workday.id, project_id: workday.project_id, checkin: Time.current.in_time_zone('Central Time (US & Canada)'), approval_status: false)
+      flash[:notice] = "Checked in successfully."
+    else
+      render :index
+    end
+  end
+
+  def accept_member
+    checkin = AttendanceRecord.where(user_id: params[:user_id], schedule_id: params[:schedule_id])
+    if checkin
+      checkin.update(approval_status: true)
+    end
+  end
+
+  def reject_member
+    reject_checkin = AttendanceRecord.where(user_id: params[:user_id], schedule_id: params[:schedule_id]).first
+    reject_checkin.destroy!
+  end
+
   private
 
   def project_params
     params.require(:project).permit(:project_name, :leader_id, :project_id, :other_attributes)
   end
+
 end

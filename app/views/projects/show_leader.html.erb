@@ -31,25 +31,44 @@
       </div>
     </div>
     <div class="tab-pane fade show" id="upcoming-tab-pane" role="tabpanel" aria-labelledby="upcoming-tab">
-      <div class="row mt-3">
-        <% @upcoming_workdays.each do |workday| %>
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Upcoming Workday</h5>
-                <p class="card-text">Date: <%= workday.day %></p>
-                <% if @status %>
-                  <p class="card-text">Status: Approved</p>
-                <% else %>
-                  <p class="card-text">Status: Null</p>
-                <%end%>
-                <button type="button" class="btn btn-primary" onclick="AttendanceRecord.create_record">Check In</button>
-              </div>
+    <div class="row mt-3">
+      <% @upcoming_workdays.each do |workday| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Pending Status For Members</h5>
+              <p class="card-text">Date: <%= workday.day %></p>
+              <% @pending_members.each do |member| %>
+                <% if member.approval_status == false %>
+                  <li>
+                  <%= User.find_by(uid: member.user_id).full_name %> 
+                  <%= form_with(url: accept_member_project_path(@project), method: :post, local: true) do |form| %>
+                    <%= form.hidden_field :schedule_id, value:  workday.id %>
+                    <%= form.hidden_field :user_id, value:  member.user_id %>
+                    <%= form.submit "Accept", class: "btn btn-primary" %>
+                  <% end %>
+                  <%= form_with(url: reject_member_project_path(@project), method: :post, local: true) do |form| %>
+                    <%= form.hidden_field :schedule_id, value:  workday.id %>
+                    <%= form.hidden_field :user_id, value:  member.user_id %>
+                    <%= form.submit "Reject", class: "btn btn-primary" %>
+                  <% end %>
+                  </li>
+                <% end %>
+              <% end %>
+              <h5 class="card-title">Approved Status For Members</h5>
+              <% @pending_members.each do |member| %>
+                <% if member.approval_status %>
+                  <li>
+                  <%= User.find_by(uid: member.user_id).full_name %> 
+                  </li>
+                <% end %>
+              <% end %>
             </div>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
+  </div>
     <div class="tab-pane fade" id="previous-tab-pane" role="tabpanel" aria-labelledby="previous-tab">
       <div class="row mt-3">
         <% @previous_workdays.each do |workday| %>
@@ -63,7 +82,6 @@
                 <% else %>
                   <p class="card-text">Status: Null</p>
                 <%end%>
-                <button type="button" class="btn btn-primary disabled" onclick="AttendanceRecord.create_record">Check In</button>
               </div>
             </div>
           </div>

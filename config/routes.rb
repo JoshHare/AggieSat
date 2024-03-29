@@ -36,6 +36,9 @@ Rails.application.routes.draw do
       post :create_member
       delete :remove_member
       get :remove_member_confirmation, to: 'projects#remove_member'
+      post :create_record
+      post :accept_member
+      post :reject_member
     end
   end
   delete 'projects/:project_id', to: 'projects#destroy', as: 'destroy_project'
