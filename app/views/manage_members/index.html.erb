@@ -11,7 +11,6 @@
           <th>Email</th>
           <th>Role</th>
           <th>Remove</th>
-          <th>UID</th>
         </tr>
       </thead>
       <tbody>
@@ -34,9 +33,6 @@
             </td>
             <td>
               <%= button_to "Remove", manage_member_path(member.uid), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-            </td>
-            <td>
-              <%= member.uid %>
             </td>
           </tr>
         <% end %>

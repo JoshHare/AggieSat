@@ -55,7 +55,7 @@ class TrainingEnrollmentsController < ApplicationController
     TrainingService.send_emails_for_overdue_trainings
 
     # Redirect or render as needed
-    redirect_to training_enrollments_path, notice: 'Custom action performed successfully.'
+    redirect_to(training_enrollments_path, notice: 'Custom action performed successfully.')
   end
 
   private
@@ -64,12 +64,12 @@ class TrainingEnrollmentsController < ApplicationController
     TrainingService.check_validity(enrollment)
   end
 
-
   def enrollment_params
     params.require(:training_enrollment).permit(:course_id, :user_id, :completion_status)
   end
 
-  def out_of_date?(enrollment) #checks if the training is expired (1 year old)
+  # checks if the training is expired (1 year old)
+  def out_of_date?(enrollment)
     if enrollment.completion_status.present?
       completion_status_threshold = 1.year.ago
       return enrollment.completion_status < completion_status_threshold
@@ -86,6 +86,4 @@ class TrainingEnrollmentsController < ApplicationController
 
     false
   end
-
-
 end

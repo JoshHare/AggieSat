@@ -86,11 +86,9 @@
               <div class="card-body">
                 <h5 class="card-title">Previous Workday</h5>
                 <p class="card-text">Date: <%= workday.day %></p>
-                <% if @status %>
-                  <p class="card-text">Status: Approved</p>
-                <% else %>
-                  <p class="card-text">Status: Null</p>
-                <%end%>
+                <%= form_tag(export_workday_attendance_project_path(project_id: @project.project_id, schedule_id: workday.id, format: :csv), method: :post) do %>
+                  <%= submit_tag "Export Workday Attendance", class: "btn btn-primary" %>
+                <% end %>
               </div>
             </div>
           </div>

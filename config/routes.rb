@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       post :create_record
       post :accept_member
       post :reject_member
+      post :export_workday_attendance
     end
   end
   delete 'projects/:project_id', to: 'projects#destroy', as: 'destroy_project'
