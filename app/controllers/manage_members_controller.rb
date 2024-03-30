@@ -8,7 +8,11 @@ class ManageMembersController < ApplicationController
     end
     
     def create
-        @user = User.new(member_params)
+        @user = User.new
+        @user.uid = generate_uid
+        @user.full_name = params[:user][:full_name]
+        @user.email = params[:user][:email]
+        @user.role = params[:user][:role]
         @user.avatar_url = 'testing'
         if @user.save
           redirect_to manage_members_path, notice: 'New member added successfully.'
@@ -36,8 +40,10 @@ class ManageMembersController < ApplicationController
 
     private
 
-    def member_params
-        params.require(:user).permit(:uid, :full_name, :email, :role, :other_attributes)
+    def generate_uid
+      # Logic to generate the UID, such as finding the highest current uid and incrementing it
+      highest_uid = (User.maximum(:uid) || '0').to_i
+      (highest_uid + 1).to_s
     end
 
 end

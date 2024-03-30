@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
       @status = false
     end
 
-    if current_user.uid == @project.leader_id
+    if current_user.uid == @project.leader_id || (User.find_by(uid: current_user.uid)).role == 'Admin'
       @scheduled_workday = ScheduledWorkday.new
       render 'show_leader'
     else
@@ -22,11 +22,12 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.all
+    @projects = Project.all.order(:project_id)
   end
 
   def new
     @project = Project.new
+    @project.project_id = Project.maximum(:project_id).to_i + 1
   end
 
   def create

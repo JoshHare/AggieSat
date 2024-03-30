@@ -29,5 +29,16 @@ class User < ApplicationRecord
     errors.add(:email, "email must not be empty and valid") unless email.include?"@"
     errors.add(:full_name, "full name must not be empty") unless full_name != ''
     errors.add(:uid, "uid must not be empty") unless uid != ''
-  end 
+  end
+
+  before_save :update_associated_records, if: :uid_changed?
+
+  private
+
+  def update_associated_records
+    if uid_was.present? && uid != uid_was
+      Project.where(leader_id: uid_was).update_all(leader_id: uid)
+      ProjectMember.where(user_id: uid_was).update_all(user_id: uid)
+    end
+  end
 end
