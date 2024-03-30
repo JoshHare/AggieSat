@@ -1,6 +1,15 @@
 <h1><%= @project.project_name %></h1>
-<%= button_to "Delete", project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", title: "Delete Project" %>
 <div class="container mt-4">
+<div class="row">
+  <div class="col-md-15">
+    <% if (User.find_by(uid: current_user.uid)).role == 'Admin' %>
+      <div class="d-flex justify-content-end">
+        <%= button_to "Edit", edit_project_path(@project), method: :get, class: "btn btn-primary mr-2 w-500", title: "Edit Project" %>
+        <%= button_to "Delete", project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger mr-2 w-500", title: "Delete Project" %>
+      </div>
+    <% end %>
+  </div>
+  </div>
   <ul class="nav nav-tabs" id="workdaysTabs" role="tablist">
     <li class="nav-item">
       <button class="nav-link active" id="create-tab" data-bs-toggle="tab" data-bs-target="#create-tab-pane" type="button" role="tab" aria-controls="create-tab-pane" aria-selected="true">Create Workdays</button>

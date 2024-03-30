@@ -13,14 +13,16 @@
             <%= link_to 'Home', root_path, class: 'nav-link' %>
             </li>
             <li class='nav-item bg-light'>
-            <%= link_to 'Check-in', show_path, class: 'nav-link' %>
-            </li>
-            <li class='nav-item bg-light'>
             <%= link_to 'Submit Training', upload_path, class: 'nav-link' %>
             </li>
-            <li class='nav-item bg-light'>
-            <%= link_to 'Manage Projects', projects_index_path, class: 'nav-link' %>
-            </li>
+            <% if (User.find_by(uid: current_user.uid)).role == 'Admin' %>
+                <li class='nav-item bg-light'>
+                <%= link_to 'Manage Projects', projects_index_path, class: 'nav-link' %>
+                </li>
+                <li class='nav-item bg-light'>
+                <%= link_to 'Manage Members', manage_members_path, class: 'nav-link' %>
+                </li>
+            <% end %>
         </ul>
         </div>
         <%= button_to 'Logout?', destroy_user_session_path, method: :post, form_class: 'pb-10', class: 'btn btn-custom' %>

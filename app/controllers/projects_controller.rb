@@ -116,6 +116,19 @@ class ProjectsController < ApplicationController
     reject_checkin = AttendanceRecord.where(user_id: params[:user_id], schedule_id: params[:schedule_id]).first
     reject_checkin.destroy!
   end
+  
+  def edit
+    @project = Project.find_by(project_id: params[:project_id])
+  end
+  
+  def update
+    @project = Project.find_by(project_id: params[:project_id])
+    if @project.update(project_params)
+      redirect_to project_path(@project), notice: 'Project was successfully updated.'
+    else
+      render :edit
+    end
+  end
 
   private
 
