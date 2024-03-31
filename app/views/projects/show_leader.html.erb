@@ -47,7 +47,7 @@
             <div class="card-body">
               <h5 class="card-title">Pending Status For Members</h5>
               <p class="card-text">Date: <%= workday.day %></p>
-              <% @pending_members.each do |member| %>
+              <% (@pending_members.where(schedule_id: workday.id)).each do |member| %>
                 <% if member.approval_status == false %>
                   <li>
                   <%= User.find_by(uid: member.user_id).full_name %> 
@@ -65,7 +65,7 @@
                 <% end %>
               <% end %>
               <h5 class="card-title">Approved Status For Members</h5>
-              <% @pending_members.each do |member| %>
+              <% (@pending_members.where(schedule_id: workday.id)).each do |member| %>
                 <% if member.approval_status %>
                   <li>
                   <%= User.find_by(uid: member.user_id).full_name %> 

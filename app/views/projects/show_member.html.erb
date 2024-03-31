@@ -27,16 +27,23 @@
               <div class="card-body">
                 <h5 class="card-title">Upcoming Workday</h5>
                 <p class="card-text">Date: <%= workday.day %></p>
-                <% if @approval_status %>
-                  <% if @approval_status.approval_status %>
+                <% if (@approval_status.where(schedule_id: workday.id)).first %>
+                  <% if ((@approval_status.where(schedule_id: workday.id)).first).approval_status %>
                     <p class="card-text">Status: Approved</p>
                   <% end %>
                 <% else %>
                   <p class="card-text">Status: Null</p>
                 <% end %>
-                <%= form_with(url: create_record_project_path(@project), method: :post, local: true) do |form| %>
-                  <%= form.hidden_field :workday_id, value: workday.id %>
-                  <%= form.submit "Check In", class: "btn btn-primary" %>
+                <% if workday.day <= Time.zone.today %>
+                  <%= form_with(url: create_record_project_path(@project), method: :post, local: true) do |form| %>
+                    <%= form.hidden_field :workday_id, value: workday.id %>
+                    <%= form.submit "Check In", class: "btn btn-primary" %>
+                  <% end %>
+                <% else %>
+                  <%= form_with(url: create_record_project_path(@project), method: :post, local: true, html: { disabled: true }) do |form| %>
+                    <%= form.hidden_field :workday_id, value: workday.id %>
+                    <%= form.submit "Check In", class: "btn btn-primary", disabled: true %>
+                  <% end %>
                 <% end %>
               </div>
             </div>
@@ -53,8 +60,8 @@
               <div class="card-body">
                 <h5 class="card-title">Previous Workday</h5>
                 <p class="card-text">Date: <%= workday.day %></p>
-                <% if @approval_status %>
-                  <% if @approval_status.approval_status %>
+                <% if (@previous_status.where(schedule_id: workday.id)).first %>
+                  <% if ((@previous_status.where(schedule_id: workday.id)).first).approval_status %>
                     <p class="card-text">Status: Approved</p>
                   <% end %>
                 <% else %>

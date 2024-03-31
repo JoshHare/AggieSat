@@ -8,7 +8,10 @@ class ProjectsController < ApplicationController
     @pending_members = AttendanceRecord.where('checkin >= ? AND project_id = ?', Time.zone.today, @project.project_id)
     @approval_status = AttendanceRecord.where('user_id = ? AND checkin >= ? AND project_id = ?', current_user.uid, Time.zone.today,
                                               @project.project_id
-    ).first
+    )
+    @previous_status = AttendanceRecord.where('user_id = ? AND checkin < ? AND project_id = ?', current_user.uid, Time.zone.today,
+                                              @project.project_id
+    )
 
     @status = if AttendanceRecord.where('project_id = ? AND user_id = ?', @project.project_id, current_user.uid)
                 AttendanceRecord.find_by(user_id: current_user.uid, project_id: @project.project_id)
