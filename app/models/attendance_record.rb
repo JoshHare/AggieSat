@@ -8,7 +8,7 @@ class AttendanceRecord < ApplicationRecord
       user_id: current_user.uid,
       schedule_id: workday.id,
       project_id: workday.project_id,
-      checkin: Time.now,
+      checkin: Time.zone.now,
       approval_status: false
     )
   end

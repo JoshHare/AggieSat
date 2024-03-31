@@ -3,33 +3,63 @@
 # app/controllers/pdf_processor_controller.rb
 
 class PdfProcessorController < ApplicationController
-  def upload; end
+  def upload
+    @user = User.find(current_user.id)
+    @enrollments = []
+
+    TrainingCourse.all.find_each do |course|
+      result = TrainingService.check_enrollment_and_validity(course, @user)
+      enrollment = {}
+      enrollment[:course_title] = course.name
+      enrollment[:course_id] = course.course_id
+      training_enrollment = TrainingEnrollment.find_by(user_id: Integer(@user.id), course_id: course.course_id)
+      if training_enrollment
+        Rails.logger.debug('DDDDD')
+        enrollment[:date] = training_enrollment.completion_status.strftime('%d/%m/%Y')
+      else
+        enrollment[:date] = 'N/A'
+      end
+      Rails.logger.debug { "#{course.course_id} #{enrollment[:date]}" }
+      enrollment[:result] = result
+      @enrollments << enrollment
+    end
+
+    # Respond to HTML format request
+    respond_to do |format|
+      format.html
+    end
+  end
 
   def process_pdf
+    @processed_data = []
     if params[:pdf].present? && params[:pdf].respond_to?(:read)
       pdf_text = extract_text_from_pdf(params[:pdf].tempfile.path)
       @parsed = parse(pdf_text)
       @parsed.each do |course|
-        user_id = current_user.id
-        course_id = Integer(course[:course_id], 10)
+        user_id = Integer(current_user.id)
+        puts "uid#{user_id}"
+        course_id = Integer(course[:course_id])
+
         completion_date = Date.strptime(course[:completion_date], '%m/%d/%Y')
+        d = TrainingCourse.exists?(course_id: course_id)
+        Rails.logger.debug(d)
+        next unless TrainingCourse.exists?(course_id: course_id)
 
-        next unless TrainingCourse.exists?(id: course_id)
-
-        Rails.logger.debug(course_id)
         # Try to find a record with the specified user_id and course_id
+        Rails.logger.debug { "#{user_id} #{course_id}" }
         @training_enrollment = TrainingEnrollment.find_or_initialize_by(user_id: user_id, course_id: course_id)
+        # Update the completion_status attribute
+        Rails.logger.debug { "#{@training_enrollment.new_record?}???" }
+        next unless @training_enrollment.new_record? || completion_date > @training_enrollment.completion_status
 
         # Update the completion_status attribute
         @training_enrollment.completion_status = completion_date
-
-        # Save the record to the database
         @training_enrollment.save!
+        @processed_data << { course_id: course_id, user_id: user_id, completion_date: completion_date }
       end
       # Display a success flash notice
       flash[:success] = 'PDF successfully uploaded and processed!'
       # Output the extracted text to the terminal for testing
-      Rails.logger.debug { "Extracted Text from PDF:\n\n#{@parsed}" }
       render('processed')
     else
       flash[:error] = 'Please select a valid PDF file.'
@@ -37,8 +67,8 @@ class PdfProcessorController < ApplicationController
     end
   rescue StandardError => e
     flash[:error] = "An error occurred: #{e.message}"
-    redirect_to(upload_path)
-  end
+   redirect_to(upload_path)
+   end
 
   private
 

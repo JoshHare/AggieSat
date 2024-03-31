@@ -82,10 +82,8 @@ gem 'omniauth-google-oauth2'
 # gem "devise", github: "heartcombo/devise", branch: "master"
 gem 'omniauth-rails_csrf_protection'
 
-
-
-gem 'whenever'
 gem 'brakeman'
+gem 'whenever'
 
 gem 'clockwork'
 gem 'foreman'

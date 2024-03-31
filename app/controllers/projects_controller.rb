@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
   def show
     @project = Project.find_by(project_id: params[:project_id])
-    @upcoming_workdays = ScheduledWorkday.where('day >= ? AND project_id = ?', Date.today, @project.project_id)
-    @previous_workdays = ScheduledWorkday.where('day < ? AND project_id = ?', Date.today, @project.project_id)
+    @upcoming_workdays = ScheduledWorkday.where('day >= ? AND project_id = ?', Time.zone.today, @project.project_id)
+    @previous_workdays = ScheduledWorkday.where('day < ? AND project_id = ?', Time.zone.today, @project.project_id)
 
-    if AttendanceRecord.where('project_id = ? AND user_id = ?', @project.project_id, current_user.uid)
-      @status = AttendanceRecord.find_by(user_id: current_user.uid, project_id: @project.project_id)
-    else
-      @status = false
-    end
+    @status = if AttendanceRecord.where('project_id = ? AND user_id = ?', @project.project_id, current_user.uid)
+                AttendanceRecord.find_by(user_id: current_user.uid, project_id: @project.project_id)
+              else
+                false
+              end
 
     if current_user.uid == @project.leader_id
       @scheduled_workday = ScheduledWorkday.new
-      render 'show_leader'
+      render('show_leader')
     else
-      render 'show_member'
+      render('show_member')
     end
   end
 
@@ -30,19 +32,19 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.id = @project.project_id
     if @project.save
-        @project.update(project_id: @project.id)
-        redirect_to project_path(@project), notice: 'Project was successfully created.'
+      @project.update!(project_id: @project.id)
+      redirect_to(project_path(@project), notice: 'Project was successfully created.')
     else
-        render :new
+      render(:new)
     end
   end
 
   def destroy
     @project = Project.find_by(project_id: params[:project_id])
     if @project.destroy
-      redirect_to projects_index_path, notice: 'Project was successfully deleted.'
+      redirect_to(projects_index_path, notice: 'Project was successfully deleted.')
     else
-      redirect_to project_path(@project), alert: 'Failed to delete the project.'
+      redirect_to(project_path(@project), alert: 'Failed to delete the project.')
     end
   end
 
@@ -53,9 +55,9 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find_by(project_id: params[:project_id])
     if @project.update(project_params)
-      redirect_to @project, notice: 'Project was successfully updated.'
+      redirect_to(@project, notice: 'Project was successfully updated.')
     else
-      render :edit
+      render(:edit)
     end
   end
 
@@ -69,15 +71,15 @@ class ProjectsController < ApplicationController
     @project_member = @project.project_members.build(user_id: params[:user_id])
 
     if @project_member.save
-      redirect_to project_path(@project), notice: 'Member was successfully added to the project.'
+      redirect_to(project_path(@project), notice: 'Member was successfully added to the project.')
     else
-      render :add_member
+      render(:add_member)
     end
   end
 
   def remove_member_confirmation
     @member = User.find(params[:member_id])
-    render :remove_member
+    render(:remove_member)
   end
 
   def remove_member
@@ -86,11 +88,11 @@ class ProjectsController < ApplicationController
     @project_member = @project.project_members.find_by(user_id: @member.uid)
 
     if @project_member.destroy
-      flash[:notice] = "Member removed from the project successfully."
+      flash[:notice] = 'Member removed from the project successfully.'
     else
-      flash[:error] = "Failed to remove member from the project."
+      flash[:error] = 'Failed to remove member from the project.'
     end
-    redirect_to project_path(@project)
+    redirect_to(project_path(@project))
   end
 
   private
