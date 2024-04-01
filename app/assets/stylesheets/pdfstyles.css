@@ -51,3 +51,43 @@ h5 {
   margin-left: 20px;
   margin-right: 20px;
 }
+
+.email-button-container {
+  display: inline-block;
+}
+
+.email-button-text {
+  display: inline-block;
+  margin-left: 10px; /* Adjust as needed for spacing */
+}
+/* CSS */
+
+/* Style for flash notice container */
+/* Style for flash notice container */
+.flash {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+/* Style for success flash notice */
+.flash.success {
+  border-color: #c3e6cb; /* Green border color */
+  background-color: #d4edda; /* Green background */
+  color: #155724; /* Dark green text */
+}
+
+/* Style for error flash notice */
+.flash.error {
+  border-color: #f5c6cb; /* Red border color */
+  background-color: #f8d7da; /* Red background */
+  color: #721c24; /* Dark red text */
+}
+
+/* Style for notice flash notice */
+.flash.notice {
+  border-color: #bee5eb; /* Blue border color */
+  background-color: #d1ecf1; /* Blue background */
+  color: #0c5460; /* Dark blue text */
+}

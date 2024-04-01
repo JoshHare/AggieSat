@@ -15,6 +15,9 @@ Rails.application.routes.draw do
 
   get '/upload', to: 'pdf_processor#upload', as: 'upload'
   post 'pdf_processor/process_pdf'
+  get 'pdf_processor/batch', to: 'pdf_processor#batch'
+  post 'pdf_processor/process_batch', to: 'pdf_processor#process_batch'
+
 
   get '/show' , to: 'member_view#show' , as: 'show'
 
@@ -28,8 +31,14 @@ Rails.application.routes.draw do
     collection do
       get :user_enrollments
     end
-  end
 
+  end
+  resources :users do
+    member do
+      get :delete
+    end
+
+  end
   resources :training_courses
 
   # Route for projects index page

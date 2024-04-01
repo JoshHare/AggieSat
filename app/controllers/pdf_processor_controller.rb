@@ -2,7 +2,52 @@
 
 # app/controllers/pdf_processor_controller.rb
 
+require 'csv'
+
 class PdfProcessorController < ApplicationController
+  def email_all
+    # Call the function from TrainingService
+    TrainingService.send_emails_for_overdue_trainings
+
+    # Redirect or render as needed
+    redirect_to(training_enrollments_path, notice: 'Custom action performed successfully.')
+  end
+
+  def batch
+    render(:batch)
+  end
+
+  def process_batch
+    Rails.logger.debug('GO')
+    csv_file = params[:csv_file]
+    emails_added = []
+
+    if csv_file.present? && csv_file.content_type == 'text/csv'
+      csv_data = csv_file.read
+      csv = CSV.parse(csv_data, headers: true)
+
+      csv.each do |row|
+        email = row['email']
+        name = row['name']
+        next unless email.present? && email =~ URI::MailTo::EMAIL_REGEXP && email.ends_with?('@tamu.edu')
+
+        user = User.new(email: email, full_name: name, uid: '1', role: 'Member')
+        if user.save
+          emails_added << email
+          Rails.logger.debug { "User #{email} added to the database." }
+        else
+          Rails.logger.debug { "Error creating user #{email}: #{user.errors.full_messages.join(', ')}" }
+        end
+      end
+
+      flash[:success] = "#{emails_added.count} valid emails added to the database."
+    else
+      flash.now[:error] = 'Please upload a valid CSV file.'
+    end
+
+    render(:batch)
+  end
+
   def upload
     @user = User.find(current_user.id)
     @enrollments = []
@@ -37,7 +82,7 @@ class PdfProcessorController < ApplicationController
       @parsed = parse(pdf_text)
       @parsed.each do |course|
         user_id = Integer(current_user.id)
-        puts "uid#{user_id}"
+        Rails.logger.debug { "uid#{user_id}" }
         course_id = Integer(course[:course_id])
 
         completion_date = Date.strptime(course[:completion_date], '%m/%d/%Y')
@@ -67,8 +112,8 @@ class PdfProcessorController < ApplicationController
     end
   rescue StandardError => e
     flash[:error] = "An error occurred: #{e.message}"
-   redirect_to(upload_path)
-   end
+    redirect_to(upload_path)
+  end
 
   private
 

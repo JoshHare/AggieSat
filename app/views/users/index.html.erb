@@ -1,0 +1,40 @@
+<div class="container">
+  <% if notice.present? %>
+    <div class="alert alert-success" role="alert">
+      <%= notice %>
+    </div>
+  <% end %>
+
+  <h1>Members</h1>
+<%= link_to "Add Member", new_user_path, class: "btn btn-custom", style: "margin-bottom: 10px;" %>
+<%= link_to "Batch Upload", pdf_processor_batch_path,class: "btn btn-custom", style: "margin-bottom: 10px;" %>
+
+<%= link_to "Back to Manage Members", training_enrollments_path, class: "btn btn-custom", style: "margin-bottom: 10px;" %>
+<p> Only users who are manually added to the database will be allowed access to the website.</p>
+  <div id="users">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.full_name %></td>
+            <td><%= user.role %></td>
+            <td>
+              <%= link_to "Update Info", edit_user_path(user), class: "btn btn-secondary btn-sm" %>
+              <%= link_to "Remove User", user, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= link_to "New user", new_user_path, class: "btn btn-success" %>
+</div>

@@ -23,7 +23,7 @@
             </li>
            <% if current_user && current_user.role == "Admin" %>
             <li class='nav-item bg-light'>
-                <%= link_to 'Manage Members', training_enrollments_path, class: 'nav-link' %>
+                <%= link_to 'Admin Dashboard', training_enrollments_path, class: 'nav-link' %>
             </li>
             <% end %>
         </ul>
