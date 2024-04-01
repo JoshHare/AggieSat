@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 class ManageMembersController < ApplicationController
   def index
     @users = User.all.order(:full_name)
@@ -39,11 +41,46 @@ class ManageMembersController < ApplicationController
     redirect_to(manage_members_path)
   end
 
+  def process_batch
+    csv_file = params[:csv_file]
+    emails_added = []
+
+    if csv_file.present? && csv_file.content_type == 'text/csv'
+      csv_data = csv_file.read
+      csv = CSV.parse(csv_data, headers: true)
+
+      csv.each do |row|
+        email = row['email']
+        name = row['name']
+        next unless valid_tamu_email?(email)
+        next if User.find_by(email: email)
+
+        user = User.new(email: email, full_name: name, uid: generate_uid, role: 'Member')
+        if user.save
+          emails_added << email
+          Rails.logger.debug { "User #{email} added to the database." }
+        else
+          Rails.logger.debug { "Error creating user #{email}: #{user.errors.full_messages.join(', ')}" }
+        end
+      end
+
+      flash[:success] = "#{emails_added.count} valid emails added to the database."
+    else
+      flash.now[:error] = 'Please upload a valid CSV file.'
+    end
+
+    render(:batch)
+  end
+
   private
 
   def generate_uid
     # Logic to generate the UID, such as finding the highest current uid and incrementing it
     highest_uid = Integer((User.maximum(:uid) || '0'), 10)
     (highest_uid + 1).to_s
+  end
+
+  def valid_tamu_email?(email)
+    email.present? && email =~ URI::MailTo::EMAIL_REGEXP && email.ends_with?('@tamu.edu')
   end
 end

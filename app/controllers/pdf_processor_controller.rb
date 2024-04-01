@@ -13,6 +13,12 @@ class PdfProcessorController < ApplicationController
     redirect_to(training_enrollments_path, notice: 'Custom action performed successfully.')
   end
 
+  def generate_uid
+    # Logic to generate the UID, such as finding the highest current uid and incrementing it
+    highest_uid = Integer((User.maximum(:uid) || '0'), 10)
+    (highest_uid + 1).to_s
+  end
+
   def batch
     render(:batch)
   end
@@ -31,7 +37,7 @@ class PdfProcessorController < ApplicationController
         name = row['name']
         next unless email.present? && email =~ URI::MailTo::EMAIL_REGEXP && email.ends_with?('@tamu.edu')
 
-        user = User.new(email: email, full_name: name, uid: '1', role: 'Member')
+        user = User.new(email: email, full_name: name, uid: generate_uid, role: 'Member')
         if user.save
           emails_added << email
           Rails.logger.debug { "User #{email} added to the database." }
@@ -47,7 +53,6 @@ class PdfProcessorController < ApplicationController
 
     render(:batch)
   end
-
 
   def upload
     @user = User.find(current_user.id)

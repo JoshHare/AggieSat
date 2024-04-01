@@ -42,8 +42,6 @@ RSpec.describe('/training_courses', type: :request) do
     end
   end
 
-
-
   describe 'GET /edit' do
     it 'renders a successful response' do
       training_course = TrainingCourse.create!(valid_attributes)

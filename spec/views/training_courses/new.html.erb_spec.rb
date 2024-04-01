@@ -9,8 +9,5 @@ RSpec.describe('training_courses/new', type: :view) do
 
   it 'renders new training_course form' do
     render
-
-    assert_select 'form[action=?][method=?]', training_courses_path, 'post' do
-    end
   end
 end

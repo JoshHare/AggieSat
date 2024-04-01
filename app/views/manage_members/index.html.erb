@@ -1,42 +1,45 @@
 <div class="container mt-4">
   <h1 class="mb-4">Manage Members</h1>
   <div class="mb-3">
-    <%= link_to "New Member", new_manage_member_path, class: "btn btn-primary" %>
+    <%= link_to "New Member", new_manage_member_path, class: "btn btn-custom" %>
+    <%= link_to "Batch Upload", manage_members_process_batch_path,class: "btn btn-custom"%>
+
   </div>
   <div class="table-responsive">
     <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Remove</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users.each do |member| %>
-          <tr>
-            <td><%= member.full_name %></td>
-            <td><%= member.email %></td>
-            <td>
-                <form action="<%= manage_member_update_role_path(member.uid) %>" method="post">
-                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-                <div class="input-group">
-                <select name="role" class="form-select">
-                    <option value="Admin" <%= 'selected' if member.role == 'Admin' %>>Admin</option>
-                    <option value="Member" <%= 'selected' if member.role == 'Member' %>>Member</option>
-                </select>
-                <input type="hidden" name="uid" value="<%= member.uid %>">
-                <button type="submit" class="btn btn-primary">Update</button>
-                </div>
-            </form>
-            </td>
-            <td>
-              <%= button_to "Remove", manage_member_path(member.uid), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.sort_by { |user| user.full_name.split.last }.each do |member| %>
+      <tr>
+        <td><%= member.full_name.split.reverse.join(', ') %></td>
+        <td><%= member.email %></td>
+        <td>
+          <form action="<%= manage_member_update_role_path(member.uid) %>" method="post">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <div class="input-group">
+              <select name="role" class="form-select">
+                <option value="Admin" <%= 'selected' if member.role == 'Admin' %>>Admin</option>
+                <option value="Member" <%= 'selected' if member.role == 'Member' %>>Member</option>
+              </select>
+              <input type="hidden" name="uid" value="<%= member.uid %>">
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </form>
+        </td>
+        <td>
+          <%= button_to "Remove", manage_member_path(member.uid), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
   </div>
 </div>
