@@ -4,7 +4,7 @@
 
   <%# <%= link_to("Add New Enrollment", new_training_enrollment_path, class: 'btn btn-custom mb-1 ') %> 
   <%= link_to "Course Manager", training_courses_path, class: "btn btn-custom mb-1" %>
-<%= link_to "Member Manager", users_path, class: "btn btn-custom mb-1" %>
+<%# <%= link_to "Member Manager", users_path, class: "btn btn-custom mb-1" %> 
   <%= form_tag({ controller: 'training_enrollments', action: 'email_all' }, method: 'post') do %>
    <div class="email-button-container">
     <%= button_tag('Email all', class: 'btn btn-custom', type: 'submit') %>
