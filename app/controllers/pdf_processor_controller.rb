@@ -76,6 +76,7 @@ class PdfProcessorController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def process_pdf
     @processed_data = []
     if params[:pdf].present? && params[:pdf].respond_to?(:read)
@@ -113,8 +114,9 @@ class PdfProcessorController < ApplicationController
     end
   rescue StandardError => e
     flash[:error] = "An error occurred: #{e.message}"
-   redirect_to(upload_path)
-   end
+    redirect_to(upload_path)
+  end
+  # rubocop:enable Metrics/AbcSize
 
   private
 

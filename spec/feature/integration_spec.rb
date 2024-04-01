@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # location: spec/feature/integration_spec.rb
+# rubocop:disable RSpec/MultipleDescribes
 require 'rails_helper'
 
 RSpec.describe('Checking security/integrity of application with google oauth: ', type: :feature) do
@@ -158,7 +159,7 @@ RSpec.describe('PDF proccessor integration test: ', type: :feature) do
     click_on 'Sign in with Google'
 
     visit upload_path
-    puts "Current path: #{current_path}" # Print current path for debugging
+    puts "Current path: #{current_path}"
     attach_file 'pdf', 'spec/test_files/validTrainingTT.pdf'
     click_button 'Upload PDF'
 
@@ -210,3 +211,4 @@ RSpec.describe('PDF proccessor integration test: ', type: :feature) do
   #   expect(page).to have_content('bob')
   # end
 end
+# rubocop:enable RSpec/MultipleDescribes

@@ -45,6 +45,8 @@ Rails.application.routes.draw do
 
   # Route for projects index page
   get '/projects', to: 'projects#index', as: 'projects_index'
+  get '/projects/:project_id/edit', to: 'projects#edit', as: 'edit_project'
+  patch '/projects/:project_id', to: 'projects#update'
   resources :projects, only: [:show, :new, :create], param: :project_id do
     member do
       get :delete
@@ -52,12 +54,22 @@ Rails.application.routes.draw do
       post :create_member
       delete :remove_member
       get :remove_member_confirmation, to: 'projects#remove_member'
+      post :create_record
+      post :accept_member
+      post :reject_member
+      post :export_workday_attendance
     end
   end
   delete 'projects/:project_id', to: 'projects#destroy', as: 'destroy_project'
 
   resources :scheduled_workdays, only: [:create]
 
+  get '/manage_members', to: 'manage_members#index', as: 'manage_members'
+  get '/manage_members/new', to: 'manage_members#new', as: 'new_manage_member'
+  resources :manage_members, only: [:index, :new, :create, :destroy] do
+    post :update_role
+  end
+  
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check

@@ -29,7 +29,7 @@ User.create!([
     first_name: 'Skye',
     last_name: 'Slaughter',
     role: 'Member',
-    email: 'x@tamu.ed'
+    email: 'x@tamu.edu'
 
   },
   {
@@ -40,7 +40,7 @@ User.create!([
     first_name: 'Daniel',
     last_name: 'Newsom',
     role: 'Member',
-    email: 'x@tamu.ed'
+    email: 'x@tamu.edu'
 
   },
   {
@@ -51,7 +51,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'x@tamu.ed'
+    email: 'x@tamu.edu'
   },
   {
     id: '28',
@@ -61,7 +61,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'x@tamu.ed'
+    email: 'x@tamu.edu'
   },
   {
     id: '29',
@@ -71,7 +71,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'x@tamu.ed'
+    email: 'x@tamu.edu'
   },
   {
     id: '30',
@@ -81,7 +81,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'x@tamu.ed'
+    email: 'x@tamu.edu'
 
   },
   {
@@ -92,7 +92,7 @@ User.create!([
     first_name: 'Shirish',
     last_name: 'Pandam',
     role: 'Member',
-    email: 'x@tamu.ed'
+    email: 'x@tamu.edu'
   },
   {
     uid: '32',
@@ -105,7 +105,7 @@ User.create!([
     uid: '33',
     avatar_url: 'testing',
     full_name: 'Lucy Zhang',
-    role: 'Member',
+    role: 'Admin',
     email: 'lululilly1212@tamu.edu'
   },
   {
