@@ -93,6 +93,14 @@ class ProjectsController < ApplicationController
     redirect_to project_path(@project)
   end
 
+  #def csv 
+  #  @records = AttendanceRecord.all
+  #  respond_to do |format|
+  #    format.html
+  #    format.csv { send_data AttendanceRecord.to_csv, filename: "records-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv"}
+  #  end
+  #end 
+
   private
 
   def project_params

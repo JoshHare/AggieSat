@@ -12,4 +12,14 @@ class AttendanceRecord < ApplicationRecord
       approval_status: false
     )
   end
+
+  #def self.to_csv
+  #  attendeance_records = all
+  #  CSV.generate do |csv|
+  #    csv << column_names
+  #    posts.each do |record|
+  #      csv << record.attributes.values_at(*column_names)
+  #    end
+  #  end
+  # end
 end

@@ -100,7 +100,7 @@ RSpec.describe 'Checking usability of website: ', type: :feature do
     expect(page).to have_content('out successfully')
   end
 
-  scenario 'all paths accessible after log in as member' do #check usability as admin
+  scenario 'all paths accessible after log in as admin' do #check usability as admin
     OmniAuth.config.before_callback_phase do |env|
       OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
         :provider => 'google_oauth2',

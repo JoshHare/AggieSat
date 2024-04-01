@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'test#index'
+  root 'home#index'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   #get '/auth/:provider/callback' => 'users/sessions#omniauth'
@@ -11,10 +11,12 @@ Rails.application.routes.draw do
     post 'users/sign_out', to: 'users/sessions#delete', as: :destroy_user_session
   end
 
-  get 'test', to: 'test#index'
+  get 'home', to: 'home#index'
 
   get '/upload', to: 'pdf_processor#upload', as: 'upload'
   post 'pdf_processor/process_pdf'
+  #post 'pdf_processor/csv'
+  get 'pdf_processor/csv', to: 'pdf_processor#csv', as: :pdf_processor_csv
 
   get '/show' , to: 'member_view#show' , as: 'show'
 
@@ -36,6 +38,7 @@ Rails.application.routes.draw do
       post :create_member
       delete :remove_member
       get :remove_member_confirmation, to: 'projects#remove_member'
+      #post :csv, to: 'projects#csv'
     end
   end
   delete 'projects/:project_id', to: 'projects#destroy', as: 'destroy_project'

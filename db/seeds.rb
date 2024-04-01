@@ -25,8 +25,6 @@ User.create!([
     uid: '25',
     avatar_url: 'testing',
     full_name: 'Skye Slaughter',
-    first_name: 'Skye',
-    last_name: 'Slaughter',
     role: 'Member',
     email: 'email@',
   },
@@ -34,8 +32,6 @@ User.create!([
     uid: '26',
     avatar_url: 'testing',
     full_name: 'Daniel Newsom',
-    first_name: 'Daniel',
-    last_name: 'Newsom',
     role: 'Member',
     email: 'email@',
   },
@@ -43,8 +39,6 @@ User.create!([
     uid: '27',
     avatar_url: 'testing',
     full_name: 'Shirish Pandam',
-    first_name: 'Shirish',
-    last_name: 'Pandam',
     role: 'Member',
     email: 'email@',
   },
@@ -52,8 +46,6 @@ User.create!([
     uid: '28',
     avatar_url: 'testing',
     full_name: 'Azalea Andrews',
-    first_name: 'Shirish',
-    last_name: 'Pandam',
     role: 'Member',
     email: 'email@',
   },
@@ -61,8 +53,6 @@ User.create!([
     uid: '29',
     avatar_url: 'testing',
     full_name: 'Lexi Urquhart',
-    first_name: 'Shirish',
-    last_name: 'Pandam',
     role: 'Member',
     email: 'email@',
   },
@@ -70,8 +60,6 @@ User.create!([
     uid: '30',
     avatar_url: 'testing',
     full_name: 'Kamalika Bose',
-    first_name: 'Shirish',
-    last_name: 'Pandam',
     role: 'Member',
     email: 'email@',
   },
@@ -79,8 +67,6 @@ User.create!([
     uid: '31',
     avatar_url: 'testing',
     full_name: 'Tate Crawford',
-    first_name: 'Shirish',
-    last_name: 'Pandam',
     role: 'Member',
     email: 'email@',
   },
@@ -120,11 +106,25 @@ User.create!([
     email: 'amybob@tamu.edu'
   },
   {
-    uid: '35',
+    uid: '37',
     avatar_url: 'testing',
     full_name: 'amy bob 2',
     role: 'Admin',
     email: 'amybob2@tamu.edu'
+  },
+  {
+    uid: '38',
+    avatar_url: 'testing',
+    full_name: 'vishal',
+    role: 'Admin',
+    email: 'vva2@tamu.edu'
+  },
+  {
+    uid: '39',
+    avatar_url: 'testing',
+    full_name: 'dr wade',
+    role: 'Admin',
+    email: 'paulinewade@tamu.edu'
   }
 ])
 Rails.logger.debug { "Created #{User.count} Users" }
@@ -204,6 +204,11 @@ TrainingEnrollment.create!([
   {
     course_id: 2_111_212,
     user_id: 5,
+    completion_status: '2023-11-12 00:00:00'
+  },
+  {
+    course_id: 2_111_212,
+    user_id: 9,
     completion_status: '2023-11-12 00:00:00'
   }
 ]

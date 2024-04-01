@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TestController < ApplicationController
+class HomeController < ApplicationController
   def index
     uid = current_user.uid
     project_ids = ProjectMember.where(user_id: uid).pluck(:project_id)
