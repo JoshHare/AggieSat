@@ -1,11 +1,17 @@
 <div class="container">
   <h2 class="mb-4">Training Enrollments </h2>
 
-  <%= link_to("Add New Enrollment", new_training_enrollment_path, class: 'btn btn-primary mb-3') %>
 
+  <%# <%= link_to("Add New Enrollment", new_training_enrollment_path, class: 'btn btn-custom mb-1 ') %> 
+  <%= link_to "Course Manager", training_courses_path, class: "btn btn-custom mb-1" %>
+<%= link_to "Member Manager", users_path, class: "btn btn-custom mb-1" %>
   <%= form_tag({ controller: 'training_enrollments', action: 'email_all' }, method: 'post') do %>
-    <%= button_tag('Email all', class: 'btn btn-info mb-3', type: 'submit') %>
+   <div class="email-button-container">
+    <%= button_tag('Email all', class: 'btn btn-custom', type: 'submit') %>
+    <p class="email-button-text">This emails all students who have invalid training.</p>
+  </div>
   <% end %>
+  <p>The following shows all of the members in your organization and their training status. Click on their name to see detailed info on their training status.</p>
 
   <div class="table-responsive">
     <table class="table table-striped">
@@ -16,7 +22,9 @@
         </tr>
       </thead>
       <tbody>
-       <% User.all.each do |user| %>
+
+       <% User.all.sort_by { |user| user.full_name.split.last }.each do |user| %>
+
           <% overall_status = "Valid" %>
           <% TrainingCourse.all.each do |course| %>
             <% enrollment_result = TrainingService.check_enrollment_and_validity(course, user) %>
@@ -26,8 +34,11 @@
             <% end %>
           <% end %>
   <tr>
-    <td>  <%= user.id%>
-      <%= link_to user.full_name, user_enrollments_training_enrollments_path(user_id: user.uid), class: overall_status == "Valid" ? "text-success" : "text-danger" %>
+
+    <td>  <% first_name, last_name = user.full_name.split %>
+    
+      <%= link_to "#{last_name}, #{first_name}", user_enrollments_training_enrollments_path(user_id: user.uid), class: overall_status == "Valid" ? "text-success" : "text-danger" %>
+
     </td>
     <td><%= overall_status %></td>
   </tr>
