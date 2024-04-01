@@ -30,6 +30,7 @@ class PdfProcessorController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def process_pdf
     @processed_data = []
     if params[:pdf].present? && params[:pdf].respond_to?(:read)
@@ -37,7 +38,7 @@ class PdfProcessorController < ApplicationController
       @parsed = parse(pdf_text)
       @parsed.each do |course|
         user_id = Integer(current_user.id)
-        puts "uid#{user_id}"
+        Rails.logger.debug { "uid#{user_id}" }
         course_id = Integer(course[:course_id])
 
         completion_date = Date.strptime(course[:completion_date], '%m/%d/%Y')
@@ -67,8 +68,9 @@ class PdfProcessorController < ApplicationController
     end
   rescue StandardError => e
     flash[:error] = "An error occurred: #{e.message}"
-   redirect_to(upload_path)
-   end
+    redirect_to(upload_path)
+  end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
