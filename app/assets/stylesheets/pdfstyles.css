@@ -50,6 +50,7 @@ h5 {
   margin-bottom: 20px; /* Add some bottom margin */
   margin-left: 20px;
   margin-right: 20px;
+
 }
 
 .email-button-container {
@@ -90,4 +91,5 @@ h5 {
   border-color: #bee5eb; /* Blue border color */
   background-color: #d1ecf1; /* Blue background */
   color: #0c5460; /* Dark blue text */
+
 }

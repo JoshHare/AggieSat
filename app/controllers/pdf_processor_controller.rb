@@ -48,6 +48,7 @@ class PdfProcessorController < ApplicationController
     render(:batch)
   end
 
+
   def upload
     @user = User.find(current_user.id)
     @enrollments = []
@@ -82,7 +83,7 @@ class PdfProcessorController < ApplicationController
       @parsed = parse(pdf_text)
       @parsed.each do |course|
         user_id = Integer(current_user.id)
-        Rails.logger.debug { "uid#{user_id}" }
+
         course_id = Integer(course[:course_id])
 
         completion_date = Date.strptime(course[:completion_date], '%m/%d/%Y')
@@ -112,8 +113,8 @@ class PdfProcessorController < ApplicationController
     end
   rescue StandardError => e
     flash[:error] = "An error occurred: #{e.message}"
-    redirect_to(upload_path)
-  end
+   redirect_to(upload_path)
+   end
 
   private
 

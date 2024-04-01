@@ -32,11 +32,13 @@ Rails.application.routes.draw do
       get :user_enrollments
     end
 
+
   end
   resources :users do
     member do
       get :delete
     end
+
 
   end
   resources :training_courses

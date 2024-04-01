@@ -1,6 +1,7 @@
 <div class="container">
   <h2 class="mb-4">Training Enrollments </h2>
 
+
   <%# <%= link_to("Add New Enrollment", new_training_enrollment_path, class: 'btn btn-custom mb-1 ') %> 
   <%= link_to "Course Manager", training_courses_path, class: "btn btn-custom mb-1" %>
 <%= link_to "Member Manager", users_path, class: "btn btn-custom mb-1" %>
@@ -11,6 +12,7 @@
   </div>
   <% end %>
   <p>The following shows all of the members in your organization and their training status. Click on their name to see detailed info on their training status.</p>
+
   <div class="table-responsive">
     <table class="table table-striped">
       <thead>
@@ -20,7 +22,9 @@
         </tr>
       </thead>
       <tbody>
+
        <% User.all.sort_by { |user| user.full_name.split.last }.each do |user| %>
+
           <% overall_status = "Valid" %>
           <% TrainingCourse.all.each do |course| %>
             <% enrollment_result = TrainingService.check_enrollment_and_validity(course, user) %>
@@ -30,9 +34,11 @@
             <% end %>
           <% end %>
   <tr>
+
     <td>  <% first_name, last_name = user.full_name.split %>
     
       <%= link_to "#{last_name}, #{first_name}", user_enrollments_training_enrollments_path(user_id: user.uid), class: overall_status == "Valid" ? "text-success" : "text-danger" %>
+
     </td>
     <td><%= overall_status %></td>
   </tr>
