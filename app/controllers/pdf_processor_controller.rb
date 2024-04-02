@@ -66,7 +66,7 @@ class PdfProcessorController < ApplicationController
       training_enrollment = TrainingEnrollment.find_by(user_id: Integer(@user.id), course_id: course.course_id)
       if training_enrollment
         Rails.logger.debug('DDDDD')
-        enrollment[:date] = training_enrollment.completion_status.strftime('%d/%m/%Y')
+        enrollment[:date] = training_enrollment.completion_status.strftime('%m/%d/%Y')
       else
         enrollment[:date] = 'N/A'
       end

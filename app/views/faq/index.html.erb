@@ -1,0 +1,46 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ</title>
+    <!-- Include your CSS stylesheets here -->
+</head>
+
+<body>
+<div class="container">
+    <header>
+        <h1>Frequently Asked Questions</h1>
+        <% if (User.find_by(uid: current_user.uid)).role == 'Admin' %>
+            <a href="https://drive.google.com/file/d/16lzZXnVPVNDlg8HVfvSgl8dcSE5WEdWQ/view?usp=sharing" target="_blank"><h2>Ownership Instructions</h2></a>
+        <% end %>
+        <a href="https://forms.gle/mCPLAeZMotHqHeGQ7" target="_blank"><h2>User Feedback Form</h2></a>
+        <p style="text-align: center;">We appreciate your feedback! Please fill out the form above to report your experience or any issues.</p>
+    </header>
+    <main>
+        <section id="section1">
+            <h2>How do I submit my training?</h2>
+            <p>Navigate to the 'Submit Training' tab.  Here you can see your current status on completion of the courses. 
+            To update your training, first get a PDF from Traintraq or the combined PDF format. You can then just upload the PDF and the results will be displayed.
+            If you already have a training enrollment that has expired and you want to update it, you can simply upload the new PDF to the same spot and your completion date will update.</p>
+        </section>
+        <% if (User.find_by(uid: current_user.uid)).role == 'Admin' %>
+            <section id="section2">
+                <h2>Someone cannot access the website! Why?</h2>
+                <p>The website ONLY allows users who have been whitelisted by an admin (the CSL).  To see all whitelisted users, go to the 'Manage Members' tab.  Click 'New Member' to manually add a user, or click 'Batch Upload' to upload a list of members. The email associated with the user must be a TAMU email.</p>
+            </section>
+            <section id="section3">
+                <h2>How do automatic emails work?</h2>
+                <p>An email gets sent every week to the members who have not completed their required training.  The email comes from the address 'aggiesatnotifs@gmail.com.' This email is not monitored and cannot be replied to.  Also, every week the users with the admin role will be receiving an email with the names of all members who are not current on their training.  All of these emails can be sent at any time with the 'Email All' button on the 'Manage Training' page.</p>
+            </section>
+            <section id="section4">
+                <h2>How do I use the batch upload?</h2>
+                <p>To use the batch upload, first get a spreadsheet of the emails and full names of the people you would like to add.  The emails must be TAMU addresses.  Put this info in two columns, with the headers 'email' and 'name' respectively.  There can be other columns in the sheet you upload, but these two columns with the given headers MUST be present.  To download as CSV, hover download and then select the 'Comma Separated Variables' or 'CSV' option.  It should have a file ending of '.csv'  Then, upload it to the location on the site.  It is recommended that once you have uploaded the users, you check back in the 'Manage Members' tab and make sure everything looks correct.</p>
+            </section>
+            <section id="section5">
+                <h2>What do the roles each do?</h2>
+                <p>The 'Admin' role is intended for the Chief Student Leader only. However, if the Chief Student Leader decides to give others the 'Admin' role to someone else, they can easily do that. The 'Member' role is for everyone else, including project managers. The project manager designation is defined in the 'Manage Projects' tab.</p>
+            </section>
+        <% end %>
+    </main>
+</div>
+</body>
+
