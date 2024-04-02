@@ -18,7 +18,7 @@ RSpec.describe('Checking security/integrity of application with google oauth: ',
     visit new_user_session_path
     click_on 'Sign in with Google'
 
-    visit test_path
+    visit home_path
     expect(page).to(have_content('Welcome'))
   end
 
@@ -100,7 +100,7 @@ RSpec.describe('Checking usability of website: ', type: :feature) do
     visit new_user_session_path
     click_on 'Sign in with Google'
 
-    visit test_path
+    visit home_path
     expect(page).to(have_content('Welcome'))
     visit upload_path
     expect(page).to(have_content('Upload PDF'))
@@ -132,7 +132,7 @@ RSpec.describe('Checking usability of website: ', type: :feature) do
     visit new_user_session_path
     click_on 'Sign in with Google'
 
-    visit test_path
+    visit home_path
     expect(page).to(have_content('Welcome'))
     visit upload_path
     expect(page).to(have_content('Upload PDF'))
