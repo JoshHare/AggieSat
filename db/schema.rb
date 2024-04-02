@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_08_195321) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_31_222010) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "attendance_records", force: :cascade do |t|
-    t.integer "user_id"
+    t.string "user_id"
     t.integer "schedule_id"
     t.integer "project_id"
     t.datetime "checkin"
@@ -47,6 +47,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_195321) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "teams", force: :cascade do |t|
+    t.integer "leader_id"
+    t.string "team_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "training_courses", force: :cascade do |t|
     t.string "name"
     t.integer "course_id"
@@ -66,8 +73,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_195321) do
     t.string "uid"
     t.string "avatar_url"
     t.string "full_name"
-    t.string "first_name"
-    t.string "last_name"
     t.string "role"
     t.string "email"
     t.datetime "created_at", null: false

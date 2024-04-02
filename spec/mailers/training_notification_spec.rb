@@ -1,5 +1,3 @@
-require "rails_helper"
+# frozen_string_literal: true
 
-RSpec.describe TrainingNotificationMailer, type: :mailer do
-  #pending "add some examples to (or delete) #{__FILE__}"
-end
+require 'rails_helper'

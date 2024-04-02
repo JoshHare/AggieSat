@@ -1,0 +1,13 @@
+<div class="container mt-5">
+  <h1 class="text-center">Edit Training Course</h1>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <%= render "form", training_course: @training_course %>
+    </div>
+  </div>
+
+  <div class="text-center mt-3">
+    <%= link_to "Back to Training Courses", training_courses_path, class: "btn btn-secondary" %>
+  </div>
+</div>

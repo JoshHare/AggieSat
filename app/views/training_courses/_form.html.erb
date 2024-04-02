@@ -1,0 +1,28 @@
+<%= form_with(model: training_course) do |form| %>
+  <% if training_course.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(training_course.errors.count, "error") %> prohibited this training_course from being saved:</h2>
+
+      <ul>
+        <% training_course.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name, "Course Name" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :course_id, "Course ID" %>
+    <%= form.number_field :course_id, class: "form-control" %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-custom mr-2" %>
+  </div>
+<% end %>

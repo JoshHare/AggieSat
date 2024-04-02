@@ -14,32 +14,42 @@
 <body>
 
   <div class="container">
-    <h1>Courses Completed</h1>
-
-    <% if @parsed.present? %>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Student Name</th>
-            <th>Course ID</th>
-            <th>Completion Date</th>
-          </tr>
-        </thead>
-        <tbody>
-            <!-- Eventually replace this with database info of all courses completed by that student -->
-          <% @parsed.each do |data| %>
-            <tr>
-              <td><%= data[:student_name] %></td>
-              <td><%= data[:course_id] %></td>
-              <td><%= data[:completion_date] %></td>
-            </tr>
+    <h1>Courses Uploaded</h1>
+<%= link_to 'Back to all Courses', upload_path, class: 'btn btn-custom' %>
+    <% if @processed_data.present? %>
+     <table class="table">
+  <thead>
+    <tr>
+      <th>Course ID</th>
+      <th>User</th>
+      <th>Completion Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @processed_data.each do |enrollment| %>
+      <tr>
+        <td><%= enrollment[:course_id] %></td>
+        <td><%= User.find(current_user.id).full_name %></td>
+        <td><%= enrollment[:completion_date] %></td>
+        <td>
+          <% valid_result = enrollment[:status] %>
+          <% if valid_result == "Expired!" %>
+            <span class="text-danger"><%= valid_result %></span>
+          <% elsif valid_result == "Expiring Soon!" %>
+            <span class="text-warning"><%= valid_result %></span>
+          <% else %>
+            <span class="text-success"><%= valid_result %></span>
           <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p>No data to display.</p>
+        </td>
+      </tr>
     <% end %>
-    <%= link_to 'Back to Upload', upload_path, class: 'btn btn-custom' %>
+  </tbody>
+</table>
+
+    <% else %>
+      <p>No new courses could be found in this file. Please upload a valid file with the expected courses.</p>
+    <% end %>
+    
   </div>
 
 </body>
