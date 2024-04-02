@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TestController < ApplicationController
+class HomeController < ApplicationController
   def index
     uid = current_user.uid
     Rails.logger.debug(uid)

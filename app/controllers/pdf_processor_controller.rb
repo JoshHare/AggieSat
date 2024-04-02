@@ -123,6 +123,13 @@ class PdfProcessorController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
+  def csv 
+    respond_to do |format|
+      format.html
+      format.csv { send_data TrainingEnrollment.to_csv(%w(timestamps), %w(name), current_user.id), filename: "trainings-user#{current_user.full_name}-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv"}
+    end
+  end 
+
   private
 
   def extract_text_from_pdf(pdf_path)

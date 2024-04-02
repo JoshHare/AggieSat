@@ -86,7 +86,9 @@
               <div class="card-body">
                 <h5 class="card-title">Previous Workday</h5>
                 <p class="card-text">Date: <%= workday.day %></p>
-                <%= form_tag(export_workday_attendance_project_path(project_id: @project.project_id, schedule_id: workday.id, format: :csv), method: :post) do %>
+                <%= form_tag(project_workday_csv_path(format: 'csv'), method: :get) do %>
+                  <%= hidden_field_tag :project_id, @project.project_id %>
+                  <%= hidden_field_tag :schedule_id, workday.id %>
                   <%= submit_tag "Export Workday Attendance", class: "btn btn-primary" %>
                 <% end %>
               </div>

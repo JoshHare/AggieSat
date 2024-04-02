@@ -105,4 +105,5 @@ class TrainingEnrollmentsController < ApplicationController
 
     false
   end
+
 end

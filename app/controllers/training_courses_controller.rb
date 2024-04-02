@@ -57,6 +57,14 @@ class TrainingCoursesController < ApplicationController
     end
   end
 
+  
+  def csv 
+    respond_to do |format|
+      format.html
+      format.csv { send_data TrainingCourse.to_csv(%w(full_name)), filename: "all-user-training-status-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv"}
+    end
+  end 
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -68,4 +76,5 @@ class TrainingCoursesController < ApplicationController
   def training_course_params
     params.require(:training_course).permit(:name, :course_id)
   end
+
 end

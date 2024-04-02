@@ -142,12 +142,14 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # rubocop:disable Lint/UselessAssignment
-  def export_workday_attendance
+  def csv 
     project = Project.find(params[:project_id])
     scheduled_workday = ScheduledWorkday.find(params[:schedule_id])
-  end
-  # rubocop:enable Lint/UselessAssignment
+    respond_to do |format|
+      format.html
+      format.csv { send_data AttendanceRecord.to_csv(%w(approval_status), %w(full_name), project.project_id, scheduled_workday.id), filename: "workday#{project.project_name}-day#{scheduled_workday.day}-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv"}
+    end
+  end 
 
   private
 

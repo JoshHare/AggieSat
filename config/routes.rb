@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'test#index'
+  root 'home#index'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   #get '/auth/:provider/callback' => 'users/sessions#omniauth'
@@ -11,10 +11,15 @@ Rails.application.routes.draw do
     post 'users/sign_out', to: 'users/sessions#delete', as: :destroy_user_session
   end
 
-  get 'test', to: 'test#index'
+  get 'home', to: 'home#index'
 
   get '/upload', to: 'pdf_processor#upload', as: 'upload'
   post 'pdf_processor/process_pdf'
+
+  #post 'pdf_processor/csv'
+  get 'pdf_processor/csv', to: 'pdf_processor#csv', as: :pdf_processor_csv
+  get 'pdf_processor/batch', to: 'pdf_processor#batch'
+  post 'pdf_processor/process_batch', to: 'pdf_processor#process_batch'
 
 
 
@@ -40,7 +45,10 @@ Rails.application.routes.draw do
 
 
   end
+
+  get 'training_courses/csv', to: 'training_courses#csv', as: :training_course_csv
   resources :training_courses
+  #get 'training_courses/csv', to: 'training_courses#csv', as: :training_courses_csv
 
   # Route for projects index page
   get '/projects', to: 'projects#index', as: 'projects_index'
@@ -56,9 +64,11 @@ Rails.application.routes.draw do
       post :create_record
       post :accept_member
       post :reject_member
-      post :export_workday_attendance
+      #post :export_workday_attendance
+      #get :csv, to: 'project#csv', as: :project_csv
     end
   end
+  get 'projects/:project_id/csv', to: 'projects#csv', as: :project_workday_csv
   delete 'projects/:project_id', to: 'projects#destroy', as: 'destroy_project'
 
   resources :scheduled_workdays, only: [:create]
