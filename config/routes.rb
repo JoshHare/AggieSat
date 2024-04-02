@@ -15,10 +15,12 @@ Rails.application.routes.draw do
 
   get '/upload', to: 'pdf_processor#upload', as: 'upload'
   post 'pdf_processor/process_pdf'
+
   #post 'pdf_processor/csv'
   get 'pdf_processor/csv', to: 'pdf_processor#csv', as: :pdf_processor_csv
   get 'pdf_processor/batch', to: 'pdf_processor#batch'
   post 'pdf_processor/process_batch', to: 'pdf_processor#process_batch'
+
 
 
   get '/show' , to: 'member_view#show' , as: 'show'
@@ -71,15 +73,21 @@ Rails.application.routes.draw do
 
   resources :scheduled_workdays, only: [:create]
 
+
+
   get '/manage_members', to: 'manage_members#index', as: 'manage_members'
   get '/manage_members/new', to: 'manage_members#new', as: 'new_manage_member'
+  get '/manage_members/batch', to: 'manage_members#process_batch', as: 'manage_members_process_batch'
+post '/manage_members/batch', to: 'manage_members#process_batch'
   resources :manage_members, only: [:index, :new, :create, :destroy] do
     post :update_role
+
   end
-  
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
+  get '/faq', to: 'faq#index'
 
   # Defines the root path route ("/")
   # root "posts#index"

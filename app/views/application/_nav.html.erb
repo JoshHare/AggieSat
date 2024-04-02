@@ -22,12 +22,13 @@
                 <li class='nav-item bg-light'>
                 <%= link_to 'Manage Members', manage_members_path, class: 'nav-link' %>
                 </li>
-            <% end %>
-            <% if current_user && current_user.role == "Admin" %>
-            <li class='nav-item bg-light'>
-                <%= link_to 'Admin Dashboard', training_enrollments_path, class: 'nav-link' %>
+                 <li class='nav-item bg-light'>
+                <%= link_to 'Manage Training', training_enrollments_path, class: 'nav-link' %>
             </li>
             <% end %>
+            <li class='nav-item bg-light'>
+            <%= link_to 'FAQ', faq_path, class: 'nav-link' %>
+            </li>
         </ul>
         </div>
         <%= button_to 'Logout?', destroy_user_session_path, method: :post, form_class: 'pb-10', class: 'btn btn-custom' %>
