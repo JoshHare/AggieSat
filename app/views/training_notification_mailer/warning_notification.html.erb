@@ -37,13 +37,14 @@
 </head>
 <body>
   <div class="content">
-    <h2>Aggie Satellite Laboratory: Your Training is Expiring Soon!</h2>
-    <p>Howdy <%= @user.first_name %>,</p>
+    <h2>AggieSat Laboratory: Your Training is Expiring Soon!</h2>
+    <p>Howdy <%= @user.full_name %>,</p>
     <p>The following training courses will be expiring soon.</p>
     <ul>
       <%= raw @content %>
     </ul>
     <p>Please renew them in order to be able to participate in the organization.<br>You may submit verification of your training here.</p>
+   <p> <%= @emailcontent %> </p>
   </div>
   <p class="footer">[This is an automated email, do not reply.]</p>
 </body>

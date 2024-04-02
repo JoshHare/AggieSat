@@ -22,53 +22,63 @@ ProjectMember.destroy_all
 
 User.create!([
   {
+    id: '25',
     uid: '25',
     avatar_url: 'testing',
     full_name: 'Skye Slaughter',
     role: 'Member',
-    email: 'email@',
+    email: 'x@tamu.edu'
+
   },
   {
+    id: '26',
     uid: '26',
     avatar_url: 'testing',
     full_name: 'Daniel Newsom',
     role: 'Member',
-    email: 'email@',
+    email: 'x@tamu.edu'
+
   },
   {
+    id: '27',
     uid: '27',
     avatar_url: 'testing',
     full_name: 'Shirish Pandam',
     role: 'Member',
-    email: 'email@',
+    email: 'x@tamu.edu'
   },
   {
+    id: '28',
     uid: '28',
     avatar_url: 'testing',
     full_name: 'Azalea Andrews',
     role: 'Member',
-    email: 'email@',
+    email: 'x@tamu.edu'
   },
   {
+    id: '29',
     uid: '29',
     avatar_url: 'testing',
     full_name: 'Lexi Urquhart',
     role: 'Member',
-    email: 'email@',
+    email: 'x@tamu.edu'
   },
   {
+    id: '30',
     uid: '30',
     avatar_url: 'testing',
     full_name: 'Kamalika Bose',
     role: 'Member',
-    email: 'email@',
+    email: 'x@tamu.edu'
+
   },
   {
+    id: '31',
     uid: '31',
     avatar_url: 'testing',
     full_name: 'Tate Crawford',
     role: 'Member',
-    email: 'email@',
+    email: 'x@tamu.edu'
   },
   {
     uid: '32',
@@ -81,24 +91,25 @@ User.create!([
     uid: '33',
     avatar_url: 'testing',
     full_name: 'Lucy Zhang',
-    role: 'Member',
+    role: 'Admin',
     email: 'lululilly1212@tamu.edu'
   },
   {
     uid: '34',
     avatar_url: 'testing',
     full_name: 'Adidev Mohapatra',
-    role: 'Member',
+    role: 'Admin',
     email: 'adidev@tamu.edu'
   },
   {
     uid: '35',
     avatar_url: 'testing',
     full_name: 'Daniela Martinis',
-    role: 'Member',
+    role: 'Admin',
     email: 'daniela.martinis@tamu.edu'
   },
   {
+    id: '36',
     uid: '36',
     avatar_url: 'testing',
     full_name: 'amy bob',
@@ -108,25 +119,36 @@ User.create!([
   {
     uid: '37',
     avatar_url: 'testing',
+    full_name: 'Christian Mosquera',
+    role: 'Admin',
+    email: 'cwbo.1701@tamu.edu'
+  },
+  {
+    id: '38',
+    uid: '38',
+    avatar_url: 'testing',
     full_name: 'amy bob 2',
     role: 'Admin',
     email: 'amybob2@tamu.edu'
   },
   {
-    uid: '38',
+    id: '39',
+    uid: '39',
     avatar_url: 'testing',
     full_name: 'vishal',
     role: 'Admin',
     email: 'vva2@tamu.edu'
   },
   {
-    uid: '39',
+    id: '40',
+    uid: '40',
     avatar_url: 'testing',
     full_name: 'dr wade',
     role: 'Admin',
     email: 'paulinewade@tamu.edu'
   }
-])
+]
+            )
 Rails.logger.debug { "Created #{User.count} Users" }
 
 TrainingCourse.create!([
@@ -264,8 +286,9 @@ Project.create!([
     project_id: 10,
     leader_id: '111619080521840803157',
     project_name: 'Juniper'
-  },
-])
+  }
+]
+               )
 
 Rails.logger.debug { "Created #{Project.count} Projects" }
 
@@ -334,7 +357,8 @@ ProjectMember.create!([
     user_id: '104940125384065754825',
     project_id: 9
   }
-])
+]
+                     )
 
 Rails.logger.debug { "Created #{ProjectMember.count} Project Members" }
 
@@ -342,36 +366,37 @@ ScheduledWorkday.create!([
   {
     program_manager_id: '25',
     project_id: 3,
-    day: Date.today
+    day: Time.zone.today
   },
   {
     program_manager_id: '25',
     project_id: 3,
-    day: Date.today + 1
+    day: Time.zone.today + 1
   },
   {
     program_manager_id: '25',
     project_id: 3,
-    day: Date.today + 2
+    day: Time.zone.today + 2
   },
   {
     program_manager_id: '111619080521840803157',
     project_id: 10,
-    day: Date.today
+    day: Time.zone.today
   },
   {
     program_manager_id: '111619080521840803157',
     project_id: 10,
-    day: Date.today + 1
+    day: Time.zone.today + 1
   },
   {
     program_manager_id: '111619080521840803157',
     project_id: 10,
-    day: Date.today + 4
+    day: Time.zone.today + 4
   },
   {
     program_manager_id: '111619080521840803157',
     project_id: 10,
-    day: Date.today - 5
-  },
-])
+    day: Time.zone.today - 5
+  }
+]
+                        )

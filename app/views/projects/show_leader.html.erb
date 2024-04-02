@@ -1,6 +1,15 @@
 <h1><%= @project.project_name %></h1>
-<%= button_to "Delete", project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", title: "Delete Project" %>
 <div class="container mt-4">
+<div class="row">
+  <div class="col-md-15">
+    <% if (User.find_by(uid: current_user.uid)).role == 'Admin' %>
+      <div class="d-flex justify-content-end">
+        <%= button_to "Edit", edit_project_path(@project), method: :get, class: "btn btn-primary mr-2 w-500", title: "Edit Project" %>
+        <%= button_to "Delete", project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger mr-2 w-500", title: "Delete Project" %>
+      </div>
+    <% end %>
+  </div>
+  </div>
   <ul class="nav nav-tabs" id="workdaysTabs" role="tablist">
     <li class="nav-item">
       <button class="nav-link active" id="create-tab" data-bs-toggle="tab" data-bs-target="#create-tab-pane" type="button" role="tab" aria-controls="create-tab-pane" aria-selected="true">Create Workdays</button>
@@ -31,25 +40,44 @@
       </div>
     </div>
     <div class="tab-pane fade show" id="upcoming-tab-pane" role="tabpanel" aria-labelledby="upcoming-tab">
-      <div class="row mt-3">
-        <% @upcoming_workdays.each do |workday| %>
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Upcoming Workday</h5>
-                <p class="card-text">Date: <%= workday.day %></p>
-                <% if @status %>
-                  <p class="card-text">Status: Approved</p>
-                <% else %>
-                  <p class="card-text">Status: Null</p>
-                <%end%>
-                <button type="button" class="btn btn-primary" onclick="AttendanceRecord.create_record">Check In</button>
-              </div>
+    <div class="row mt-3">
+      <% @upcoming_workdays.each do |workday| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Pending Status For Members</h5>
+              <p class="card-text">Date: <%= workday.day %></p>
+              <% (@pending_members.where(schedule_id: workday.id)).each do |member| %>
+                <% if member.approval_status == false %>
+                  <li>
+                  <%= User.find_by(uid: member.user_id).full_name %> 
+                  <%= form_with(url: accept_member_project_path(@project), method: :post, local: true) do |form| %>
+                    <%= form.hidden_field :schedule_id, value:  workday.id %>
+                    <%= form.hidden_field :user_id, value:  member.user_id %>
+                    <%= form.submit "Accept", class: "btn btn-primary" %>
+                  <% end %>
+                  <%= form_with(url: reject_member_project_path(@project), method: :post, local: true) do |form| %>
+                    <%= form.hidden_field :schedule_id, value:  workday.id %>
+                    <%= form.hidden_field :user_id, value:  member.user_id %>
+                    <%= form.submit "Reject", class: "btn btn-primary" %>
+                  <% end %>
+                  </li>
+                <% end %>
+              <% end %>
+              <h5 class="card-title">Approved Status For Members</h5>
+              <% (@pending_members.where(schedule_id: workday.id)).each do |member| %>
+                <% if member.approval_status %>
+                  <li>
+                  <%= User.find_by(uid: member.user_id).full_name %> 
+                  </li>
+                <% end %>
+              <% end %>
             </div>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
+  </div>
     <div class="tab-pane fade" id="previous-tab-pane" role="tabpanel" aria-labelledby="previous-tab">
       <div class="row mt-3">
         <% @previous_workdays.each do |workday| %>
@@ -58,12 +86,11 @@
               <div class="card-body">
                 <h5 class="card-title">Previous Workday</h5>
                 <p class="card-text">Date: <%= workday.day %></p>
-                <% if @status %>
-                  <p class="card-text">Status: Approved</p>
-                <% else %>
-                  <p class="card-text">Status: Null</p>
-                <%end%>
-                <button type="button" class="btn btn-primary disabled" onclick="AttendanceRecord.create_record">Check In</button>
+                <%= form_tag(project_workday_csv_path(format: 'csv'), method: :get) do %>
+                  <%= hidden_field_tag :project_id, @project.project_id %>
+                  <%= hidden_field_tag :schedule_id, workday.id %>
+                  <%= submit_tag "Export Workday Attendance", class: "btn btn-primary" %>
+                <% end %>
               </div>
             </div>
           </div>
@@ -79,6 +106,3 @@
     </div>
   </div>
 </div>
-
-
-

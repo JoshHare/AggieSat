@@ -37,14 +37,15 @@
 </head>
 <body>
   <div class="content">
-    <h2>Aggie Satellite Laboratory: Your training is expired!</h2>
-    <p>Howdy <%= @user.first_name %>,</p>
+    <h2>AggieSat Laboratory: Your training is expired!</h2>
+    <p>Howdy <%= @user.full_name %>,</p>
     <p>The following training courses are expired.</p>
     <ul>
       <%= raw @content %>
     </ul>
     <p>Please renew them in order to be able to participate in the organization.<br>
     You may submit verification of your training <a href="https://aggiesat-eb6c44025ad5.herokuapp.com/users/sign_in" target="_blank">here</a>.</p>
+  <p> <%= @emailcontent %> </p>
   </div>
   <p class="footer">[This is an automated email, do not reply.]</p>
 </body>

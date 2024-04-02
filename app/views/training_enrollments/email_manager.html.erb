@@ -1,0 +1,15 @@
+
+<h1>Email Manager</h1>
+
+<%= form_with(url: training_enrollments_path, method: :post) do |form| %>
+  <div class="field">
+    <%= form.label :input_field, "Input Field" %>
+    <%= form.text_field :input_field %>
+  </div>
+
+  <%= form.submit "Submit" %>
+<% end %>
+
+<% if @emailcontent.present? %>
+  <p>Entered content: <%= @emailcontent %></p>
+<% end %>

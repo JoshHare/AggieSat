@@ -1,0 +1,36 @@
+<p class="text-success"><%= notice %></p>
+
+<div class="container mt-5">
+  <h1>Required Training Courses</h1>
+  <div>
+  <%= link_to "New Training Course", new_training_course_path, class: "btn btn-custom", style: "margin-bottom: 10px;" %>
+  <%= link_to "Back to Admin View", training_enrollments_path, class: "btn btn-custom", style: "margin-bottom: 10px;" %>
+</div>
+
+  <div class="row">
+    <% @training_courses.each do |training_course| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-center"><%= training_course.name %></h5>
+            <p class="card-text">Course ID: <%= training_course.course_id %></p>
+            <!-- Add more details here if needed -->
+            <div class="text-center">
+              <div class="btn-group" role="group">
+                <%= link_to "Edit", edit_training_course_path(training_course), class: "btn btn-custom mr-2" , style: "margin-right: 5px;"%> 
+                <%= form_tag(training_course_path(training_course), method: :delete) do %>
+                  <%= submit_tag "Delete", class: "btn btn-custom mr-2" %>
+                <% end %>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  
+
+</div>
