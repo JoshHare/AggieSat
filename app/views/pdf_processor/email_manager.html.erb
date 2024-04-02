@@ -1,0 +1,11 @@
+<!-- app/views/pages/email_content.html.erb -->
+<h1>Email Content</h1>
+
+<%= form_tag({ controller: 'training_enrollments', action: 'email_all' }, method: 'post') do %>
+    <%= button_tag('Email all', class: 'btn btn-info mb-3', type: 'submit') %>
+  <% end %>
+<%= form_tag('/pdf_processor/save_email_content') do %>
+  <%= label_tag 'email_manager', 'Enter Email Content:' %><br>
+  <%= text_area_tag 'email_manager', @emailcontent, rows: 10, cols: 50 %><br>
+  <%= submit_tag 'Save Content' %>
+<% end %>

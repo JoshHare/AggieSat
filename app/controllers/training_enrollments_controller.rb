@@ -50,12 +50,31 @@ class TrainingEnrollmentsController < ApplicationController
     redirect_to(training_enrollments_path)
   end
 
+  def user_enrollments
+    @user = User.find_by(uid: params[:user_id].to_s)
+    @enrollments = []
+
+    TrainingCourse.all.find_each do |course|
+      result = TrainingService.check_enrollment_and_validity(course, @user)
+      enrollment = {}
+      enrollment[:course_title] = course.name
+      enrollment[:course_id] = course.course_id
+      enrollment[:result] = result
+      @enrollments << enrollment
+    end
+
+    # Respond to HTML format request
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def email_all
     # Call the function from TrainingService
     TrainingService.send_emails_for_overdue_trainings
 
     # Redirect or render as needed
-    redirect_to training_enrollments_path, notice: 'Custom action performed successfully.'
+    redirect_to(training_enrollments_path, notice: 'Custom action performed successfully.')
   end
 
   private
@@ -64,12 +83,12 @@ class TrainingEnrollmentsController < ApplicationController
     TrainingService.check_validity(enrollment)
   end
 
-
   def enrollment_params
     params.require(:training_enrollment).permit(:course_id, :user_id, :completion_status)
   end
 
-  def out_of_date?(enrollment) #checks if the training is expired (1 year old)
+  # checks if the training is expired (1 year old)
+  def out_of_date?(enrollment)
     if enrollment.completion_status.present?
       completion_status_threshold = 1.year.ago
       return enrollment.completion_status < completion_status_threshold
@@ -86,6 +105,5 @@ class TrainingEnrollmentsController < ApplicationController
 
     false
   end
-
 
 end
