@@ -122,7 +122,8 @@ RSpec.describe('Checking usability of website: ', type: :feature) do
         info: {
           email: 'amybob2@tamu.edu',
           name: 'amy bob 2',
-          image: 'testing'
+          image: 'testing',
+          role: 'Admin'
         }
         # etc.
       }
@@ -142,6 +143,15 @@ RSpec.describe('Checking usability of website: ', type: :feature) do
     expect(page).to(have_content('Create Project'))
     click_on '3'
     expect(page).to(have_content('AGS6'))
+    visit manage_members_path
+    expect(page).to(have_content('Member Batch'))
+    visit training_enrollments_path
+    expect(page).to(have_content('Export Training Status'))
+    #click_on "2, bob, amy"
+    #expect(page).to(have_content('amy bob'))
+    visit training_enrollments_path
+    click_on "Course Manager"
+    expect(page).to(have_content('New Training Course'))
 
     click_on 'Logout?'
     expect(page).to(have_content('out successfully'))
@@ -210,5 +220,62 @@ RSpec.describe('PDF proccessor integration test: ', type: :feature) do
   #   click_button "Process PDF"
   #   expect(page).to have_content('bob')
   # end
+end
+
+RSpec.describe('CSVs: ', type: :feature) do
+  before do
+    Rails.application.env_config['devise.mapping'] = Devise.mappings[:user]
+  end
+
+  def csv
+    CSV.parse(page.body).transpose
+  end
+  # member trianing download
+  it 'export training' do
+    visit new_user_session_path
+    click_on 'Sign in with Google'
+
+    visit upload_path
+
+    click_on "Export Trainings to CSV"
+
+    expect(csv).to(have_content('name'))
+  end
+
+  # project workdat download
+  it 'proj workdat' do
+    visit new_user_session_path
+    click_on 'Sign in with Google'
+
+    visit projects_path
+    click_on '10'
+    click_on 'previous-tab'
+    click_on 'Export Workday Attendance'
+    expect(csv).to(have_content('full_name'))
+  end
+
+
+  # all
+  it 'csl downlaod' do
+    visit new_user_session_path
+    click_on 'Sign in with Google'
+
+    visit training_enrollments_path
+    #expect(page).to(have_content('validity'))
+    click_on 'Export Training Status as CSV'
+    expect(csv).to(have_content('validity'))
+  end
+
+  it 'add members' do
+    visit new_user_session_path
+    click_on 'Sign in with Google'
+
+    visit manage_members_path
+    click_on 'Batch Upload'
+    attach_file 'csv_file', 'spec/test_files/batchtest.csv'
+    click_on "Upload"
+    visit manage_members_path
+    expect(page).to(have_content('one, one'))
+  end
 end
 # rubocop:enable RSpec/MultipleDescribes
