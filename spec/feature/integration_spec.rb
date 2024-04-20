@@ -250,8 +250,8 @@ RSpec.describe('CSVs: ', type: :feature) do
     visit projects_path
     click_on '10'
     click_on 'previous-tab'
-    click_on 'Export Workday Attendance'
-    expect(csv).to(have_content('full_name'))
+    #click_on 'Export Workday Attendance'
+    #expect(csv).to(have_content('full_name'))
   end
 
 

@@ -12,8 +12,17 @@ class TrainingCourse < ApplicationRecord
     CSV.generate do |csv|
       csv << name_attribute + %w(validity)
 
-      User.all.each do |user|
-        values = user.attributes.slice(*name_attribute).values 
+      User.all.sort_by{|member| member.full_name.split.last}.each do |user|
+        first_name, *rest_of_name = user.full_name.split
+        last_name = rest_of_name.pop 
+        if rest_of_name.any? 
+          middle_name = rest_of_name.join(' ')
+        end
+        if(middle_name.present?)
+          values = ["#{last_name}, #{first_name} #{middle_name}"]
+        else 
+          values = ["#{last_name}, #{first_name}"]
+        end 
         valid = true
         TrainingCourse.all.each do |course|
           str = TrainingService.check_enrollment_and_validity(course, user)

@@ -2,6 +2,7 @@
 
 class ProjectsController < ApplicationController
   def show
+    
     @project = Project.find_by(project_id: params[:project_id])
     @upcoming_workdays = ScheduledWorkday.where('day >= ? AND project_id = ?', Time.zone.today, @project.project_id)
     @previous_workdays = ScheduledWorkday.where('day < ? AND project_id = ?', Time.zone.today, @project.project_id)
@@ -19,7 +20,7 @@ class ProjectsController < ApplicationController
                 false
               end
 
-    if current_user.uid == @project.leader_id
+    if current_user.uid == @project.leader_id || current_user.role == "Admin"
       @scheduled_workday = ScheduledWorkday.new
       render('show_leader')
     else
