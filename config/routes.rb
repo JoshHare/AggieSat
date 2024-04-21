@@ -29,13 +29,13 @@ Rails.application.routes.draw do
     member do
       get :delete
     end
-    collection do
-      post :email_all
-    end
+
     collection do
       get :user_enrollments
     end
-
+    post :email_all, on: :collection
+    post :send_emails, on: :collection
+    post :update_email_frequency, on: :collection
 
   end
   resources :users do

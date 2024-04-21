@@ -36,9 +36,9 @@ class TrainingService
   # for a user, iterate through each training course and evaluate the type of email that needs to be sent.
 
   def self.send_email_if_overdue(user)
-    email_content = ''
-    null_content = ''
-    warning_content = ''
+    email_content = String.new
+    null_content = String.new
+    warning_content = String.new
 
     # iterate through each required course from training course database
     TrainingCourse.all.find_each do |course|

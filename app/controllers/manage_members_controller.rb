@@ -51,7 +51,7 @@ class ManageMembersController < ApplicationController
 
       csv.each do |row|
         email = row['email']
-        name = row['name']
+        name = "MEMBER NAME"
         next unless valid_tamu_email?(email)
         next if User.find_by(email: email)
 
