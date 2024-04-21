@@ -66,6 +66,10 @@ Rails.application.routes.draw do
       post :reject_member
       #post :export_workday_attendance
       #get :csv, to: 'project#csv', as: :project_csv
+      get :add_many_members, to: 'projects#add_many_members'
+      post :create_many_members
+      get :remove_many_members, to: 'projects#remove_many_members'
+      post :destroy_many_members
     end
   end
   get 'projects/:project_id/csv', to: 'projects#csv', as: :project_workday_csv

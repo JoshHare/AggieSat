@@ -1,0 +1,26 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Remove Multiple Members from Project</h1>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Select Members to Remove</h3>
+          <div class="member-list">
+            <%= form_tag(destroy_many_members_project_path(@project), method: :post) do %>
+              <% @users.each do |user| %>
+                <div class="form-check">
+                  <%= check_box_tag "user_ids[]", user.uid, false, class: 'form-check-input' %>
+                  <%= label_tag "user_#{user.uid}", user.full_name, class: 'form-check-label' %>
+                </div>
+              <% end %>
+              <%= hidden_field_tag :project_id, @project.id %>
+              <%= submit_tag "Remove Selected Members", class: "btn btn-danger mt-3" %>
+              <%= link_to "Cancel", project_path(@project, anchor: 'members-tab-pane'), class: "btn btn-secondary mt-3" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

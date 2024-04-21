@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+/* Hide all tab panes by default */
+.tab-content > .tab-pane {
+    display: none;
+  }
+  
+  /* Show the active tab pane */
+  .tab-content > .tab-pane:target {
+    display: block;
+  }
+  
+  
