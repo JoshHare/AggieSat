@@ -54,9 +54,11 @@ Rails.application.routes.draw do
   get '/projects', to: 'projects#index', as: 'projects_index'
   get '/projects/:project_id/edit', to: 'projects#edit', as: 'edit_project'
   patch '/projects/:project_id', to: 'projects#update'
-  resources :projects, only: [:show, :new, :create], param: :project_id do
+  resources :projects, only: [:show, :new, :create, :destroy], param: :project_id do
     member do
       get :delete
+      get :delete_confirm
+      get '/projects/:project_id/delete_confirm', to: 'projects#delete_confirm', as: 'delete_project_confirm'
       get :add_member, to: 'projects#_add_member_form'
       post :create_member
       delete :remove_member
@@ -73,8 +75,7 @@ Rails.application.routes.draw do
     end
   end
   get 'projects/:project_id/csv', to: 'projects#csv', as: :project_workday_csv
-  delete 'projects/:project_id', to: 'projects#destroy', as: 'destroy_project'
-
+  
   resources :scheduled_workdays, only: [:create]
 
 

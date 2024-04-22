@@ -58,6 +58,10 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def delete_confirm
+    @project = Project.find(params[:project_id])
+  end
+
   def delete
     @project = Project.find(params[:project_id])
   end

@@ -5,7 +5,7 @@
       <% if User.find_by(uid: current_user.uid).role == 'Admin' %>
         <div class="d-flex justify-content-end">
           <%= button_to "Edit Project", edit_project_path(@project), method: :get, class: "btn btn-primary mr-2 w-500", title: "Edit Project" %>
-          <%= button_to "Delete Project", project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger mr-2 w-500", title: "Delete Project" %>
+          <%= button_to "Delete Project", delete_project_confirm_project_path(@project), method: :get, class: "btn btn-danger mr-2 w-500", title: "Delete Project" %>
         </div>
       <% end %>
     </div>
