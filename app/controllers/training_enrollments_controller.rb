@@ -82,6 +82,16 @@ class TrainingEnrollmentsController < ApplicationController
     redirect_to training_enrollments_path, notice: 'Custom action performed successfully.'
   end
 
+  def update_email_frequency
+    # Your code to update email frequency goes here
+    # For example, you might fetch the params and update the email frequency setting
+    new_frequency = params[:email_frequency]
+    ENV['EMAIL_FREQUENCY'] = new_frequency
+
+    # Redirect or render as needed
+    redirect_to training_enrollments_path, notice: 'Email frequency updated successfully.'
+  end
+
   private
 
   def check_validity(enrollment)
