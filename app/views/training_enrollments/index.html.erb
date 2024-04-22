@@ -1,15 +1,26 @@
 <div class="container">
-  <h2 class="mb-4">Training Enrollments </h2>
+  <h2 class="mb-4">Training Enrollments</h2>
 
   <%= link_to "Course Manager", training_courses_path, class: "btn btn-custom mb-1" %>
-<%= link_to "Member Manager", users_path, class: "btn btn-custom mb-1" %>
   <%= link_to "Export Training Status as CSV", training_course_csv_path(format: 'csv'), class: "btn btn-custom mb-1" %>
-  <%= form_tag({ controller: 'training_enrollments', action: 'email_all' }, method: 'post') do %>
-   <div class="email-button-container">
-    <%= button_tag('Email all', class: 'btn btn-custom', type: 'submit') %>
-    <p class="email-button-text">This emails all students who have invalid training.</p>
-  </div>
+  
+  <!-- Email Frequency Form -->
+  <%= form_tag({ controller: 'training_enrollments', action: 'update_email_frequency' }, method: 'post', class: "mb-4") do %>
+    <div class="form-group">
+      <%= label_tag "email_frequency", "Email Frequency:" %>
+      <%= select_tag "email_frequency", options_for_select(["1.day", "1.week", "2.weeks", "1.month"], ENV.fetch('EMAIL_FREQUENCY', '1.week')), class: "form-control" %>
+    </div>
+    <%= submit_tag "Update", class: "btn btn-custom" %>
   <% end %>
+
+  <!-- Email All Button -->
+  <%= form_tag({ controller: 'training_enrollments', action: 'email_all' }, method: 'post') do %>
+    <div class="email-button-container">
+      <%= button_tag('Email all', class: 'btn btn-custom', type: 'submit') %>
+      <p class="email-button-text">This emails all students who have invalid training.</p>
+    </div>
+  <% end %>
+
   <p>The following shows all of the members in your organization and their training status. Click on their name to see detailed info on their training status.</p>
 
   <div class="table-responsive">
@@ -21,9 +32,7 @@
         </tr>
       </thead>
       <tbody>
-
-       <% User.all.sort_by { |user| user.full_name.split.last }.each do |user| %>
-
+        <% User.all.sort_by { |user| user.full_name.split.last }.each do |user| %>
           <% overall_status = "Valid" %>
           <% TrainingCourse.all.each do |course| %>
             <% enrollment_result = TrainingService.check_enrollment_and_validity(course, user) %>
@@ -32,16 +41,20 @@
               <% break %>
             <% end %>
           <% end %>
-  <tr>
-
-    <td>  <% first_name, last_name = user.full_name.split %>
-    
-      <%= link_to "#{last_name}, #{first_name}", user_enrollments_training_enrollments_path(user_id: user.uid), class: overall_status == "Valid" ? "text-success" : "text-danger" %>
-
-    </td>
-    <td><%= overall_status %></td>
-  </tr>
-<% end %>
+          <tr>
+            <td>
+              <% first_name, *rest_of_name = user.full_name.split %>
+              <% last_name = rest_of_name.pop %>
+              <% middle_name = rest_of_name.join(' ') if rest_of_name.any? %>
+              <% if middle_name.present? %>
+                <%= link_to "#{last_name}, #{first_name} #{middle_name}", user_enrollments_training_enrollments_path(user_id: user.uid), class: overall_status == "Valid" ? "text-success" : "text-danger" %>
+              <% else %>
+                <%= link_to "#{last_name}, #{first_name}", user_enrollments_training_enrollments_path(user_id: user.uid), class: overall_status == "Valid" ? "text-success" : "text-danger" %>
+              <% end %>
+            </td>
+            <td><%= overall_status %></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
   </div>

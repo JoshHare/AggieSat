@@ -12,13 +12,16 @@ class ManageMembersController < ApplicationController
   end
 
   def create
-    @user = User.new
+    @user = User.new(user_params)
     @user.uid = generate_uid
-    @user.full_name = params[:user][:full_name]
-    @user.email = params[:user][:email]
-    @user.role = params[:user][:role]
     @user.avatar_url = 'testing'
     if @user.save
+      params[:user][:project_ids].each do |project_id|
+        project = Project.find_by(id: project_id)
+        if project
+          ProjectMember.create(project_id: project.project_id, user_id: @user.uid)
+        end
+      end
       redirect_to(manage_members_path, notice: 'New member added successfully.')
     else
       render(:new)
@@ -29,6 +32,7 @@ class ManageMembersController < ApplicationController
   def destroy
     @member = User.find_by(uid: params[:id])
     if @member.destroy
+      ProjectMember.where(user_id: @member.uid).destroy_all
       redirect_to(manage_members_path, notice: 'Member removed successfully.')
     else
       redirect_to(manage_members_path, alert: 'Failed to remove member.')
@@ -51,7 +55,7 @@ class ManageMembersController < ApplicationController
 
       csv.each do |row|
         email = row['email']
-        name = row['name']
+        name = "MEMBER NAME"
         next unless valid_tamu_email?(email)
         next if User.find_by(email: email)
 
@@ -74,6 +78,10 @@ class ManageMembersController < ApplicationController
 
   private
 
+  def user_params
+    params.require(:user).permit(:email, :role, :full_name)
+  end
+  
   def generate_uid
     # Logic to generate the UID, such as finding the highest current uid and incrementing it
     highest_uid = Integer((User.maximum(:uid) || '0'), 10)

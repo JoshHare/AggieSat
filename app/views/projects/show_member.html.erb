@@ -2,21 +2,26 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-md-15">
-      <% if (User.find_by(uid: current_user.uid)).role == 'Admin' %>
-      <div class="d-flex justify-content-end">
-        <%= button_to "Edit", edit_project_path(@project), method: :get, class: "btn btn-primary mr-2 w-500", title: "Edit Project" %>
-        <%= button_to "Delete", project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger mr-2 w-500", title: "Delete Project" %>
+      <% if User.find_by(uid: current_user.uid).role == 'Admin' %>
+        <div class="d-flex justify-content-end">
+          <%= button_to "Edit Project", edit_project_path(@project), method: :get, class: "btn btn-primary mr-2 w-500", title: "Edit Project" %>
+          <%= button_to "Delete Project", delete_project_confirm_project_path(@project), method: :get, class: "btn btn-danger mr-2 w-500", title: "Delete Project" %>
       </div>
-    <% end %>
+      <% end %>
     </div>
   </div>
   <ul class="nav nav-tabs" id="workdaysTabs" role="tablist">
     <li class="nav-item">
-      <button class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming-tab-pane" type="button" role="tab" aria-controls="upcoming-tab-pane" aria-selected="true">Upcoming Workdays</button>
+      <a class="nav-link" href="#upcoming-tab-pane">Upcoming Workdays</a>
     </li>
     <li class="nav-item">
-      <button class="nav-link" id="previous-tab" data-bs-toggle="tab" data-bs-target="#previous-tab-pane" type="button" role="tab" aria-controls="previous-tab-pane" aria-selected="false">Previous Workdays</button>
+      <a class="nav-link" href="#previous-tab-pane">Previous Workdays</a>
     </li>
+    <% if User.find_by(uid: current_user.uid).role == 'Admin' %>
+    <li class="nav-item">
+      <a class="nav-link" href="#members-tab-pane">Manage Members</a>
+    </li>
+    <% end %>
   </ul>
   <div class="tab-content" id="workdaysTabsContent">
     <div class="tab-pane fade show active" id="upcoming-tab-pane" role="tabpanel" aria-labelledby="upcoming-tab">
@@ -27,22 +32,28 @@
               <div class="card-body">
                 <h5 class="card-title">Upcoming Workday</h5>
                 <p class="card-text">Date: <%= workday.day %></p>
-                <% if (@approval_status.where(schedule_id: workday.id)).first %>
-                  <% if ((@approval_status.where(schedule_id: workday.id)).first).approval_status %>
+                <% attendance_record = AttendanceRecord.find_by(user_id: current_user.uid, schedule_id: workday.id) %>
+                <% if attendance_record %>
+                  <% if attendance_record.approval_status %>
                     <p class="card-text">Status: Approved</p>
                   <% end %>
-                <% else %>
-                  <p class="card-text">Status: Null</p>
-                <% end %>
-                <% if workday.day <= Time.zone.today %>
-                  <%= form_with(url: create_record_project_path(@project), method: :post, local: true) do |form| %>
-                    <%= form.hidden_field :workday_id, value: workday.id %>
-                    <%= form.submit "Check In", class: "btn btn-primary" %>
-                  <% end %>
-                <% else %>
+                  <p class="card-text">Status: Checked In</p>
                   <%= form_with(url: create_record_project_path(@project), method: :post, local: true, html: { disabled: true }) do |form| %>
                     <%= form.hidden_field :workday_id, value: workday.id %>
                     <%= form.submit "Check In", class: "btn btn-primary", disabled: true %>
+                  <% end %>
+                <% else %>
+                  <p class="card-text">Status: Not Checked In</p>
+                  <% if workday.day <= Time.zone.today %>
+                    <%= form_with(url: create_record_project_path(@project), method: :post, local: true) do |form| %>
+                      <%= form.hidden_field :workday_id, value: workday.id %>
+                      <%= form.submit "Check In", class: "btn btn-primary" %>
+                    <% end %>
+                  <% else %>
+                    <%= form_with(url: create_record_project_path(@project), method: :post, local: true, html: { disabled: true }) do |form| %>
+                      <%= form.hidden_field :workday_id, value: workday.id %>
+                      <%= form.submit "Check In", class: "btn btn-primary", disabled: true %>
+                    <% end %>
                   <% end %>
                 <% end %>
               </div>
@@ -51,7 +62,6 @@
         <% end %>
       </div>
     </div>
-  </div>
     <div class="tab-pane fade" id="previous-tab-pane" role="tabpanel" aria-labelledby="previous-tab">
       <div class="row mt-3">
         <% @previous_workdays.each do |workday| %>
@@ -73,5 +83,14 @@
         <% end %>
       </div>
     </div>
+    <% if User.find_by(uid: current_user.uid).role == 'Admin' %>
+    <div class="tab-pane" id="members-tab-pane" role="tabpanel">
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <%= render 'add_members_form' %>
+        </div>
+      </div>
+    </div>
+    <% end %>
   </div>
 </div>

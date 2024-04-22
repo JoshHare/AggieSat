@@ -70,11 +70,26 @@ class TrainingEnrollmentsController < ApplicationController
   end
 
   def email_all
+    # Render the confirmation view
+    render 'email_all_confirmation'
+  end
+
+  def send_emails
     # Call the function from TrainingService
     TrainingService.send_emails_for_overdue_trainings
 
     # Redirect or render as needed
-    redirect_to(training_enrollments_path, notice: 'Custom action performed successfully.')
+    redirect_to training_enrollments_path, notice: 'Custom action performed successfully.'
+  end
+
+  def update_email_frequency
+    # Your code to update email frequency goes here
+    # For example, you might fetch the params and update the email frequency setting
+    new_frequency = params[:email_frequency]
+    ENV['EMAIL_FREQUENCY'] = new_frequency
+
+    # Redirect or render as needed
+    redirect_to training_enrollments_path, notice: 'Email frequency updated successfully.'
   end
 
   private

@@ -14,14 +14,14 @@
   </style>
 </head>
 <body>
-    <h1>Welcome to the AggieSat Laboratory Portal <%= current_user.full_name %>!</h1>
+    <h1>Welcome to the AggieSat Laboratory Portal, <%= current_user.full_name %>!</h1>
     <div class="container">
     <h1>Your Projects</h1>
     <div class="row">
         <% @projects.each do |project| %>
         <div class="col-md-4 mb-4">
             <div class="card">
-            <%= image_tag("#{project.project_name}.png", :alt => "AggieSat Icon", :class => "card-img-top") %>
+            <%= image_tag project.project_photo if project.project_photo.attached? %>
             <div class="card-body">
                 <h5 class="card-title"><%= project.project_name %></h5>
                 <p class="card-text">Project Leader: <% user = User.find_by(uid: project.leader_id) %>

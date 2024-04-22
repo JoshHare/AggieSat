@@ -1,0 +1,9 @@
+<!-- app/views/training_enrollments/email_all_confirmation.html.erb -->
+<div class="container mt-4">
+  <h1 class="mb-4">Confirmation</h1>
+  <p>Are you sure you want to email all students who have invalid training?</p>
+  <%= form_tag send_emails_training_enrollments_path, method: :post, class: "mt-3" do %>
+    <%= submit_tag "Confirm", class: "btn btn-custom mr-2" %>
+    <%= link_to "Cancel", training_enrollments_path, class: "btn btn-secondary" %>
+  <% end %>
+</div>

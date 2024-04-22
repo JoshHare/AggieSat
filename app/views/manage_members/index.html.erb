@@ -15,30 +15,40 @@
       <th>Remove</th>
     </tr>
   </thead>
-  <tbody>
-    <% @users.sort_by { |user| user.full_name.split.last }.each do |member| %>
-      <tr>
-        <td><%= member.full_name.split.reverse.join(', ') %></td>
-        <td><%= member.email %></td>
-        <td>
-          <form action="<%= manage_member_update_role_path(member.uid) %>" method="post">
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <div class="input-group">
-              <select name="role" class="form-select">
-                <option value="Admin" <%= 'selected' if member.role == 'Admin' %>>Admin</option>
-                <option value="Member" <%= 'selected' if member.role == 'Member' %>>Member</option>
-              </select>
-              <input type="hidden" name="uid" value="<%= member.uid %>">
-              <button type="submit" class="btn btn-primary">Update</button>
-            </div>
-          </form>
-        </td>
-        <td>
-          <%= button_to "Remove", manage_member_path(member.uid), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
+<tbody>
+  <% @users.sort_by { |user| user.full_name.split.last }.each do |member| %>
+    <tr>
+      <td>
+        <% first_name, *rest_of_name = member.full_name.split %>
+        <% last_name = rest_of_name.pop %>
+        <% middle_name = rest_of_name.join(' ') if rest_of_name.any? %>
+        <% if middle_name.present? %>
+          <%= "#{last_name}, #{first_name} #{middle_name}" %>
+        <% else %>
+          <%= "#{last_name}, #{first_name}" %>
+        <% end %>
+      </td>
+      <td><%= member.email %></td>
+      <td>
+        <form action="<%= manage_member_update_role_path(member.uid) %>" method="post">
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <div class="input-group">
+            <select name="role" class="form-select">
+              <option value="Admin" <%= 'selected' if member.role == 'Admin' %>>Admin</option>
+              <option value="Member" <%= 'selected' if member.role == 'Member' %>>Member</option>
+            </select>
+            <input type="hidden" name="uid" value="<%= member.uid %>">
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </form>
+      </td>
+      <td>
+        <%= button_to "Remove", manage_member_path(member.uid), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+
 </table>
 
   </div>
