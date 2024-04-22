@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
                 false
               end
 
-    if current_user.uid == @project.leader_id || current_user.role == "Admin"
+    if current_user.uid == @project.leader_id
       @scheduled_workday = ScheduledWorkday.new
       render('show_leader')
     else
