@@ -284,7 +284,7 @@ Project.create!([
   {
     id: 10,
     project_id: 10,
-    leader_id: '111619080521840803157',
+    leader_id: '38',
     project_name: 'Juniper'
   }
 ]

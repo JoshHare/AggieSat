@@ -14,7 +14,6 @@ class TrainingEnrollment < ApplicationRecord
         values = training.attributes.slice(*train_attributes).values
 
         if training.course_id
-          #values += training.course_id.attributes.slice(*name_attribute).values
           training_course = TrainingCourse.find_by(course_id: training.course_id)
           values += training_course.attributes.slice(*name_attribute).values
         end
