@@ -1,31 +1,32 @@
 <div class="d-flex justify-content-left">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="card">
       <div class="card-body">
         <h3 class="card-title">Add Project Member</h3>
+        <%= link_to "Add Multiple Members", add_many_members_project_path(@project), class: "btn btn-primary mt-3" %>
         <%= form_with(model: @project_member, url: create_member_project_path(@project), method: :post) do |form| %>
           <div class="form-group">
             <%= form.label :user_id, class: 'fw-bold' %>
-            <%= form.select :user_id, User.all.map { |user| [user.full_name, user.uid] }, {}, { class: 'form-control' } %>
+            <%= form.select :user_id, User.all.sort_by { |user| user.full_name.split.last }.map { |user| [user.full_name, user.uid] }, {}, { class: 'form-control' } %>
           </div>
           <%= form.hidden_field :project_id, value: @project.project_id %>
-          <%= form.submit "Add Member", class: "btn btn-primary" %>
+          <%= form.submit "Add One Member", class: "btn btn-primary mt-3" %>
         <% end %>
       </div>
     </div>
   </div>
 
-  <div class="col-md-10 pl-8">
+  <div class="col-md-12 pl-8">
     <div class="card">
       <div class="card-body">
         <h3 class="card-title">Current Project Members</h3>
         <ul class="list-group">
-          <% ProjectMember.where(project_id: @project.project_id).each do |project_member| %>
-            <% user = User.find_by(uid: project_member.user_id) %>
+        <%= link_to "Remove Multiple Members", remove_many_members_project_path(@project), class: "btn btn-danger mt-3" %>
+        <% ProjectMember.where(project_id: @project.project_id).map { |pm| User.find_by(uid: pm.user_id) }.compact.sort_by { |user| user.full_name.split.last }.each do |user| %>
             <% if user %>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <%= user.full_name %> 
-                <%= link_to "Remove", remove_member_confirmation_project_path(@project, member_id: project_member.user_id), class: "btn btn-danger btn-sm", data: { confirm: "Are you sure you want to remove this member from the project?" } %>
+                <%= link_to "Remove", remove_member_confirmation_project_path(@project, member_id: user.uid), class: "btn btn-danger btn-sm", data: { confirm: "Are you sure you want to remove this member from the project?" } %>
               </li>
             <% end %>
           <% end %>
