@@ -32,22 +32,28 @@
               <div class="card-body">
                 <h5 class="card-title">Upcoming Workday</h5>
                 <p class="card-text">Date: <%= workday.day %></p>
-                <% if (@approval_status.where(schedule_id: workday.id)).first %>
-                  <% if ((@approval_status.where(schedule_id: workday.id)).first).approval_status %>
+                <% attendance_record = AttendanceRecord.find_by(user_id: current_user.uid, schedule_id: workday.id) %>
+                <% if attendance_record %>
+                  <% if attendance_record.approval_status %>
                     <p class="card-text">Status: Approved</p>
                   <% end %>
-                <% else %>
-                  <p class="card-text">Status: Null</p>
-                <% end %>
-                <% if workday.day <= Time.zone.today %>
-                  <%= form_with(url: create_record_project_path(@project), method: :post, local: true) do |form| %>
-                    <%= form.hidden_field :workday_id, value: workday.id %>
-                    <%= form.submit "Check In", class: "btn btn-primary" %>
-                  <% end %>
-                <% else %>
+                  <p class="card-text">Status: Checked In</p>
                   <%= form_with(url: create_record_project_path(@project), method: :post, local: true, html: { disabled: true }) do |form| %>
                     <%= form.hidden_field :workday_id, value: workday.id %>
                     <%= form.submit "Check In", class: "btn btn-primary", disabled: true %>
+                  <% end %>
+                <% else %>
+                  <p class="card-text">Status: Not Checked In</p>
+                  <% if workday.day <= Time.zone.today %>
+                    <%= form_with(url: create_record_project_path(@project), method: :post, local: true) do |form| %>
+                      <%= form.hidden_field :workday_id, value: workday.id %>
+                      <%= form.submit "Check In", class: "btn btn-primary" %>
+                    <% end %>
+                  <% else %>
+                    <%= form_with(url: create_record_project_path(@project), method: :post, local: true, html: { disabled: true }) do |form| %>
+                      <%= form.hidden_field :workday_id, value: workday.id %>
+                      <%= form.submit "Check In", class: "btn btn-primary", disabled: true %>
+                    <% end %>
                   <% end %>
                 <% end %>
               </div>

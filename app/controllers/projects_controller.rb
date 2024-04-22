@@ -21,10 +21,8 @@ class ProjectsController < ApplicationController
 
     if current_user.uid == @project.leader_id
       @scheduled_workday = ScheduledWorkday.new
-      flash[:notice] = 'Click on a tab to see its content'
       render('show_leader')
     else
-      flash[:notice] = 'Click on a tab to see its content'
       render('show_member')
     end
   end
