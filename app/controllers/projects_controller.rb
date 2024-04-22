@@ -2,7 +2,7 @@
 
 class ProjectsController < ApplicationController
   def show
-    
+
     @project = Project.find_by(project_id: params[:project_id])
     @upcoming_workdays = ScheduledWorkday.where('day >= ? AND project_id = ?', Time.zone.today, @project.project_id)
     @previous_workdays = ScheduledWorkday.where('day < ? AND project_id = ?', Time.zone.today, @project.project_id)
@@ -204,18 +204,18 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def csv 
+  def csv
     project = Project.find(params[:project_id])
     scheduled_workday = ScheduledWorkday.find(params[:schedule_id])
     respond_to do |format|
       format.html
       format.csv { send_data AttendanceRecord.to_csv(%w(approval_status), %w(full_name), project.project_id, scheduled_workday.id), filename: "workday#{project.project_name}-day#{scheduled_workday.day}-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv"}
     end
-  end 
+  end
 
   private
 
   def project_params
-    params.require(:project).permit(:project_name, :leader_id, :project_id, :other_attributes)
+    params.require(:project).permit(:project_name, :leader_id, :project_id, :project_photo, :other_attributes)
   end
 end
