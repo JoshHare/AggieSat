@@ -58,6 +58,10 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def delete_confirm
+    @project = Project.find(params[:project_id])
+  end
+
   def delete
     @project = Project.find(params[:project_id])
   end
@@ -69,13 +73,70 @@ class ProjectsController < ApplicationController
 
   def create_member
     @project = Project.find_by(project_id: params[:project_id])
-    @project_member = @project.project_members.build(user_id: params[:user_id])
+    user_id = params[:user_id]
 
-    if @project_member.save
-      redirect_to(project_path(@project), notice: 'Member was successfully added to the project.')
+    if ProjectMember.exists?(project_id: @project.id, user_id: user_id)
+      redirect_to project_path(@project, anchor: 'members-tab-pane'), alert: 'This user is already a member of the project.'
     else
-      render(:add_member)
+      @project_member = @project.project_members.build(user_id: user_id)
+
+      if @project_member.save
+        redirect_to project_path(@project, anchor: 'members-tab-pane'), notice: 'Member was successfully added to the project.'
+      else
+        redirect_to project_path(@project, anchor: 'members-tab-pane'), alert: 'Failed to add member to the project.'
+      end
     end
+  end
+
+  def add_many_members
+    @project = Project.find(params[:project_id])
+    @project_member = ProjectMember.new
+    @users = User.all.sort_by { |user| user.full_name.split.last }
+    render 'add_many_members'
+  end
+
+  def create_many_members
+    @project = Project.find(params[:project_id])
+    user_ids = params[:user_ids]
+
+    if user_ids.present?
+      user_ids.each do |user_id|
+        if ProjectMember.exists?(project_id: @project.id, user_id: user_id)
+          flash[:alert] = 'One or more selected users are already members of the project.'
+          redirect_to add_many_members_project_path(@project)
+          return  # Return to exit the action after redirect
+        else
+          @project.project_members.create(user_id: user_id)
+        end
+      end
+      redirect_to project_path(@project, anchor: 'members-tab-pane'), notice: 'Selected members were successfully added to the project.'
+    else
+      redirect_to project_path(@project, anchor: 'members-tab-pane'), alert: 'No members selected.'
+    end
+  end
+
+  def remove_many_members
+    @project = Project.find(params[:project_id])
+    @project_members = ProjectMember.where(project_id: @project.project_id)
+    @users = @project_members.map { |project_member| User.find_by(uid: project_member.user_id) }.compact
+    @users.sort_by! { |user| user.full_name.split.last.downcase }
+  end
+
+  def destroy_many_members
+    @project = Project.find(params[:project_id])
+    user_ids = params[:user_ids]
+
+    if user_ids.present?
+      user_ids.each do |user_id|
+        project_member = ProjectMember.find_by(project_id: @project.project_id, user_id: user_id)
+        project_member.destroy if project_member
+      end
+      flash[:notice] = 'Selected members were removed from the project.'
+    else
+      flash[:alert] = 'No members selected for removal.'
+    end
+
+    redirect_to project_path(@project, anchor: 'members-tab-pane')
   end
 
   def remove_member_confirmation
@@ -93,7 +154,7 @@ class ProjectsController < ApplicationController
     else
       flash[:error] = 'Failed to remove member from the project.'
     end
-    redirect_to(project_path(@project))
+    redirect_to project_path(@project, anchor: 'members-tab-pane')
   end
 
   def create_record
@@ -103,7 +164,7 @@ class ProjectsController < ApplicationController
                                 checkin: Time.current.in_time_zone('Central Time (US & Canada)'), approval_status: false
     )
 
-      redirect_to(project_path(@project), notice: 'Checked in successfully.')
+      redirect_to(project_path(@project, anchor: 'upcoming-tab-pane'), notice: 'Checked in successfully.')
     else
       render(:index)
     end
@@ -113,9 +174,9 @@ class ProjectsController < ApplicationController
     checkin = AttendanceRecord.where(user_id: params[:user_id], schedule_id: params[:schedule_id])
     @project = Project.find(params[:project_id])
     if checkin&.update!(approval_status: true)
-      redirect_to(project_path(@project), notice: 'Accepted Check in.')
+      redirect_to(project_path(@project, anchor: 'upcoming-tab-pane'), notice: 'Accepted Check in.')
     else
-      render(:index)
+      redirect_to(project_path(@project, anchor: 'upcoming-tab-pane'), alert: 'Failed to Accept Check in.')
     end
   end
 
@@ -123,9 +184,9 @@ class ProjectsController < ApplicationController
     reject_checkin = AttendanceRecord.where(user_id: params[:user_id], schedule_id: params[:schedule_id]).first
     @project = Project.find(params[:project_id])
     if reject_checkin.destroy!
-      redirect_to(project_path(@project), notice: 'Rejected Check in.')
+      redirect_to(project_path(@project, anchor: 'upcoming-tab-pane'), notice: 'Rejected Check in.')
     else
-      render(:index)
+      redirect_to(project_path(@project, anchor: 'upcoming-tab-pane'), alert: 'Failed to Reject Check in.')
     end
   end
 
