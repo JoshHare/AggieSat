@@ -70,11 +70,16 @@ class TrainingEnrollmentsController < ApplicationController
   end
 
   def email_all
+    # Render the confirmation view
+    render 'email_all_confirmation'
+  end
+
+  def send_emails
     # Call the function from TrainingService
     TrainingService.send_emails_for_overdue_trainings
 
     # Redirect or render as needed
-    redirect_to(training_enrollments_path, notice: 'Custom action performed successfully.')
+    redirect_to training_enrollments_path, notice: 'Custom action performed successfully.'
   end
 
   private

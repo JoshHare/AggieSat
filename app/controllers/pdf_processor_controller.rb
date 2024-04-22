@@ -87,21 +87,22 @@ class PdfProcessorController < ApplicationController
     if params[:pdf].present? && params[:pdf].respond_to?(:read)
       pdf_text = extract_text_from_pdf(params[:pdf].tempfile.path)
       @parsed = parse(pdf_text)
+      puts "<"
+      puts @parsed
+      puts ">"
       @parsed.each do |course|
         user_id = Integer(current_user.id)
 
         course_id = Integer(course[:course_id])
 
         completion_date = Date.strptime(course[:completion_date], '%m/%d/%Y')
-        d = TrainingCourse.exists?(course_id: course_id)
-        Rails.logger.debug(d)
         next unless TrainingCourse.exists?(course_id: course_id)
 
         # Try to find a record with the specified user_id and course_id
-        Rails.logger.debug { "#{user_id} #{course_id}" }
+       # Rails.logger.debug { "#{user_id} #{course_id}" }
         @training_enrollment = TrainingEnrollment.find_or_initialize_by(user_id: user_id, course_id: course_id)
         # Update the completion_status attribute
-        Rails.logger.debug { "#{@training_enrollment.new_record?}???" }
+       # Rails.logger.debug { "#{@training_enrollment.new_record?}???" }
         next unless @training_enrollment.new_record? || completion_date > @training_enrollment.completion_status
 
         # Update the completion_status attribute
@@ -123,12 +124,12 @@ class PdfProcessorController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
-  def csv 
+  def csv
     respond_to do |format|
       format.html
       format.csv { send_data TrainingEnrollment.to_csv(%w(timestamps), %w(name), current_user.id), filename: "trainings-user#{current_user.full_name}-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv"}
     end
-  end 
+  end
 
   private
 
@@ -163,7 +164,7 @@ class PdfProcessorController < ApplicationController
       name_match = text.match(/Name:\s+(.*?)\s+UIN:/)
       name = name_match ? name_match[1] : 'None'
 
-      pattern = %r{(\d{7}) (\d{1,2}/\d{1,2}/\d{4})}m
+      pattern = %r{(\d+) (\d{1,2}/\d{1,2}/\d{4})}m
 
       matches = text.scan(pattern)
       matches.each do |match|
