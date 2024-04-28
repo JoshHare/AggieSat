@@ -16,7 +16,7 @@
 <body>
     <h1>Welcome to the AggieSat Laboratory Portal, <%= current_user.full_name %>!</h1>
     <div class="container">
-    <h1>Your Projects</h1>
+    <h1>Your Teams</h1>
     <div class="row">
         <% @projects.each do |project| %>
         <div class="col-md-4 mb-4">
@@ -24,7 +24,7 @@
             <%= image_tag project.project_photo if project.project_photo.attached? %>
             <div class="card-body">
                 <h5 class="card-title"><%= project.project_name %></h5>
-                <p class="card-text">Project Leader: <% user = User.find_by(uid: project.leader_id) %>
+                <p class="card-text"> Manager: <% user = User.find_by(uid: project.leader_id) %>
                 <% if user %>
                 <li><%= user.full_name %></li>
                 <% end %></p>
