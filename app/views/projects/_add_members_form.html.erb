@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-body">
-        <h3 class="card-title">Add Project Member</h3>
+        <h3 class="card-title">Add Team Member</h3>
         <%= link_to "Add Multiple Members", add_many_members_project_path(@project), class: "btn btn-primary mt-3" %>
         <%= form_with(model: @project_member, url: create_member_project_path(@project), method: :post) do |form| %>
           <div class="form-group">
@@ -19,7 +19,7 @@
   <div class="col-md-12 pl-8">
     <div class="card">
       <div class="card-body">
-        <h3 class="card-title">Current Project Members</h3>
+        <h3 class="card-title">Current Team Members</h3>
         <ul class="list-group">
         <%= link_to "Remove Multiple Members", remove_many_members_project_path(@project), class: "btn btn-danger mt-3" %>
         <% ProjectMember.where(project_id: @project.project_id).map { |pm| User.find_by(uid: pm.user_id) }.compact.sort_by { |user| user.full_name.split.last }.each do |user| %>
