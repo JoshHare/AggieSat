@@ -30,11 +30,11 @@
             <div class="card">
             <div class="card-body">
                 <h5 class="card-title"><%= project.project_name %></h5>
-                <p class="card-text">Manager: <% user = User.find_by(uid: project.leader_id) %>
+                <p class="card-text">Team Manager: <% user = User.find_by(uid: project.leader_id) %>
                 <% if user %>
                 <li><%= user.full_name %></li>
                 <% else %>
-                <li>Manager Not Found</li>
+                <li>Team Manager Not Found</li>
                 <% end %></p>
                 <p class="card-text">Total Members: <%= ProjectMember.count_for_project(project.project_id) %></p>
                 <%= link_to "", project_path(project.project_id), id: project.project_id, class: "stretched-link" %>

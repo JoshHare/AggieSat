@@ -17,7 +17,7 @@
       </div>
 
       <div class="form-group">
-        <%= form.label :leader_id, "Manager", class: "font-weight-bold" %>
+        <%= form.label :leader_id, "Team Manager", class: "font-weight-bold" %>
         <%= form.select :leader_id, User.all.sort_by { |user| user.full_name.split.last.downcase }.map { |user| [user.full_name, user.uid] }, {}, { class: 'form-control' } %>
       </div>
 
