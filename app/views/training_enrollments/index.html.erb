@@ -8,7 +8,7 @@
   <%= form_tag({ controller: 'training_enrollments', action: 'update_email_frequency' }, method: 'post', class: "mb-4") do %>
     <div class="form-group">
       <%= label_tag "email_frequency", "Email Frequency:" %>
-      <%= select_tag "email_frequency", options_for_select(["1.day", "1.week", "2.weeks", "1.month"], ENV.fetch('EMAIL_FREQUENCY', '1.week')), class: "form-control" %>
+      <%= select_tag "email_frequency", options_for_select(["1.day", "1.week", "2.weeks", "1.month","never"], ENV.fetch('EMAIL_FREQUENCY', '1.week')), class: "form-control" %>
     </div>
     <%= submit_tag "Update", class: "btn btn-custom" %>
   <% end %>
