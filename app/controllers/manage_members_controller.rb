@@ -12,19 +12,26 @@ class ManageMembersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    @user.uid = generate_uid
-    @user.avatar_url = 'testing'
-    if @user.save
-      params[:user][:project_ids].each do |project_id|
-        project = Project.find_by(id: project_id)
-        if project
-          ProjectMember.create(project_id: project.project_id, user_id: @user.uid)
-        end
-      end
-      redirect_to(manage_members_path, notice: 'New member added successfully.')
+    if User.exists?(email: user_params[:email])
+      redirect_to manage_members_path(alert: 'A user with this email already exists!.')
     else
-      render(:new)
+      @user = User.new(user_params)
+      @user.full_name = user_params[:email]
+      @user.uid = generate_uid
+      @user.avatar_url = 'testing'
+      if @user.save
+        if params[:user][:project_ids].present?
+          params[:user][:project_ids].each do |project_id|
+            project = Project.find_by(id: project_id)
+            if project
+              ProjectMember.create(project_id: project.project_id, user_id: @user.uid)
+            end
+          end
+        end
+        redirect_to manage_members_path, notice: 'New member added successfully.'
+      else
+        render(:new)
+      end
     end
   end
 
