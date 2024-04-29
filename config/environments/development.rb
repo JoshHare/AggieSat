@@ -69,31 +69,6 @@ Rails.application.configure do
 # config/environments/production.rb
 config.log_level = :debug  # or :info, :warn, :error, :fatal
 
-  #mailer
-  config.action_mailer.delivery_method = :smtp
-config.action_mailer.smtp_settings = {
-  address: 'smtp.gmail.com',
-  port: 587,
-  domain:  'gmail.com',
-  user_name: 'aggiesat.notifs@gmail.com',
-  password: 'mjwfupsooirpkkqw', # Or App password, a new one must be generated each time
-  authentication: 'plain',
-  enable_starttls_auto: true
-}
-config.action_mailer.raise_delivery_errors = true
-
-  #mailer
-  config.action_mailer.delivery_method = :smtp
-config.action_mailer.smtp_settings = {
-  address: 'smtp.gmail.com',
-  port: 587,
-  domain:  'gmail.com',
-  user_name: 'aggiesat.notifs@gmail.com',
-  password: 'mjwfupsooirpkkqw', # Or App password, a new one must be generated each time
-  authentication: 'plain',
-  enable_starttls_auto: true
-}
-config.action_mailer.raise_delivery_errors = true
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
@@ -104,6 +79,4 @@ config.action_mailer.raise_delivery_errors = true
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
 
-  ENV['GOOGLE_OAUTH_CLIENT_ID'] = '751341065999-mkqjafmub4mc0pm0n5o5l7dlaqd45r7q.apps.googleusercontent.com'
-  ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
 end

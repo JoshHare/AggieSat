@@ -18,7 +18,7 @@
             </li>
             <% if (User.find_by(uid: current_user.uid)).role == 'Admin' %>
                 <li class='nav-item bg-light'>
-                <%= link_to 'Manage Projects', projects_index_path, class: 'nav-link' %>
+                <%= link_to 'Manage Teams', projects_index_path, class: 'nav-link' %>
                 </li>
                 <li class='nav-item bg-light'>
                 <%= link_to 'Manage Members', manage_members_path, class: 'nav-link' %>

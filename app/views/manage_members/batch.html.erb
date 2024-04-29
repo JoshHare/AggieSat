@@ -1,7 +1,7 @@
 <div class="container">
   <h1 class="mt-5">Upload Multiple Members</h1>
   <%= link_to "Back to Manage Members", manage_members_path, class: "btn btn-custom", style: "margin-bottom: 10px;" %>
-  <p>Upload a CSV containing the emails and names of the members you would like to add. The emails must be valid TAMU addresses ending in @tamu.edu. The CSV should contain one column of emails with the header 'email' and one column of names with the header 'name'. (For info on CSV's see the help section) </p>
+  <p>Upload a CSV containing the emails of the members you would like to add. The emails must be valid TAMU addresses ending in @tamu.edu. The CSV should contain one column of emails with the header 'email' (For info on CSV's see the help section) </p>
   <%= form_tag manage_members_process_batch_path, multipart: true, class: "mt-3" do %>
     <div class="form-group">
       <%= label_tag :csv_file, "CSV File", class: "form-label" %>

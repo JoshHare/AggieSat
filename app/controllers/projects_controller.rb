@@ -43,8 +43,9 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.id = @project.project_id
     if @project.save
+      ProjectMember.create(project_id: @project.id, user_id: @project.leader_id)
       @project.update!(project_id: @project.id)
-      redirect_to(project_path(@project), notice: 'Project was successfully created.')
+      redirect_to(project_path(@project), notice: 'Team was successfully created.')
     else
       render(:new)
     end
@@ -53,7 +54,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project = Project.find_by(project_id: params[:project_id])
     if @project.destroy
-      redirect_to(projects_index_path, notice: 'Project was successfully deleted.')
+      redirect_to(projects_index_path, notice: 'Team was successfully deleted.')
     else
       redirect_to(project_path(@project), alert: 'Failed to delete the project.')
     end
@@ -76,7 +77,7 @@ class ProjectsController < ApplicationController
     @project = Project.find_by(project_id: params[:project_id])
     user_id = params[:user_id]
 
-    if ProjectMember.exists?(project_id: @project.id, user_id: user_id)
+    if ProjectMember.exists?(project_id: @project.project_id, user_id: user_id)
       redirect_to project_path(@project, anchor: 'members-tab-pane'), alert: 'This user is already a member of the project.'
     else
       @project_member = @project.project_members.build(user_id: user_id)
@@ -103,14 +104,14 @@ class ProjectsController < ApplicationController
     if user_ids.present?
       user_ids.each do |user_id|
         if ProjectMember.exists?(project_id: @project.id, user_id: user_id)
-          flash[:alert] = 'One or more selected users are already members of the project.'
+          flash[:alert] = 'One or more selected users are already members of the team.'
           redirect_to add_many_members_project_path(@project)
           return  # Return to exit the action after redirect
         else
           @project.project_members.create(user_id: user_id)
         end
       end
-      redirect_to project_path(@project, anchor: 'members-tab-pane'), notice: 'Selected members were successfully added to the project.'
+      redirect_to project_path(@project, anchor: 'members-tab-pane'), notice: 'Selected members were successfully added to the team.'
     else
       redirect_to project_path(@project, anchor: 'members-tab-pane'), alert: 'No members selected.'
     end
@@ -132,7 +133,7 @@ class ProjectsController < ApplicationController
         project_member = ProjectMember.find_by(project_id: @project.project_id, user_id: user_id)
         project_member.destroy if project_member
       end
-      flash[:notice] = 'Selected members were removed from the project.'
+      flash[:notice] = 'Selected members were removed from the team.'
     else
       flash[:alert] = 'No members selected for removal.'
     end
@@ -151,9 +152,9 @@ class ProjectsController < ApplicationController
     @project_member = @project.project_members.find_by(user_id: @member.uid)
 
     if @project_member.destroy
-      flash[:notice] = 'Member removed from the project successfully.'
+      flash[:notice] = 'Member removed from the team successfully.'
     else
-      flash[:error] = 'Failed to remove member from the project.'
+      flash[:error] = 'Failed to remove member from the team.'
     end
     redirect_to project_path(@project, anchor: 'members-tab-pane')
   end
@@ -198,7 +199,7 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find_by(project_id: params[:project_id])
     if @project.update(project_params)
-      redirect_to(project_path(@project), notice: 'Project was successfully updated.')
+      redirect_to(project_path(@project), notice: 'Team was successfully updated.')
     else
       render(:edit)
     end

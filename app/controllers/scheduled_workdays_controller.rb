@@ -4,8 +4,8 @@ class ScheduledWorkdaysController < ApplicationController
   def create
     @scheduled_workday = ScheduledWorkday.new(scheduled_workday_params)
     if @scheduled_workday.save
-      flash[:success] = 'Scheduled workday successfully created!'
-      redirect_to(project_path(@scheduled_workday.project_id))
+      flash[:notice] = 'Scheduled workday successfully created!'
+      redirect_to(project_path(@scheduled_workday.project_id, anchor: 'create-tab-pane'))
     else
       flash[:alert] = 'Failed to create scheduled workday'
     end
