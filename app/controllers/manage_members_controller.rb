@@ -62,7 +62,7 @@ class ManageMembersController < ApplicationController
 
       csv.each do |row|
         email = row['email']
-        name = "MEMBER NAME"
+        name = email
         next unless valid_tamu_email?(email)
         next if User.find_by(email: email)
 
@@ -88,7 +88,7 @@ class ManageMembersController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :role, :full_name)
   end
-  
+
   def generate_uid
     # Logic to generate the UID, such as finding the highest current uid and incrementing it
     highest_uid = Integer((User.maximum(:uid) || '0'), 10)
