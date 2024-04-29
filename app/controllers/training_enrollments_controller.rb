@@ -87,6 +87,7 @@ class TrainingEnrollmentsController < ApplicationController
     # For example, you might fetch the params and update the email frequency setting
     new_frequency = params[:email_frequency]
     ENV['EMAIL_FREQUENCY'] = new_frequency
+    puts "SET TO #{ENV['EMAIL_FREQUENCY']}"
 
     # Redirect or render as needed
     redirect_to training_enrollments_path, notice: 'Email frequency updated successfully.'
