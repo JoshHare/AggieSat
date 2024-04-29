@@ -104,14 +104,14 @@ class ProjectsController < ApplicationController
     if user_ids.present?
       user_ids.each do |user_id|
         if ProjectMember.exists?(project_id: @project.id, user_id: user_id)
-          flash[:alert] = 'One or more selected users are already members of the project.'
+          flash[:alert] = 'One or more selected users are already members of the team.'
           redirect_to add_many_members_project_path(@project)
           return  # Return to exit the action after redirect
         else
           @project.project_members.create(user_id: user_id)
         end
       end
-      redirect_to project_path(@project, anchor: 'members-tab-pane'), notice: 'Selected members were successfully added to the project.'
+      redirect_to project_path(@project, anchor: 'members-tab-pane'), notice: 'Selected members were successfully added to the team.'
     else
       redirect_to project_path(@project, anchor: 'members-tab-pane'), alert: 'No members selected.'
     end
@@ -133,7 +133,7 @@ class ProjectsController < ApplicationController
         project_member = ProjectMember.find_by(project_id: @project.project_id, user_id: user_id)
         project_member.destroy if project_member
       end
-      flash[:notice] = 'Selected members were removed from the project.'
+      flash[:notice] = 'Selected members were removed from the team.'
     else
       flash[:alert] = 'No members selected for removal.'
     end
