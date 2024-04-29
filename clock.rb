@@ -15,7 +15,7 @@ module Clockwork
   every(1.minute, 'email') do
       FREQUENCY = ENV.fetch('EMAIL_FREQUENCY', '1.week')
     end
-  end
+  
 
   every(FREQUENCY, 'email') do
     unless FREQUENCY.to_s.downcase == 'never'
