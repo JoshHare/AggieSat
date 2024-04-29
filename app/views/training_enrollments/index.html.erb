@@ -3,15 +3,6 @@
 
   <%= link_to "Course Manager", training_courses_path, class: "btn btn-custom mb-1" %>
   <%= link_to "Export Training Status as CSV", training_course_csv_path(format: 'csv'), class: "btn btn-custom mb-1" %>
-  
-  <!-- Email Frequency Form -->
-  <%= form_tag({ controller: 'training_enrollments', action: 'update_email_frequency' }, method: 'post', class: "mb-4") do %>
-    <div class="form-group">
-      <%= label_tag "email_frequency", "Email Frequency:" %>
-      <%= select_tag "email_frequency", options_for_select(["1.day", "1.week", "10.seconds", "1.month","never"], ENV.fetch('EMAIL_FREQUENCY', '1.week')), class: "form-control" %>
-    </div>
-    <%= submit_tag "Update", class: "btn btn-custom" %>
-  <% end %>
 
   <!-- Email All Button -->
   <%= form_tag({ controller: 'training_enrollments', action: 'email_all' }, method: 'post') do %>
