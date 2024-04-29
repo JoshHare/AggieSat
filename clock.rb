@@ -12,10 +12,15 @@ module Clockwork
     puts "Running #{job}"
   end
 
+  every(1.minute, 'email') do
+      FREQUENCY = ENV.fetch('EMAIL_FREQUENCY', '1.week')
+    end
+  
+
   every(FREQUENCY, 'email') do
     unless FREQUENCY.to_s.downcase == 'never'
       TrainingService.send_emails_for_overdue_trainings
-      puts "RUNNING"
+      puts "RUNNING #{FREQUENCY}"
       TrainingService.send_training_report
     end
   end

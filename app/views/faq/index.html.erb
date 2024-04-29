@@ -31,13 +31,21 @@
                 <h2>How do automatic emails work?</h2>
                 <p>An email gets sent every week to the members who have not completed their required training.  The email comes from the address 'aggiesatnotifs@gmail.com.' This email is not monitored and cannot be replied to.  Also, every week the users with the admin role will be receiving an email with the names of all members who are not current on their training.  All of these emails can be sent at any time with the 'Email All' button on the 'Manage Training' page.</p>
             </section>
+            <section id="section31">
+                <h2>How do I turn off automatic emails?</h2>
+                <p>The app owner needs to go to their Heroku Dashboard.  From there, click on the app 'aggie-sat'. Go to the resources tab. On the 'clock bundle exec clockrwork clock.rb', switch the toggle to off. This will also make the app cheaper, since the automatic emails are no longer running.</p>
+            </section>
             <section id="section4">
                 <h2>How do I use the batch upload?</h2>
                 <p>To use the batch upload, first get a spreadsheet of the emails of the people you would like to add.  The emails must be TAMU addresses.  Put this info in a column, with the header 'email'.  There can be other columns in the sheet you upload, but the column with the header 'email' MUST be present.  To download as CSV, hover download and then select the 'Comma Separated Variables' or 'CSV' option.  It should have a file ending of '.csv'  Then, upload it to the location on the site.  It is recommended that once you have uploaded the users, you check back in the 'Manage Members' tab and make sure everything looks correct. The full name will be correctly updated when the user logs in through Google for the first time. Until then, there is just a placeholder name there.</p>
             </section>
             <section id="section5">
                 <h2>What do the roles each do?</h2>
-                <p>The 'Admin' role is intended for the Chief Student Leader only. However, if the Chief Student Leader decides to give others the 'Admin' role to someone else, they can easily do that. The 'Member' role is for everyone else, including project managers. The project manager designation is defined in the 'Manage Projects' tab.</p>
+                <p>The 'Admin' role is intended for the Chief Student Leader only. However, if the Chief Student Leader decides to give others the 'Admin' role to someone else, they can easily do that. The 'Member' role is for everyone else, including team managers. The team manager designation is defined in the 'Manage Teams' tab.</p>
+            </section>
+            <section id="section6">
+                <h2>How do I restart the app?</h2>
+                <p>From your Heroku Dashboard, select the app.  In the top right there should be a more button. Click this and then click 'Restart Dynos'. </p>
             </section>
         <% end %>
     </main>

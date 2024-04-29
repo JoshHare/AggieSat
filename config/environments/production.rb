@@ -23,17 +23,6 @@ Rails.application.configure do
 
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
   # config.public_file_server.enabled = false
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    domain:  'gmail.com',
-    user_name: 'aggiesat.notifs@gmail.com',
-    password: 'mjwfupsooirpkkqw', # Or App password, a new one must be generated each time
-    authentication: 'plain',
-    enable_starttls_auto: true
-  }
-  config.action_mailer.raise_delivery_errors = true
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
@@ -108,6 +97,4 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-  ENV['GOOGLE_OAUTH_CLIENT_ID'] = '751341065999-mkqjafmub4mc0pm0n5o5l7dlaqd45r7q.apps.googleusercontent.com'
-  ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
 end
