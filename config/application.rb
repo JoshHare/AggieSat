@@ -1,5 +1,5 @@
-ENV['GOOGLE_OAUTH_CLIENT_ID'] = '751341065999-mkqjafmub4mc0pm0n5o5l7dlaqd45r7q.apps.googleusercontent.com'
-ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
+ENV['GOOGLE_OAUTH_CLIENT_ID'] = '48494074110-sd4nomh4fjq0ga60db95cq5qeou2pvb0.apps.googleusercontent.com'
+ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
 
 require_relative "boot"
 
